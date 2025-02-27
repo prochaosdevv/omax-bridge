@@ -23,7 +23,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 // import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 // import LanguageIcon from '@mui/icons-material/Language';
 
-import { ThemeContext } from "@/Context/ThemeContext";
+import { ThemeContext } from "@/context/ThemeContext";
 
 import Link from "next/link";
 import { Link as MuiLink } from "@mui/material";

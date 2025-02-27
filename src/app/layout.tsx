@@ -5,7 +5,7 @@ import "./globals.css";
 import { Box } from "@mui/material";
 import { Providers } from "./providers";
 import '@rainbow-me/rainbowkit/styles.css';
-import ThemeContextProvider from "@/Context/ThemeContext";
+import ThemeContextProvider from "@/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

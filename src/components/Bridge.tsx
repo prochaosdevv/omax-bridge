@@ -21,18 +21,6 @@ import base_icon_ from "../assets/base_icon_.svg";
 // import eth_icon from "../assets/eth_icon.svg";
 // import usdc_icon from "../assets/usdc_icon.svg";
 
-import usdt_omax from "../assets/usdt_omax-01.svg";
-import usdc_eth from "../assets/usdc_eth-01.svg";
-import usdt_eth from "../assets/usdt_eth-01.svg";
-import usdc_omax from "../assets/usdc_omax-01.svg";
-import usdt_bnb from "../assets/usdt_bnb-01.svg";
-import usdc_bnb from "../assets/usdc_bnb-01.svg";
-import logo_mobile from "../assets/new_logo.png";
-
-
-import bsc_logo from "../assets/BSC.svg";
-import Ethereum from "../assets/Ethereum.svg";
-
 import usdc_logo from "../assets/usdc_logo.svg";
 import available from "../assets/available.svg";
 // import dollar from "../assets/dollar.svg";
@@ -44,28 +32,13 @@ import ReviewBridge from "./ReviewBridge";
 import ActivityModal from "./ActivityModal";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { networkItems, tokenItems } from "@/config";
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
 //   subsets: ["latin"],
 //   weight: "400",
 // });
-
-const menuItems = [
-  // { value: "0", label: "USDC", icon: usdc_icon.src },
-  { value: "0", label: "USDC", icon: usdc_omax.src },
-  { value: "1", label: "USDT", icon: usdt_omax.src },
-  { value: "2", label: "USDC", icon: usdc_eth.src },
-  { value: "3", label: "USDT", icon: usdt_eth.src },
-  { value: "4", label: "USDC", icon: usdc_bnb.src },
-  { value: "5", label: "USDT", icon: usdt_bnb.src },
-];
-
-const networkToItems = [
-  { value: "0", label: "Ethereum", icon: Ethereum.src },
-  { value: "1", label: "BSC", icon: bsc_logo.src },
-  { value: "2", label: "OMAX", icon: logo_mobile.src, width: "32px", height: "28px" }
-];
 
 const Bridge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -212,7 +185,7 @@ const Bridge = () => {
                   onChange={handleFromChange}
                   displayEmpty
                   renderValue={() => {
-                    const selectedItem = networkToItems.find((item) => item.value === selectedFrom);
+                    const selectedItem = networkItems.find((item) => item.value === selectedFrom);
                     return selectedItem ? (
                       <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value === "2" ? 32 : 28} height={selectedItem.value === "2" ? 28 : 28} />
                     ) : (
@@ -233,7 +206,7 @@ const Bridge = () => {
                     "& svg": { display: "none" },
                   }}
                 >
-                  {networkToItems.map((item) => (
+                  {networkItems.map((item) => (
                     <MenuItem key={item.value} value={item.value}>
                       <Typography component={"img"} src={item.icon} width={item.width ? item.width : 28} height={item.height ? item.height : 28} mr={"0.3rem"} />
                       {item.label}
@@ -243,7 +216,7 @@ const Bridge = () => {
                 <Box>
                   <Typography className="light_dark_text">From</Typography>
                   <Typography className="text_">
-                    {networkToItems.find((item) => item.value === selectedFrom)?.label ?? "Select Network"}
+                    {networkItems.find((item) => item.value === selectedFrom)?.label ?? "Select Network"}
                   </Typography>
                 </Box>
               </Box>
@@ -255,7 +228,7 @@ const Bridge = () => {
                 <Box>
                   <Typography className="light_dark_text">To</Typography>
                   <Typography className="text_">
-                    {networkToItems.find((item) => item.value === selectedTo)?.label ?? "Select Network"}
+                    {networkItems.find((item) => item.value === selectedTo)?.label ?? "Select Network"}
                   </Typography>
                 </Box>
 
@@ -264,7 +237,7 @@ const Bridge = () => {
                   onChange={handleToChange}
                   displayEmpty
                   renderValue={() => {
-                    const selectedItem = networkToItems.find((item) => item.value === selectedTo);
+                    const selectedItem = networkItems.find((item) => item.value === selectedTo);
                     return selectedItem ? (
                       <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value === "2" ? 32 : 28} height={selectedItem.value === "2" ? 28 : 28} />
                     ) : (
@@ -285,7 +258,7 @@ const Bridge = () => {
                     "& svg": { display: "none" },
                   }}
                 >
-                  {networkToItems.map((item) => (
+                  {networkItems.map((item) => (
                     <MenuItem key={item.value} value={item.value}>
                       <Typography component={"img"} src={item.icon} width={item.width ? item.width : 28} height={item.height ? item.height : 28} mr={"0.3rem"} />
                       {item.label}
@@ -352,7 +325,7 @@ const Bridge = () => {
                   },
                 }}
               >
-                {menuItems.map((item) => (
+                {tokenItems.map((item) => (
                   <MenuItem key={item.value} value={item.value}>
                     <Typography
                       component={"img"}

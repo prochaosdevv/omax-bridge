@@ -20,4 +20,13 @@ export type FormatNumberOptions = {
 export interface ModalProps {
   isDialogOpen: boolean;
   setIsDialogOpen: (value: boolean) => void;
-}
+};
+
+export interface ItemInfo {
+  value: string,
+  chainId?: number,
+  label: string,
+  icon: any,
+  width?: string,
+  height?: string
+};
