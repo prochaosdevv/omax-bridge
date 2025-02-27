@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   /* config options here */
+  output: "export",
 };
 
 export default nextConfig;

@@ -69,11 +69,11 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
 }
 
 interface DotProps {
-  active: boolean;
-  completed: boolean;
+  active?: boolean;
+  completed?: boolean;
 }
 
-const DotStepIcon = ({ active, completed }: DotProps) => {
+const DotStepIcon = ({ active = false, completed = false }: DotProps) => {
   return (
     <div
       style={{
