@@ -14,6 +14,7 @@ declare module "aos" {
     export default AOS;
   }
   declare module 'react-marquee' {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Marquee: React.ComponentType<any>;
     export default Marquee;
   }

@@ -10,8 +10,8 @@ import via from "../../assets/via.svg";
 import base_icon from "../../assets/base_icon_.svg";
 import base_ from "../../assets/base_step_2.png";
 import HelpIcon from "@mui/icons-material/Help";
-import what from "../../assets/what.svg";
-import dollar from "../../assets/gray_dollar.svg";
+// import what from "../../assets/what.svg";
+// import dollar from "../../assets/gray_dollar.svg";
 import add_from from "../../assets/from.svg";
 import add_to from "../../assets/to.svg";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -32,17 +32,17 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 
 const ThirdStep = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
-  const [text,setText]=useState(false)
-  const [loading,setLoading]=useState(false)
-  const [check_1,setCheck_1]=useState(false)
-  const [check_2,setCheck_2]=useState(false)
-  const [check_3,setCheck_3]=useState(false)
+  const [text, setText] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [check_1, setCheck_1] = useState(false)
+  const [check_2, setCheck_2] = useState(false)
+  const [check_3, setCheck_3] = useState(false)
   const handleStart = () => {
     setText(true)
-    
-  
+
+
     setTimeout(() => {
-        setLoading(true);
+      setLoading(true);
       setTimeout(() => {
         setLoading(false)
         setCheck_1(true);
@@ -55,7 +55,7 @@ const ThirdStep = () => {
       }, 3000);
     }, 3000);
   };
-  
+
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
     setTabIndex(newIndex);
   };
@@ -97,15 +97,15 @@ const ThirdStep = () => {
       </Typography>
       <Box
         sx={{
-            display:"flex",
-            justifyContent:"center",
-           mt:"1rem",
+          display: "flex",
+          justifyContent: "center",
+          mt: "1rem",
           "& .MuiButtonBase-root": {
             color: "var(--foreground) !important",
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
-            border:"none",
+            border: "none",
             gap: "5px",
             // fontFamily: `${Press_Start_2P_font.style.fontFamily}`,
             p: "10px 15px",
@@ -115,27 +115,27 @@ const ThirdStep = () => {
             minHeight: "auto",
           },
           "& .MuiTabs-indicator": {
-           display:"none"
+            display: "none"
           },
           "& .MuiTabs-flexContainer": {
             overflow: "auto",
-            justifyContent:"center",
-            background:"#8A898E",
-            borderRadius:"20px",
+            justifyContent: "center",
+            background: "#8A898E",
+            borderRadius: "20px",
 
 
           },
           "& .MuiTab-root.Mui-selected": {
             background: "var(--light_dark)",
-            borderRadius:"20px",
-            border:"none"
+            borderRadius: "20px",
+            border: "none"
           },
           "& .MuiTouchRipple-root": {
             display: "none",
           },
         }}
       >
-        <Tabs value={tabIndex} onChange={handleChange} sx={{lineHeight:"0"}}>
+        <Tabs value={tabIndex} onChange={handleChange} sx={{ lineHeight: "0" }}>
           <Tab label="Steps" />
           <Tab label="Bridge Info" />
         </Tabs>
@@ -172,31 +172,31 @@ const ThirdStep = () => {
                 </Typography>
               </Box>
             </Box>
-          {loading?
-          
-          <CircularProgress
-          sx={{
-            width: "20px !important",
-            height: "20px !important",
-            color: "var(--foreground)",
-            // ml: "10px",
-          }}
-        />
-          :
-          
-         check_1? <CheckBoxIcon sx={{fontSize:"1.8rem"}}/>
+            {loading ?
 
-          :
-            <Button
-              className="common_btn"
-              sx={{
-                width: "auto !important",
-                height: "30px !important",
-              }}
-              onClick={handleStart}
-            >
-              {text ?"Bridging..":"Start"}
-            </Button>
+              <CircularProgress
+                sx={{
+                  width: "20px !important",
+                  height: "20px !important",
+                  color: "var(--foreground)",
+                  // ml: "10px",
+                }}
+              />
+              :
+
+              check_1 ? <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
+
+                :
+                <Button
+                  className="common_btn"
+                  sx={{
+                    width: "auto !important",
+                    height: "30px !important",
+                  }}
+                  onClick={handleStart}
+                >
+                  {text ? "Bridging.." : "Start"}
+                </Button>
             }
           </Box>
           <Box
@@ -219,7 +219,7 @@ const ThirdStep = () => {
               />{" "}
               Wait 6 mins
             </Typography>
-            {check_2&&<CheckBoxIcon sx={{fontSize:"1.8rem"}}/>}
+            {check_2 && <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />}
           </Box>
           <Box
             className="box flex"
@@ -240,7 +240,7 @@ const ThirdStep = () => {
               />{" "}
               Get 0.001 USDC on Base Sepolia
             </Typography>
-            {check_3&&<CheckBoxIcon sx={{fontSize:"1.8rem"}}/>}
+            {check_3 && <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />}
           </Box>
         </Box>
       </TabPanel>

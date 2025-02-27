@@ -1,21 +1,22 @@
 "use client";
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import React from "react";
 import Header from "@/components/Header";
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import Bridge from "@/components/Bridge";
-import AgreePopup from "@/components/AgreePopup";
+// import AgreePopup from "@/components/AgreePopup";
 
 
 
 const page = () => {
-  const [isModalOpen,setIsModalOpen]=useState(true)
+  // const [isModalOpen,setIsModalOpen]=useState(true)
   return (
     <div>
-          <Header />
-     <Container>
-        <Bridge/>
+      <Header />
+      <Container>
+        <Bridge />
       </Container>
-     {/* {isModalOpen&& <AgreePopup isDialogOpen={isModalOpen} setIsDialogOpen={setIsModalOpen}/>} */}
+      {/* {isModalOpen&& <AgreePopup isDialogOpen={isModalOpen} setIsDialogOpen={setIsModalOpen}/>} */}
     </div>
   );
 };

@@ -10,8 +10,8 @@ import via from "../../assets/via.svg";
 import base_icon from "../../assets/base_icon_.svg";
 import base_ from "../../assets/base_step_2.png";
 import HelpIcon from "@mui/icons-material/Help";
-import what from "../../assets/what.svg";
-import dollar from "../../assets/gray_dollar.svg";
+// import what from "../../assets/what.svg";
+// import dollar from "../../assets/gray_dollar.svg";
 import add_from from "../../assets/from.svg";
 import add_to from "../../assets/to.svg";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -74,15 +74,15 @@ const SuccessfullBridge = () => {
       </Typography>
       <Box
         sx={{
-            display:"flex",
-            justifyContent:"center",
-           mt:"1rem",
+          display: "flex",
+          justifyContent: "center",
+          mt: "1rem",
           "& .MuiButtonBase-root": {
             color: "var(--foreground) !important",
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
-            border:"none",
+            border: "none",
             gap: "5px",
             // fontFamily: `${Press_Start_2P_font.style.fontFamily}`,
             p: "10px 15px",
@@ -92,27 +92,27 @@ const SuccessfullBridge = () => {
             minHeight: "auto",
           },
           "& .MuiTabs-indicator": {
-           display:"none"
+            display: "none"
           },
           "& .MuiTabs-flexContainer": {
             overflow: "auto",
-            justifyContent:"center",
-            background:"#8A898E",
-            borderRadius:"20px",
+            justifyContent: "center",
+            background: "#8A898E",
+            borderRadius: "20px",
 
 
           },
           "& .MuiTab-root.Mui-selected": {
             background: "var(--light_dark)",
-            borderRadius:"20px",
-            border:"none"
+            borderRadius: "20px",
+            border: "none"
           },
           "& .MuiTouchRipple-root": {
             display: "none",
           },
         }}
       >
-        <Tabs value={tabIndex} onChange={handleChange} sx={{lineHeight:"0"}}>
+        <Tabs value={tabIndex} onChange={handleChange} sx={{ lineHeight: "0" }}>
           <Tab label="Steps" />
           <Tab label="Bridge Info" />
         </Tabs>
@@ -149,7 +149,7 @@ const SuccessfullBridge = () => {
                 </Typography>
               </Box>
             </Box>
-           <CheckBoxIcon sx={{fontSize:"1.8rem"}}/>
+            <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
           </Box>
           <Box
             className="box flex"
@@ -171,7 +171,7 @@ const SuccessfullBridge = () => {
               />{" "}
               Wait 6 mins
             </Typography>
-            <CheckBoxIcon sx={{fontSize:"1.8rem"}}/>
+            <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
           </Box>
           <Box
             className="box flex"
@@ -192,7 +192,7 @@ const SuccessfullBridge = () => {
               />{" "}
               Get 0.001 USDC on Base Sepolia
             </Typography>
-            <CheckBoxIcon sx={{fontSize:"1.8rem"}}/>
+            <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
           </Box>
         </Box>
       </TabPanel>

@@ -11,15 +11,15 @@ import {
 } from "@mui/material";
 // import { Inter, Jost } from "next/font/google";
 import React, { useState } from "react";
-import op from "../assets/op.svg";
-import eth from "../assets/eth.svg";
-import bridge from "../assets/bridge.svg";
-import setting from "../assets/setting_icon.svg";
-import clock from "../assets/clock_icon.svg";
-import base_icon from "../assets/base_icon.svg";
+// import op from "../assets/op.svg";
+// import eth from "../assets/eth.svg";
+// import bridge from "../assets/bridge.svg";
+// import setting from "../assets/setting_icon.svg";
+// import clock from "../assets/clock_icon.svg";
+// import base_icon from "../assets/base_icon.svg";
 import base_icon_ from "../assets/base_icon_.svg";
-import eth_icon from "../assets/eth_icon.svg";
-import usdc_icon from "../assets/usdc_icon.svg";
+// import eth_icon from "../assets/eth_icon.svg";
+// import usdc_icon from "../assets/usdc_icon.svg";
 
 import usdt_omax from "../assets/usdt_omax-01.svg";
 import usdc_eth from "../assets/usdc_eth-01.svg";
@@ -35,8 +35,8 @@ import Ethereum from "../assets/Ethereum.svg";
 
 import usdc_logo from "../assets/usdc_logo.svg";
 import available from "../assets/available.svg";
-import dollar from "../assets/dollar.svg";
-import SettingsIcon from '@mui/icons-material/Settings';
+// import dollar from "../assets/dollar.svg";
+// import SettingsIcon from '@mui/icons-material/Settings';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import watch from "../assets/watch.svg";
 import fuel from "../assets/fuel.svg";
@@ -64,7 +64,7 @@ const menuItems = [
 const networkToItems = [
   { value: "0", label: "Ethereum", icon: Ethereum.src },
   { value: "1", label: "BSC", icon: bsc_logo.src },
-  { value: "2", label: "OMAX", icon: logo_mobile.src,width:"32px",height:"28px" }
+  { value: "2", label: "OMAX", icon: logo_mobile.src, width: "32px", height: "28px" }
 ];
 
 const Bridge = () => {
@@ -74,7 +74,7 @@ const Bridge = () => {
     setAmount(event.target.value);
   };
   const [activityOpen, setActivityOpen] = useState(false);
-  const [settingOpen, setSettingOpen] = useState(false);
+  // const [settingOpen, setSettingOpen] = useState(false);
 
   const [selectedFrom, setSelectedFrom] = useState("2"); // Default to OMAX
   const [selectedTo, setSelectedTo] = useState("0"); // Default to Ethereum
@@ -214,7 +214,7 @@ const Bridge = () => {
                   renderValue={() => {
                     const selectedItem = networkToItems.find((item) => item.value === selectedFrom);
                     return selectedItem ? (
-                      <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value==="2"?32:28} height={selectedItem.value==="2"?28:28} />
+                      <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value === "2" ? 32 : 28} height={selectedItem.value === "2" ? 28 : 28} />
                     ) : (
                       <Typography component={"img"} src="/default-icon.png" width={28} height={28} />
                     );
@@ -235,7 +235,7 @@ const Bridge = () => {
                 >
                   {networkToItems.map((item) => (
                     <MenuItem key={item.value} value={item.value}>
-                      <Typography component={"img"} src={item.icon} width={item.width?item.width:28} height={item.height?item.height:28} mr={"0.3rem"} />
+                      <Typography component={"img"} src={item.icon} width={item.width ? item.width : 28} height={item.height ? item.height : 28} mr={"0.3rem"} />
                       {item.label}
                     </MenuItem>
                   ))}
@@ -266,7 +266,7 @@ const Bridge = () => {
                   renderValue={() => {
                     const selectedItem = networkToItems.find((item) => item.value === selectedTo);
                     return selectedItem ? (
-                      <Typography component={"img"} src={selectedItem.icon}  width={selectedItem.value==="2"?32:28} height={selectedItem.value==="2"?28:28} />
+                      <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value === "2" ? 32 : 28} height={selectedItem.value === "2" ? 28 : 28} />
                     ) : (
                       <Typography component={"img"} src="/default-icon.png" width={28} height={28} />
                     );
@@ -287,7 +287,7 @@ const Bridge = () => {
                 >
                   {networkToItems.map((item) => (
                     <MenuItem key={item.value} value={item.value}>
-                      <Typography component={"img"} src={item.icon} width={item.width?item.width:28} height={item.height?item.height:28} mr={"0.3rem"} />
+                      <Typography component={"img"} src={item.icon} width={item.width ? item.width : 28} height={item.height ? item.height : 28} mr={"0.3rem"} />
                       {item.label}
                     </MenuItem>
                   ))}

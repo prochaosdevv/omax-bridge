@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import WalletConnectProvider from "@/contexts/WalletConnectProvider";
 import { Box } from "@mui/material";
 import { Providers } from "./providers";
 import '@rainbow-me/rainbowkit/styles.css';
@@ -31,22 +30,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <WalletConnectProvider>
-          <Box
-            sx={{
-              "& .MuiContainer-root": {
-                "@media (min-width:1260px)": {
-                  maxWidth: "1400px",
-                },
+        <Box
+          sx={{
+            "& .MuiContainer-root": {
+              "@media (min-width:1260px)": {
+                maxWidth: "1400px",
               },
-            }}
-          >
-            <ContractContextProvider>
+            },
+          }}
+        >
+          <ContractContextProvider>
 
-            <Providers children={children} />
-            </ContractContextProvider>
-          </Box>
-        </WalletConnectProvider>
+            <Providers>
+              {children}
+            </Providers>
+          </ContractContextProvider>
+        </Box>
       </body>
     </html>
   );

@@ -1,20 +1,21 @@
 "use client";
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
+import React from "react";
 import {
   Drawer,
   Box,
-  SelectChangeEvent,
+  // SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { Radio_Canada } from "next/font/google";
-import { usePathname } from "next/navigation";
+// import { Radio_Canada } from "next/font/google";
+// import { usePathname } from "next/navigation";
 
 
 import logo from "../assets/logo.png";
 import Link from "next/link";
-import { ContractContext } from "@/Context/ContractContext";
+// import { ContractContext } from "@/Context/ContractContext";
 
 interface MobileDrawerProps {
   open: boolean;
@@ -39,16 +40,16 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
         <MenuIcon />
       </Box>
       <Drawer anchor="left" open={open} onClose={onClose} sx={{
-        "& .MuiPaper-root":{
-            width:"70%",
-            background:"#000102"
+        "& .MuiPaper-root": {
+          width: "70%",
+          background: "#000102"
         }
       }}>
-   
-          
- 
-    
-      <Box
+
+
+
+
+        <Box
           sx={{
             // position: "fixed",
             background:
@@ -61,17 +62,17 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
             // px: "1rem",
             transition: "width 0.3s ease",
           }}
- 
+
         >
-           <Box sx={{
-            position:"absolute",
-            top:"10px",
-            right:"10px"
-           }}>
-           <CloseIcon onClick={onClose} sx={{
-            color:"rgba(76, 191, 254, 1)"
-           }}/>
-           </Box>
+          <Box sx={{
+            position: "absolute",
+            top: "10px",
+            right: "10px"
+          }}>
+            <CloseIcon onClick={onClose} sx={{
+              color: "rgba(76, 191, 254, 1)"
+            }} />
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -79,7 +80,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
               gap: "1.5rem",
               justifyContent: "center",
               alignItems: "center",
-              color:"#fff",
+              color: "#fff",
               "& .active": {
                 background: "rgba(0, 0, 0, 0.2)",
                 border: "1px solid rgba(76, 191, 254, 0.4)",
@@ -111,12 +112,12 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
                 position: "relative",
                 width: "144px",
                 height: "auto",
-                display:"flex",
-                justifyContent:"center"
+                display: "flex",
+                justifyContent: "center"
               }}
             >
               {/* Render both logos and toggle visibility */}
-            
+
               <Typography
                 component={"img"}
                 src={logo.src}
@@ -124,7 +125,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
                 //   position: "absolute",
                 //   top: 0,
                 //   left: 0,
-             
+
                 //   transition: "opacity 0.3s ease",
                 // }}
                 width="144px"
@@ -134,8 +135,8 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
             <Box
               sx={{
                 mt: "5rem",
-                px:"2rem",
-                width:"100%",
+                px: "2rem",
+                width: "100%",
                 flexDirection: "column",
                 gap: "1rem",
                 justifyContent: "center",
@@ -150,15 +151,15 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
               <Box
                 component={Link}
                 href={"/"}
-                // className={pathname == "/" ? "active" : "initial"}
+              // className={pathname == "/" ? "active" : "initial"}
               >
-        
+
                 {<span>Home</span>}
               </Box>
-       
-             
+
+
             </Box>
-         
+
           </Box>
         </Box>
       </Drawer>

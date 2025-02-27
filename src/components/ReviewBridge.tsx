@@ -9,15 +9,16 @@ import {
   Step,
   StepLabel,
   Stepper,
-  Typography,
+  // Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Inter, Jost } from "next/font/google";
+// import { Inter, Jost } from "next/font/google";
 import { useState } from "react";
 import FirstStep from "./Steps/FirstStep";
 import SecondStep from "./Steps/SecondStep";
 import ThirdStep from "./Steps/ThirdStep";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { ModalProps } from "@/types";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -55,18 +56,24 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
             top: 6,
             color: "var(--foreground)",
             background: "var(--light_dark)",
-            "&:hover":{
-                background: "var(--light_dark)", 
+            "&:hover": {
+              background: "var(--light_dark)",
             }
           }}
         >
-         <CloseIcon sx={{fontSize:"1.2rem"}}/>
+          <CloseIcon sx={{ fontSize: "1.2rem" }} />
         </IconButton>
       )}
     </DialogTitle>
   );
 }
-const DotStepIcon = ({ active, completed }: any) => {
+
+interface DotProps {
+  active: boolean;
+  completed: boolean;
+}
+
+const DotStepIcon = ({ active, completed }: DotProps) => {
   return (
     <div
       style={{
@@ -81,7 +88,8 @@ const DotStepIcon = ({ active, completed }: any) => {
     />
   );
 };
-export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: any) {
+
+export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: ModalProps) {
   const steps = ["1", "2", "3"];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -119,7 +127,7 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: any) {
         "& .MuiPaper-root": {
           maxWidth: "440px",
           borderRadius: "10px",
-          m:"10px",
+          m: "10px",
           background: `var(--common)`,
           backdropFilter: "blur(12.5px)",
           color: `var(--foreground)`,
@@ -136,18 +144,20 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: any) {
       <BootstrapDialogTitle onClose={() => setIsDialogOpen(false)}>
         {activeStep > 0 && (
           <IconButton
-          disableRipple
+            disableRipple
             onClick={handleBack}
-            sx={{ position: "absolute", left: 16,   color: "var(--foreground) !important",
+            sx={{
+              position: "absolute", left: 16, color: "var(--foreground) !important",
+              background: "var(--light_dark) !important",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              "&:hover": {
                 background: "var(--light_dark) !important",
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                "&:hover":{
-                    background: "var(--light_dark) !important", 
-                } }}
+              }
+            }}
           >
-            <ArrowBackIosIcon sx={{ color: "var(--foreground)",fontSize:"1.2rem",pl:"5px" }} />
+            <ArrowBackIosIcon sx={{ color: "var(--foreground)", fontSize: "1.2rem", pl: "5px" }} />
           </IconButton>
         )}
         <Stepper
@@ -174,8 +184,8 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: any) {
         {activeStep === 0 && <FirstStep />}
         {activeStep === 1 && <SecondStep />}
         {activeStep === 2 && <ThirdStep />}
-        {activeStep !==2 &&<Box mt={"1.5rem"}>
-         <Button className="common_btn" onClick={handleNext}>
+        {activeStep !== 2 && <Box mt={"1.5rem"}>
+          <Button className="common_btn" onClick={handleNext}>
             {activeStep < steps.length - 1 ? "Continue" : "Finish"}
           </Button>
         </Box>}

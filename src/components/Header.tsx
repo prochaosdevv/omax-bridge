@@ -1,27 +1,27 @@
 "use client";
 import {
   Box,
-  Button,
-  FormControlLabel,
+  // Button,
+  // FormControlLabel,
   IconButton,
   Menu,
   MenuItem,
-  Select,
-  SelectChangeEvent,
-  styled,
-  Switch,
+  // Select,
+  // SelectChangeEvent,
+  // styled,
+  // Switch,
   Typography,
 } from "@mui/material";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import React, { useContext, useEffect, useState } from "react";
-import logo from "../assets/logo.png";
+// import logo from "../assets/logo.png";
 import logo_mobile from "../assets/new_logo.png";
-import ham_menu from "../assets/ham_menu.svg";
+// import ham_menu from "../assets/ham_menu.svg";
 import ConnectModal from "./ConnectModal";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import LanguageIcon from '@mui/icons-material/Language';
+// import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+// import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+// import LanguageIcon from '@mui/icons-material/Language';
 
 import { ContractContext } from "@/Context/ContractContext";
 
@@ -37,61 +37,61 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 //   weight: "400",
 // });
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
-  padding: 7,
-  "& .MuiSwitch-switchBase": {
-    margin: 1,
-    padding: 0,
-    transform: "translateX(6px)",
-    "&.Mui-checked": {
-      color: "#fff",
-      transform: "translateX(22px)",
-      "& .MuiSwitch-thumb:before": {
-        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
-          "#fff"
-        )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
-      },
-      "& + .MuiSwitch-track": {
-        opacity: 1,
-        backgroundColor: "#aab4be",
-        ...theme.applyStyles("dark", {
-          backgroundColor: "#8796A5",
-        }),
-      },
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    backgroundColor: "#001e3c",
-    width: 32,
-    height: 32,
-    "&::before": {
-      content: "''",
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      left: 0,
-      top: 0,
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center",
-      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
-        "#fff"
-      )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
-    },
-    ...theme.applyStyles("dark", {
-      backgroundColor: "#003892",
-    }),
-  },
-  "& .MuiSwitch-track": {
-    opacity: 1,
-    backgroundColor: "#aab4be",
-    borderRadius: 20 / 2,
-    ...theme.applyStyles("dark", {
-      backgroundColor: "#8796A5",
-    }),
-  },
-}));
+// const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+//   width: 62,
+//   height: 34,
+//   padding: 7,
+//   "& .MuiSwitch-switchBase": {
+//     margin: 1,
+//     padding: 0,
+//     transform: "translateX(6px)",
+//     "&.Mui-checked": {
+//       color: "#fff",
+//       transform: "translateX(22px)",
+//       "& .MuiSwitch-thumb:before": {
+//         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+//           "#fff"
+//         )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
+//       },
+//       "& + .MuiSwitch-track": {
+//         opacity: 1,
+//         backgroundColor: "#aab4be",
+//         ...theme.applyStyles("dark", {
+//           backgroundColor: "#8796A5",
+//         }),
+//       },
+//     },
+//   },
+//   "& .MuiSwitch-thumb": {
+//     backgroundColor: "#001e3c",
+//     width: 32,
+//     height: 32,
+//     "&::before": {
+//       content: "''",
+//       position: "absolute",
+//       width: "100%",
+//       height: "100%",
+//       left: 0,
+//       top: 0,
+//       backgroundRepeat: "no-repeat",
+//       backgroundPosition: "center",
+//       backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+//         "#fff"
+//       )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
+//     },
+//     ...theme.applyStyles("dark", {
+//       backgroundColor: "#003892",
+//     }),
+//   },
+//   "& .MuiSwitch-track": {
+//     opacity: 1,
+//     backgroundColor: "#aab4be",
+//     borderRadius: 20 / 2,
+//     ...theme.applyStyles("dark", {
+//       backgroundColor: "#8796A5",
+//     }),
+//   },
+// }));
 
 const Header = () => {
   const { theme, setTheme } = useContext(ContractContext);
@@ -107,7 +107,8 @@ const Header = () => {
     const savedTheme = localStorage.getItem("theme") || "dark";
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
-  }, []);
+  }, [setTheme]);
+
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
@@ -148,8 +149,8 @@ const Header = () => {
                 boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.5) !important",
                 // backdropFilter: "blur(20px) !important",
                 borderRadius: "12px !important",
-                "&:hover":{
-                  transform:"none !important"
+                "&:hover": {
+                  transform: "none !important"
                 }
               },
               "& .ju367vcl": {
@@ -157,7 +158,7 @@ const Header = () => {
                 color: "var(--connect_color) !important",
               },
               "& .ju367va3": {
-                background:"var(--connect_bg) !important"
+                background: "var(--connect_bg) !important"
               },
             }}
           >
@@ -182,10 +183,10 @@ const Header = () => {
                 component={"img"}
                 src={logo_mobile.src}
                 className="omx-logo"
-              sx={{
-                width:"48px",
-                height:"40px"
-              }}
+                sx={{
+                  width: "48px",
+                  height: "40px"
+                }}
               />
               <Typography
                 sx={{
@@ -216,7 +217,7 @@ const Header = () => {
                     Connect Wallet
                   </Button>
                 } */}
-                <ConnectButton chainStatus={"none"}/>
+                <ConnectButton chainStatus={"none"} />
               </Box>
 
               {/* <Typography component={"img"} src={ham_menu.src} /> */}
@@ -274,7 +275,7 @@ const Header = () => {
                     toggleTheme(); // Theme toggle karega
                     setAnchorEl(null); // Dropdown band karega
                   }} sx={{ display: "flex", paddingTop: "6px", paddingBottom: "6px", minHeight: "auto", justifyContent: "space-between" }}>
-                    <Typography sx={{ fontWeight: "400", fontSize: "14px",color:"var(--foreground)" }}>Theme</Typography>
+                    <Typography sx={{ fontWeight: "400", fontSize: "14px", color: "var(--foreground)" }}>Theme</Typography>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="var(--foreground)" stroke="var(--foreground)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                   </MenuItem>
                   <MenuItem onClick={() => setAnchorEl(null)} sx={{ display: "flex", paddingTop: "6px", paddingBottom: "6px", minHeight: "auto", justifyContent: "space-between" }}>

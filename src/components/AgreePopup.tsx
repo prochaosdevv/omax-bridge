@@ -4,19 +4,20 @@ import {
   Button,
   Dialog,
   DialogContent,
-  DialogTitle,
-  IconButton,
+  // DialogTitle,
+  // IconButton,
   Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+// import CloseIcon from "@mui/icons-material/Close";
 // import { Inter, Jost } from "next/font/google";
 import HelpIcon from "@mui/icons-material/Help";
 import ErrorIcon from "@mui/icons-material/Error";
+import { ModalProps } from "@/types";
 
-interface BootstrapDialogTitleProps {
-  children: React.ReactNode;
-  onClose?: () => void;
-}
+// interface BootstrapDialogTitleProps {
+//   children: React.ReactNode;
+//   onClose?: () => void;
+// }
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -24,39 +25,40 @@ interface BootstrapDialogTitleProps {
 //   weight: "400",
 // });
 
-function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
-  const { children, onClose, ...other } = props;
+// function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
+//   const { children, onClose, ...other } = props;
 
-  return (
-    <DialogTitle
-      sx={{
-        m: 0,
-        fontSize: "1.2rem",
-        p: 1.2,
-        borderBottom: "2px solid rgba(255, 255, 255, 0.22)",
-        fontWeight: "600",
-      }}
-      {...other}
-    >
-      {children}
-      {onClose && (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            right: 6,
-            top: 6,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      )}
-    </DialogTitle>
-  );
-}
-export default function AgreePopup({ isDialogOpen, setIsDialogOpen }: any) {
+//   return (
+//     <DialogTitle
+//       sx={{
+//         m: 0,
+//         fontSize: "1.2rem",
+//         p: 1.2,
+//         borderBottom: "2px solid rgba(255, 255, 255, 0.22)",
+//         fontWeight: "600",
+//       }}
+//       {...other}
+//     >
+//       {children}
+//       {onClose && (
+//         <IconButton
+//           aria-label="close"
+//           onClick={onClose}
+//           sx={{
+//             position: "absolute",
+//             right: 6,
+//             top: 6,
+//             color: (theme) => theme.palette.grey[500],
+//           }}
+//         >
+//           <CloseIcon />
+//         </IconButton>
+//       )}
+//     </DialogTitle>
+//   );
+// }
+
+export default function AgreePopup({ isDialogOpen, setIsDialogOpen }: ModalProps) {
   return (
     <Dialog
       onClose={() => setIsDialogOpen(false)}
@@ -72,12 +74,12 @@ export default function AgreePopup({ isDialogOpen, setIsDialogOpen }: any) {
         },
         "& .MuiDialog-container": {
           backdropFilter: "blur(12px)",
-          marginTop: {lg:"-10rem"},
+          marginTop: { lg: "-10rem" },
         },
         "& .MuiPaper-root": {
           maxWidth: "440px",
           borderRadius: "10px",
-          m:"10px",
+          m: "10px",
           background: `var(--common)`,
           backdropFilter: "blur(12.5px)",
           color: `var(--foreground)`,

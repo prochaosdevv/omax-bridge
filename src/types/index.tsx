@@ -16,3 +16,8 @@ export type FormatNumberOptions = {
   useMillify?: boolean;
   placeholder?: string;
 };
+
+export interface ModalProps {
+  isDialogOpen: boolean;
+  setIsDialogOpen: (value: boolean) => void;
+}

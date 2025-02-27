@@ -1,7 +1,7 @@
 "use client";
 import {
   Box,
-  Button,
+  // Button,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -15,6 +15,7 @@ import base_ from "../assets/base_step_2.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useState } from "react";
 import SuccessBridgeModal from "./SuccessBridge/SuccessBridgeModal";
+import { ModalProps } from "@/types";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -65,7 +66,7 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
   );
 }
 
-export default function ActivityModal({ isDialogOpen, setIsDialogOpen }: any) {
+export default function ActivityModal({ isDialogOpen, setIsDialogOpen }: ModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <Dialog

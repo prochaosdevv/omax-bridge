@@ -7,9 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Inter, Jost } from "next/font/google";
-import { useState } from "react";
+// import { Inter, Jost } from "next/font/google";
+// import { useState } from "react";
 import SuccessfullBridge from "./SuccessfullBridge";
+import { ModalProps } from "@/types";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -58,7 +59,7 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
 export default function SuccessBridgeModal({
   isDialogOpen,
   setIsDialogOpen,
-}: any) {
+}: ModalProps) {
   return (
     <Dialog
       onClose={() => setIsDialogOpen(false)}

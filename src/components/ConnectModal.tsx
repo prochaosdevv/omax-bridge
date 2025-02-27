@@ -9,10 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Inter, Jost } from "next/font/google";
+// import { Inter, Jost } from "next/font/google";
 import metamask from "../assets/MetaMASK.svg";
 import coin_wallet from "../assets/coin_wallet.svg";
 import wallet_connect from "../assets/wallet_connect.svg";
+import { ModalProps } from "@/types";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -47,28 +48,28 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
     >
       {children}
       {onClose && (
-               <IconButton
-               aria-label="close"
-               onClick={onClose}
-               sx={{
-                 position: "absolute",
-                 right: 6,
-                 top: 6,
-                 color: "var(--foreground)",
-                 background: "var(--light_dark)",
-                 "&:hover":{
-                     background: "var(--light_dark)", 
-                 }
-               }}
-             >
-              <CloseIcon sx={{fontSize:"1.2rem"}}/>
-             </IconButton>
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 6,
+            top: 6,
+            color: "var(--foreground)",
+            background: "var(--light_dark)",
+            "&:hover": {
+              background: "var(--light_dark)",
+            }
+          }}
+        >
+          <CloseIcon sx={{ fontSize: "1.2rem" }} />
+        </IconButton>
       )}
     </DialogTitle>
   );
 }
 
-export default function ConnectModal({ isDialogOpen, setIsDialogOpen }: any) {
+export default function ConnectModal({ isDialogOpen, setIsDialogOpen }: ModalProps) {
   return (
     <Dialog
       onClose={() => setIsDialogOpen(false)}
@@ -89,7 +90,7 @@ export default function ConnectModal({ isDialogOpen, setIsDialogOpen }: any) {
         "& .MuiPaper-root": {
           maxWidth: "440px",
           borderRadius: "20px",
-          m:"10px",
+          m: "10px",
           background: `var(--common)`,
           backdropFilter: "blur(12.5px)",
           color: `var(--foreground)`,

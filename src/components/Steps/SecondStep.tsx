@@ -56,7 +56,7 @@ const SecondStep = () => {
           className="text_"
           sx={{
             fontSize: "13px !important",
-            wordBreak:"break-all"
+            wordBreak: "break-all"
           }}
         >
           0xA1B2C3D4E5F67890123456789ABCDEF123456789
@@ -80,8 +80,8 @@ const SecondStep = () => {
             borderRadius: "3px !important",
           }}
           id="terms"
-          // checked={agreed}
-          // onCheckedChange={(value) => setAgreed(value as boolean)}
+        // checked={agreed}
+        // onCheckedChange={(value) => setAgreed(value as boolean)}
         />
         <Typography
           className="text_"
