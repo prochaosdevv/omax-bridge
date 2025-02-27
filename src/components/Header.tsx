@@ -23,7 +23,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 // import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 // import LanguageIcon from '@mui/icons-material/Language';
 
-import { ContractContext } from "@/Context/ContractContext";
+import { ThemeContext } from "@/Context/ThemeContext";
 
 import Link from "next/link";
 import { Link as MuiLink } from "@mui/material";
@@ -94,7 +94,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 // }));
 
 const Header = () => {
-  const { theme, setTheme } = useContext(ContractContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

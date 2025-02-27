@@ -5,7 +5,7 @@ import "./globals.css";
 import { Box } from "@mui/material";
 import { Providers } from "./providers";
 import '@rainbow-me/rainbowkit/styles.css';
-import ContractContextProvider from "@/Context/ContractContext";
+import ThemeContextProvider from "@/Context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,12 +39,12 @@ export default function RootLayout({
             },
           }}
         >
-          <ContractContextProvider>
+          <ThemeContextProvider>
 
             <Providers>
               {children}
             </Providers>
-          </ContractContextProvider>
+          </ThemeContextProvider>
         </Box>
       </body>
     </html>
