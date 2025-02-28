@@ -15,6 +15,8 @@ import dollar from "../../assets/gray_dollar.svg";
 import add_from from "../../assets/from.svg";
 import add_to from "../../assets/to.svg";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -31,6 +33,7 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 };
 
 const SuccessfullBridge = () => {
+  const {t}=useTranslation()
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
@@ -61,7 +64,7 @@ const SuccessfullBridge = () => {
           fontWeight: "600",
         }}
       >
-        Bridge 0.001 USDC
+        {t("Bridge")} 0.001 USDC
       </Typography>
       <Typography
         sx={{
@@ -70,7 +73,7 @@ const SuccessfullBridge = () => {
           opacity: "0.7",
         }}
       >
-        Via Native Bridge
+        {t("Via Native Bridge")}
       </Typography>
       <Box
         sx={{
@@ -113,8 +116,8 @@ const SuccessfullBridge = () => {
         }}
       >
         <Tabs value={tabIndex} onChange={handleChange} sx={{lineHeight:"0"}}>
-          <Tab label="Steps" />
-          <Tab label="Bridge Info" />
+          <Tab label={t("Steps")} />
+          <Tab label={t("Bridge Info")} />
         </Tabs>
       </Box>
       <TabPanel value={tabIndex} index={0}>
@@ -138,7 +141,7 @@ const SuccessfullBridge = () => {
             >
               <Typography component={"img"} src={eth.src} />
               <Box>
-                <Typography className="text_">Start on Sepolia</Typography>
+                <Typography className="text_">{t("Start on")} Sepolia</Typography>
                 <Typography
                   className="light_dark_text"
                   sx={{
@@ -169,7 +172,8 @@ const SuccessfullBridge = () => {
                 src={watch.src}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
-              Wait 6 mins
+            
+             {t("Wait")} 6 {t("mins")}
             </Typography>
             <CheckBoxIcon sx={{fontSize:"1.8rem"}}/>
           </Box>
@@ -190,7 +194,7 @@ const SuccessfullBridge = () => {
                 src={base_icon.src}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
-              Get 0.001 USDC on Base Sepolia
+              {t("Get")} 0.001 USDC {t("on")} Base Sepolia
             </Typography>
             <CheckBoxIcon sx={{fontSize:"1.8rem"}}/>
           </Box>
@@ -216,7 +220,7 @@ const SuccessfullBridge = () => {
                 src={eth.src}
                 sx={{ width: "18px", height: "18px" }}
               />{" "}
-              From Sepolia
+              {t("From")} Sepolia
             </Typography>
             <Typography className="text_">
               0.001 USDC{" "}
@@ -234,7 +238,7 @@ const SuccessfullBridge = () => {
                 src={base_.src}
                 sx={{ width: "18px", height: "18px", borderRadius: "5px" }}
               />{" "}
-              To Base Sepolia
+             {t("To")} Base Sepolia
             </Typography>
             <Typography className="text_">
               0.001 USDC{" "}
@@ -247,10 +251,10 @@ const SuccessfullBridge = () => {
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={via.src} /> Via
+              <Typography component={"img"} src={via.src} /> {t("Via")}
             </Typography>
             <Typography className="text_">
-              Native Bridge{" "}
+              {t("Native Bridge")}{" "}
               <Typography
                 component={"img"}
                 src={base_icon.src}
@@ -260,21 +264,21 @@ const SuccessfullBridge = () => {
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={add_from.src} /> From Address
+              <Typography component={"img"} src={add_from.src} /> {t("From")} {t("Address")}
             </Typography>
             <Typography className="text_">0xabc....4f9E</Typography>
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={add_to.src} /> To Address
+              <Typography component={"img"} src={add_to.src} /> {t("To")} {t("Address")}
             </Typography>
             <Typography className="text_">0xabc....4f9E</Typography>
           </Box>
           <Box className="flex">
             <Typography className="text_">
-              <Typography component={"img"} src={watch.src} /> Transfer Time
+              <Typography component={"img"} src={watch.src} /> {t("Transfer Time")}
             </Typography>
-            <Typography className="text_">-6mins</Typography>
+            <Typography className="text_">-6{t("mins")}</Typography>
           </Box>
         </Box>
       </TabPanel>
@@ -288,7 +292,7 @@ const SuccessfullBridge = () => {
           //   lineHeight:"0"
         }}
       >
-        Need help? View FAQs <HelpIcon sx={{ fontSize: "1rem", ml: "5px" }} />
+       {t("Need help? View FAQs")} <HelpIcon sx={{ fontSize: "1rem", ml: "5px" }} />
       </Button>
     </Box>
   );

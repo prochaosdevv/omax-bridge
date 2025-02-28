@@ -18,6 +18,7 @@ import FirstStep from "./Steps/FirstStep";
 import SecondStep from "./Steps/SecondStep";
 import ThirdStep from "./Steps/ThirdStep";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useTranslation } from "react-i18next";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -82,6 +83,7 @@ const DotStepIcon = ({ active, completed }: any) => {
   );
 };
 export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: any) {
+  const {t} = useTranslation()
   const steps = ["1", "2", "3"];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -176,7 +178,7 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: any) {
         {activeStep === 2 && <ThirdStep />}
         {activeStep !==2 &&<Box mt={"1.5rem"}>
          <Button className="common_btn" onClick={handleNext}>
-            {activeStep < steps.length - 1 ? "Continue" : "Finish"}
+            {activeStep < steps.length - 1 ? t("Continue") : t("Finish")}
           </Button>
         </Box>}
       </DialogContent>

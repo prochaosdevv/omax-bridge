@@ -2,6 +2,7 @@
 import React from "react";
 import base from "../../assets/base_step_2.png";
 import { Box, Button, Checkbox, Typography } from "@mui/material";
+import { t } from "i18next";
 
 const SecondStep = () => {
   return (
@@ -18,8 +19,8 @@ const SecondStep = () => {
           fontWeight: "600",
         }}
       >
-        Make sure the wallet you’re
-        <br /> bridging to supports Base Sepolina
+       {t("Make sure the wallet you’re")}
+        <br /> {t("bridging to supports")} Base Sepolina
       </Typography>
       <Typography
         sx={{
@@ -28,10 +29,10 @@ const SecondStep = () => {
           opacity: "0.7",
         }}
       >
-        Check Base Sepolia before your bridge <br />
-        or you may lose your crypto. Do not
+        {t("Check before your bridge")}<br />
+       {t("or you may lose your crypto. Do not")}
         <br />
-        bridge to an exchange.
+        {t("bridge to an exchange.")}
       </Typography>
       <Button
         className="btn"
@@ -41,7 +42,7 @@ const SecondStep = () => {
           background: "var(--light_dark_bg) !important",
         }}
       >
-        Learn More
+        {t("Learn More")}
       </Button>
       <Box
         sx={{
@@ -90,7 +91,7 @@ const SecondStep = () => {
             fontWeight: "400 !important",
           }}
         >
-          My wallet supports <b>Base Sepolia</b>
+          {t("My wallet supports")} <b>Base Sepolia</b>
         </Typography>
       </Box>
     </Box>

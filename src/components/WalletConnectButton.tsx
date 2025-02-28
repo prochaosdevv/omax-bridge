@@ -6,6 +6,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 import { truncateAddress } from "@/utils/functions";
+import { t } from "i18next";
 
 export default function WalletConnectButton() {
   const { publicKey } = useWallet();
@@ -20,7 +21,7 @@ export default function WalletConnectButton() {
           {!publicKey ? (
             <>
               {/* {!connecting && !connected && !disconnecting && <Icon name="wallet" size={6} />} */}
-              <p className="hidden lg:block">CONNECT WALLET</p>
+              <p className="hidden lg:block">{t("CONNECT WALLET")}</p>
             </>
           ) : (
             <p className="hidden lg:block">{truncateAddress(publicKey.toBase58())}</p>

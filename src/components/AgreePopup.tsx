@@ -12,6 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 // import { Inter, Jost } from "next/font/google";
 import HelpIcon from "@mui/icons-material/Help";
 import ErrorIcon from "@mui/icons-material/Error";
+import { t } from "i18next";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -103,7 +104,7 @@ export default function AgreePopup({ isDialogOpen, setIsDialogOpen }: any) {
             mb: "2rem",
           }}
         >
-          Welcome to
+          {t("Welcome to")}
         </Typography>
         <Box
           sx={{
@@ -118,7 +119,7 @@ export default function AgreePopup({ isDialogOpen, setIsDialogOpen }: any) {
               fontSize: "16px",
             }}
           >
-            For bridging help please head over to support & FAQs.
+           {t("For bridging help please head over to support & FAQs.")}
           </Typography>
         </Box>
         <Box
@@ -133,13 +134,13 @@ export default function AgreePopup({ isDialogOpen, setIsDialogOpen }: any) {
               fontSize: "16px",
             }}
           >
-            By using this interface you agree to our Terms and Privacy Policy.
+           {t("By using this interface you agree to our Terms and Privacy Policy.")}
           </Typography>
         </Box>
 
         <Box mt={"1.5rem"}>
           <Button className="common_btn" onClick={() => setIsDialogOpen(false)}>
-            Agree & continue
+           {t("Agree & continue")}
           </Button>
         </Box>
       </DialogContent>

@@ -27,7 +27,7 @@ import usdt_eth from "../assets/usdt_eth-01.svg";
 import usdc_omax from "../assets/usdc_omax-01.svg";
 import usdt_bnb from "../assets/usdt_bnb-01.svg";
 import usdc_bnb from "../assets/usdc_bnb-01.svg";
-import logo_mobile from "../assets/new_logo.png";
+import logo_mobile from "../assets/omax_small_logo.svg";
 
 
 import bsc_logo from "../assets/BSC.svg";
@@ -216,7 +216,7 @@ const Bridge = () => {
                   renderValue={() => {
                     const selectedItem = networkToItems.find((item) => item.value === selectedFrom);
                     return selectedItem ? (
-                      <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value==="2"?32:28} height={selectedItem.value==="2"?28:28} />
+                      <Typography component={"img"} src={selectedItem.icon} width={28} height={28} />
                     ) : (
                       <Typography component={"img"} src="/default-icon.png" width={28} height={28} />
                     );
@@ -237,13 +237,13 @@ const Bridge = () => {
                 >
                   {networkToItems.map((item) => (
                     <MenuItem key={item.value} value={item.value}>
-                      <Typography component={"img"} src={item.icon} width={item.width?item.width:28} height={item.height?item.height:28} mr={"0.3rem"} />
+                      <Typography component={"img"} src={item.icon} width={28} height={28} mr={"0.3rem"} />
                       {item.label}
                     </MenuItem>
                   ))}
                 </Select>
                 <Box>
-                  <Typography className="light_dark_text">From</Typography>
+                  <Typography className="light_dark_text">{t("From")}</Typography>
                   <Typography className="text_">
                     {networkToItems.find((item) => item.value === selectedFrom)?.label ?? "Select Network"}
                   </Typography>
@@ -255,7 +255,7 @@ const Bridge = () => {
             <Box className="box">
               <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "7px" }}>
                 <Box>
-                  <Typography className="light_dark_text">To</Typography>
+                  <Typography className="light_dark_text">{t("To")}</Typography>
                   <Typography className="text_">
                     {networkToItems.find((item) => item.value === selectedTo)?.label ?? "Select Network"}
                   </Typography>
@@ -289,7 +289,7 @@ const Bridge = () => {
                 >
                   {networkToItems.map((item) => (
                     <MenuItem key={item.value} value={item.value}>
-                      <Typography component={"img"} src={item.icon} width={item.width?item.width:28} height={item.height?item.height:28} mr={"0.3rem"} />
+                      <Typography component={"img"} src={item.icon} width={28} height={28} mr={"0.3rem"} />
                       {item.label}
                     </MenuItem>
                   ))}
@@ -372,7 +372,7 @@ const Bridge = () => {
           <Box className="flex" mt={"0.5rem"}>
             <Typography className="light_dark_text">$2.766</Typography>
             <Typography className="light_dark_text">
-              0.2123 USDC available{" "}
+              0.2123 USDC {t("available")}{" "}
               <Typography
                 component={"img"}
                 src={available.src}
@@ -390,7 +390,7 @@ const Bridge = () => {
           }}
         >
           <Box className="flex">
-            <Typography className="text_" flex={1}>Get on Base Sepolia</Typography>
+            <Typography className="text_" flex={1}>{t("Get on")} Base Sepolia</Typography>
 
             <Box
               className="flex"
@@ -407,7 +407,7 @@ const Bridge = () => {
                   fontSize: { sm: "16px !important" },
                 }}
               >
-                Native Bridge
+                {t("Native Bridge")}
               </Typography>
             </Box>
           </Box>
@@ -470,7 +470,7 @@ const Bridge = () => {
                   sx={{ verticalAlign: "middle" }}
                 />{" "} */}
                 <MonetizationOnIcon sx={{ fontSize: "1.2rem" }} />
-                0 Fees
+                0 {t("Fees")}
               </Box>
               <Typography className="light_dark_text" lineHeight={"normal"}>
                 <Typography
@@ -483,7 +483,7 @@ const Bridge = () => {
             </Box>
 
             <Typography className="light_dark_text">
-              - 3 mins{" "}
+              - 3{("mins")}{" "}
               <Typography
                 component={"img"}
                 src={watch.src}
@@ -500,7 +500,7 @@ const Bridge = () => {
           }}
           onClick={() => setIsModalOpen(true)}
         >
-          Review Bridge
+         {t("Review Bridge")}
         </Button>
       </Box>
       {

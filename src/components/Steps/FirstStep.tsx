@@ -10,6 +10,7 @@ import fuel from "../../assets/fuel.svg";
 import what from "../../assets/what.svg";
 import via from "../../assets/via.svg";
 import base_icon_ from "../../assets/base_icon_.svg";
+import { t } from "i18next";
 
 
 const FirstStep = () => {
@@ -23,8 +24,8 @@ const FirstStep = () => {
              my: "1rem",
            }}
          >
-           REVIEW
-         </Typography>
+          {t("REVIEW")}
+         </Typography>  
          <Box
            sx={{
              background: `var(--box_bg)`,
@@ -35,7 +36,7 @@ const FirstStep = () => {
          >
            <Box className="flex">
              <Typography className="light_dark_text">
-               Bridge from USDC
+               {t("Bridge from")} USDC
              </Typography>
              <Box
                className="flex"
@@ -75,7 +76,7 @@ const FirstStep = () => {
          >
            <Box className="flex">
              <Typography className="light_dark_text">
-               Get on Base Sepolia
+              {t("Get on")} Base Sepolia
              </Typography>
              <Box
                className="flex"
@@ -118,10 +119,10 @@ const FirstStep = () => {
          >
            <Box className="flex" mb={"1rem"}>
              <Typography className="text_">
-               <Typography component={"img"} src={via.src} /> Via
+               <Typography component={"img"} src={via.src} /> {t("Via")}
              </Typography>
              <Typography className="text_">
-               Native Bridge{" "}
+               {t("Native Bridge")}{" "}
                <Typography
                  component={"img"}
                  src={base_icon_.src}
@@ -131,16 +132,16 @@ const FirstStep = () => {
            </Box>
            <Box className="flex" mb={"1rem"}>
              <Typography className="text_">
-               <Typography component={"img"} src={watch.src} /> Transfer Time
+               <Typography component={"img"} src={watch.src} /> {t("Transfer Time")}
              </Typography>
              <Typography className="text_">
-             -6mins
+             -6{t("mins")}
          
              </Typography>
            </Box>
            <Box className="flex" mb={"1rem"}>
              <Typography className="text_">
-               <Typography component={"img"} src={fuel.src} /> Gas Costs
+               <Typography component={"img"} src={fuel.src} /> {t("Gas Costs")}
              </Typography>
              <Typography className="text_">
              0.0003562 ETH{" "}
@@ -153,10 +154,10 @@ const FirstStep = () => {
            </Box>
            <Box className="flex">
              <Typography className="text_">
-               <Typography component={"img"} src={dollar.src} /> fees
+               <Typography component={"img"} src={dollar.src} /> {t("Fees")}
              </Typography>
              <Typography className="text_">
-           0 Fees
+           0 {t("Fees")}
              </Typography>
            </Box>
          </Box>
