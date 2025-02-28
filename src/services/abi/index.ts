@@ -6,7 +6,7 @@ import { getTokenPrice } from '@/utils/functions';
 
 export { bridgeABI } from './bridgeABI';
 export { erc20ABI } from './erc20ABI';
-export { getTokenBalance } from './contract';
+export { getTokenBalance, estimateTransactionGas, estimateTransactionTime } from './contract';
 
 export const getWalletBalance = async (chainId: number, address: string, context: any) => {
     let coinBalance: TokenBalance[] = [];

@@ -164,11 +164,40 @@ export function formatDuration(timestamp: number): string {
   return `${diffInDays}d ago`;
 }
 
+export function formatTime(time: number): string {
+  if (time < 60) {
+    // Less than a minute ago
+    return `${time}sec`;
+  }
+
+  const diffInMinutes = Math.floor(time / 60);
+  if (diffInMinutes < 60) {
+    // Less than an hour ago
+    return `${diffInMinutes}min`;
+  }
+
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) {
+    // Less than a day ago
+    return `${diffInHours}hour`;
+  }
+
+  const diffInDays = Math.floor(diffInHours / 24);
+  return `${diffInDays}day`;
+}
+
 export const decimalToEth = (amount: string) => {
   if (Number(amount) > 0) {
     return Number(amount) / Number(10 ** 18);
   }
   return 0;
+}
+
+export const decimalFromEth = (amount: number) => {
+  if (amount > 0) {
+      return BigInt(Math.floor(amount * (10 ** 18)));
+  }
+  return BigInt(0);
 }
 
 export async function getTokenPrice(symbol: string) {

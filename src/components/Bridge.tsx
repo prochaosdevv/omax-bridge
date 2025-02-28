@@ -35,8 +35,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { networkItems, tokenItems } from "@/config";
 import { useAccount, WagmiContext } from "wagmi";
 import { readContracts } from "@wagmi/core";
-import { getWalletBalance } from "@/services/abi";
+import { getWalletBalance, estimateTransactionGas, estimateTransactionTime } from "@/services/abi";
 import { TokenBalance } from "@/types";
+import { decimalFromEth, formatTime } from "@/utils/functions";
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -58,6 +59,8 @@ const Bridge = () => {
   const [selectedFrom, setSelectedFrom] = useState("311"); // Default to OMAX
   const [selectedTo, setSelectedTo] = useState("1"); // Default to Ethereum
   const [walletBalance, setWalletBalance] = useState([] as TokenBalance[]);
+  const [estimatedGas, setEstimatedGas] = useState('0');
+  const [estimatedTransactionTime, setEstimatedTransactionTime] = useState('0sec');
 
   const getLogoWidth = (chainId: number) => {
     if (chainId == 311 || chainId == 332) return 32;
@@ -82,7 +85,7 @@ const Bridge = () => {
 
   useEffect(() => {
     async function fetchBalance(address: string) {
-      const walletTokenBalance =  await getWalletBalance(Number(selectedFrom), address, config);
+      const walletTokenBalance = await getWalletBalance(Number(selectedFrom), address, config);
       setWalletBalance(walletTokenBalance);
     }
     if (account && account.address) {
@@ -103,6 +106,38 @@ const Bridge = () => {
     if (tokenInfo != undefined) return "$ " + tokenInfo.price;
     else return "$ 0";
   }
+
+  const estimateGas = async () => {
+    if (account && account.address) {
+      const tokenAddress = tokenItems[Number(selectedFrom)].find((item) => item.symbol === selectedCoin)?.address;
+      if (!tokenAddress) {
+        throw new Error("Token address is undefined");
+      }
+      return await estimateTransactionGas(Number(selectedFrom), account.address, tokenAddress, decimalFromEth(Number(amount)), config)
+    } else return 0;
+  }
+
+  const estimateTime = async()=> {
+    const approveTime = await estimateTransactionTime(Number(selectedFrom), config, BigInt(30000000));
+    const withdrawTime = await estimateTransactionTime(Number(selectedTo), config, BigInt(30000000));
+    const totalTime = (approveTime * BigInt(2) + withdrawTime) * BigInt(2);
+    return Number(totalTime.toString());
+  }
+
+  useEffect(() => {
+    async function fetchGas() {
+      const estimatGas = await estimateGas();
+      if (selectedFrom == "1") {
+        setEstimatedGas(estimatGas.toFixed(5));
+      } else {
+        setEstimatedGas(estimatGas.toFixed(10));
+      }
+      const estimatedTime = await estimateTime();
+      console.log("estimatedTime: ", estimatedTime);
+      setEstimatedTransactionTime(formatTime(estimatedTime));
+    }
+    fetchGas();
+  }, [selectedFrom, selectedCoin, amount]);
 
   return (
     <Box
@@ -489,12 +524,12 @@ const Bridge = () => {
                   src={fuel.src}
                   sx={{ verticalAlign: "middle", mb: "3px" }}
                 />{" "}
-                0.0003562 {networkItems.find((item) => item.chainId.toString() === selectedFrom)?.symbol}
+                {estimatedGas} {networkItems.find((item) => item.chainId.toString() === selectedFrom)?.symbol}
               </Typography>
             </Box>
 
             <Typography className="light_dark_text">
-              - 3 mins{" "}
+              ~ {estimatedTransactionTime} {" "}
               <Typography
                 component={"img"}
                 src={watch.src}
