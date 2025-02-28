@@ -23,10 +23,20 @@ export interface ModalProps {
 };
 
 export interface ItemInfo {
-  value: string,
-  chainId?: number,
+  chainId: number,
   label: string,
   icon: any,
   width?: string,
   height?: string
 };
+
+export interface TokenInfo {
+  name: string;
+  symbol: string;
+  decimals: number;
+  address: string;
+  isNative: boolean;
+  fee: number;
+  chainId: number;
+  icon: any;
+}

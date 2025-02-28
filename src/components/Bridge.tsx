@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 // import { Inter, Jost } from "next/font/google";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 // import op from "../assets/op.svg";
 // import eth from "../assets/eth.svg";
 // import bridge from "../assets/bridge.svg";
@@ -33,6 +33,8 @@ import ActivityModal from "./ActivityModal";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { networkItems, tokenItems } from "@/config";
+import { useAccount, WagmiContext } from "wagmi";
+import { readContracts } from "@wagmi/core";
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -42,6 +44,8 @@ import { networkItems, tokenItems } from "@/config";
 
 const Bridge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const account = useAccount();
+  const config = useContext(WagmiContext);
   const [amount, setAmount] = useState("");
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
@@ -49,22 +53,35 @@ const Bridge = () => {
   const [activityOpen, setActivityOpen] = useState(false);
   // const [settingOpen, setSettingOpen] = useState(false);
 
-  const [selectedFrom, setSelectedFrom] = useState("2"); // Default to OMAX
-  const [selectedTo, setSelectedTo] = useState("0"); // Default to Ethereum
+  const [selectedFrom, setSelectedFrom] = useState("311"); // Default to OMAX
+  const [selectedTo, setSelectedTo] = useState("1"); // Default to Ethereum
+
+  const getLogoWidth = (chainId: number) => {
+    if (chainId == 311 || chainId == 332) return 32;
+    else return 28;
+  }
 
   const handleFromChange = (event: SelectChangeEvent<string>) => {
-    setSelectedFrom(event.target.value);
+    if (event.target.value != selectedTo)
+      setSelectedFrom(event.target.value);
   };
 
   const handleToChange = (event: SelectChangeEvent<string>) => {
-    setSelectedTo(event.target.value);
+    if (event.target.value != selectedFrom)
+      setSelectedTo(event.target.value);
   };
 
-  const [selectedChain, setSelectedChain] = useState("0");
-  const handleNetwork = (event: SelectChangeEvent<string>) => {
-    const selectedNetwork = event.target.value;
-    setSelectedChain(selectedNetwork);
+  const [selectedCoin, setSelectedCoin] = useState("USDC");
+  const handleCoin = (event: SelectChangeEvent<string>) => {
+    const selectedCoin = event.target.value;
+    setSelectedCoin(selectedCoin);
   };
+
+  useEffect(() => {
+    if (account && account.address) {
+
+    }
+  }, [account])
 
   return (
     <Box
@@ -185,9 +202,9 @@ const Bridge = () => {
                   onChange={handleFromChange}
                   displayEmpty
                   renderValue={() => {
-                    const selectedItem = networkItems.find((item) => item.value === selectedFrom);
+                    const selectedItem = networkItems.find((item) => item.chainId.toString() === selectedFrom);
                     return selectedItem ? (
-                      <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value === "2" ? 32 : 28} height={selectedItem.value === "2" ? 28 : 28} />
+                      <Typography component={"img"} src={selectedItem.icon} width={getLogoWidth(selectedItem.chainId)} height={28} />
                     ) : (
                       <Typography component={"img"} src="/default-icon.png" width={28} height={28} />
                     );
@@ -207,7 +224,7 @@ const Bridge = () => {
                   }}
                 >
                   {networkItems.map((item) => (
-                    <MenuItem key={item.value} value={item.value}>
+                    <MenuItem key={item.chainId.toString()} value={item.chainId.toString()}>
                       <Typography component={"img"} src={item.icon} width={item.width ? item.width : 28} height={item.height ? item.height : 28} mr={"0.3rem"} />
                       {item.label}
                     </MenuItem>
@@ -216,7 +233,7 @@ const Bridge = () => {
                 <Box>
                   <Typography className="light_dark_text">From</Typography>
                   <Typography className="text_">
-                    {networkItems.find((item) => item.value === selectedFrom)?.label ?? "Select Network"}
+                    {networkItems.find((item) => item.chainId.toString() === selectedFrom)?.label ?? "Select Network"}
                   </Typography>
                 </Box>
               </Box>
@@ -228,7 +245,7 @@ const Bridge = () => {
                 <Box>
                   <Typography className="light_dark_text">To</Typography>
                   <Typography className="text_">
-                    {networkItems.find((item) => item.value === selectedTo)?.label ?? "Select Network"}
+                    {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label ?? "Select Network"}
                   </Typography>
                 </Box>
 
@@ -237,9 +254,9 @@ const Bridge = () => {
                   onChange={handleToChange}
                   displayEmpty
                   renderValue={() => {
-                    const selectedItem = networkItems.find((item) => item.value === selectedTo);
+                    const selectedItem = networkItems.find((item) => item.chainId.toString() === selectedTo);
                     return selectedItem ? (
-                      <Typography component={"img"} src={selectedItem.icon} width={selectedItem.value === "2" ? 32 : 28} height={selectedItem.value === "2" ? 28 : 28} />
+                      <Typography component={"img"} src={selectedItem.icon} width={getLogoWidth(selectedItem.chainId)} height={28} />
                     ) : (
                       <Typography component={"img"} src="/default-icon.png" width={28} height={28} />
                     );
@@ -259,7 +276,7 @@ const Bridge = () => {
                   }}
                 >
                   {networkItems.map((item) => (
-                    <MenuItem key={item.value} value={item.value}>
+                    <MenuItem key={item.chainId.toString()} value={item.chainId.toString()}>
                       <Typography component={"img"} src={item.icon} width={item.width ? item.width : 28} height={item.height ? item.height : 28} mr={"0.3rem"} />
                       {item.label}
                     </MenuItem>
@@ -298,8 +315,8 @@ const Bridge = () => {
             />
             <Box flex={1}>
               <Select
-                value={selectedChain}
-                onChange={handleNetwork}
+                value={selectedCoin}
+                onChange={handleCoin}
                 displayEmpty
                 aria-label="Network Selector"
                 sx={{
@@ -325,8 +342,8 @@ const Bridge = () => {
                   },
                 }}
               >
-                {tokenItems.map((item) => (
-                  <MenuItem key={item.value} value={item.value}>
+                {tokenItems[Number(selectedFrom)].map((item) => (
+                  <MenuItem key={item.symbol} value={item.symbol}>
                     <Typography
                       component={"img"}
                       src={item.icon}
@@ -334,7 +351,7 @@ const Bridge = () => {
                       height={28}
                       mr={"0.3rem"}
                     />
-                    {item.label}
+                    {item.symbol}
                   </MenuItem>
                 ))}
               </Select>
@@ -342,14 +359,16 @@ const Bridge = () => {
           </Box>
           <Box className="flex" mt={"0.5rem"}>
             <Typography className="light_dark_text">$2.766</Typography>
-            <Typography className="light_dark_text">
-              0.2123 USDC available{" "}
-              <Typography
-                component={"img"}
-                src={available.src}
-                sx={{ verticalAlign: "middle" }}
-              />
-            </Typography>
+            {account && account.address &&
+              <Typography className="light_dark_text">
+                0.2123 USDC available{" "}
+                <Typography
+                  component={"img"}
+                  src={available.src}
+                  sx={{ verticalAlign: "middle" }}
+                />
+              </Typography>
+            }
           </Box>
         </Box>
         {amount && <Box

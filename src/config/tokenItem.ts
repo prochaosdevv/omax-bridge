@@ -1,4 +1,4 @@
-import { ItemInfo } from "@/types";
+import { TokenInfo } from "@/types";
 import usdc_omax from "../assets/usdc_omax-01.svg";
 import usdt_omax from "../assets/usdt_omax-01.svg";
 import usdc_eth from "../assets/usdc_eth-01.svg";
@@ -6,35 +6,165 @@ import usdt_eth from "../assets/usdt_eth-01.svg";
 import usdt_bnb from "../assets/usdt_bnb-01.svg";
 import usdc_bnb from "../assets/usdc_bnb-01.svg";
 
-export const tokenItems: ItemInfo[] = [
-    {
-        value: '0',
-        label: "USDC",
-        icon: usdc_omax.src
-    },
-    {
-        value: "1",
-        label: "USDT",
-        icon: usdt_omax.src
-    },
-    {
-        value: "2",
-        label: "USDC",
-        icon: usdc_eth.src
-    },
-    {
-        value: "3",
-        label: "USDT",
-        icon: usdt_eth.src
-    },
-    {
-        value: "4",
-        label: "USDC",
-        icon: usdc_bnb.src
-    },
-    {
-        value: "5",
-        label: "USDT",
-        icon: usdt_bnb.src
-    },
-]
+export const tokenItems: Record<number, TokenInfo[]> = {
+    [1]: [
+        {
+            name: 'Eth',
+            symbol: 'ETH',
+            decimals: 18,
+            address: '0x0000000000000000000000000000000000000000',
+            isNative: true,
+            fee: 0.0,
+            chainId: 56,
+            icon: usdt_eth.src
+        },
+        {
+            name: 'USD Coin',
+            symbol: 'USDC',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 56,
+            icon: usdc_eth.src
+        },
+        {
+            name: 'Tether USD',
+            symbol: 'USDT',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 56,
+            icon: usdt_eth.src
+        },
+    ],
+    [56]: [
+        {
+            name: 'BNB',
+            symbol: 'BNB',
+            decimals: 18,
+            address: '0x0000000000000000000000000000000000000000',
+            isNative: true,
+            fee: 0.0,
+            chainId: 56,
+            icon: usdt_bnb.src
+        },
+        {
+            name: 'USD Coin',
+            symbol: 'USDC',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 56,
+            icon: usdc_bnb.src
+        },
+        {
+            name: 'Tether USD',
+            symbol: 'USDT',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 56,
+            icon: usdt_bnb.src
+        },
+    ],
+    [97]: [
+        {
+            name: 'tBNB',
+            symbol: 'tBNB',
+            decimals: 18,
+            address: '0x0000000000000000000000000000000000000000',
+            isNative: true,
+            fee: 0,
+            chainId: 97,
+            icon: usdt_bnb.src
+        },
+        {
+            name: 'USD Coin',
+            symbol: 'USDC',
+            decimals: 18,
+            address: '0x0A12Dcf0ed4c06924307980E300ff5Ce83F6502A',
+            isNative: false,
+            fee: 0,
+            chainId: 97,
+            icon: usdc_bnb.src
+        },
+        {
+            name: 'Tether USD',
+            symbol: 'USDT',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 97,
+            icon: usdt_bnb.src
+        },
+    ],
+    [311]: [
+        {
+            name: 'OMAX',
+            symbol: 'OMAX',
+            decimals: 18,
+            address: '0x0000000000000000000000000000000000000000',
+            isNative: true,
+            fee: 0.0,
+            chainId: 311,
+            icon: usdt_omax.src
+        },
+        {
+            name: 'USD Coin',
+            symbol: 'USDC',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 311,
+            icon: usdc_omax.src
+        },
+        {
+            name: 'Tether USD',
+            symbol: 'USDT',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 311,
+            icon: usdt_omax.src
+        },
+    ],
+    [332]: [
+        {
+            name: 'OMAXT',
+            symbol: 'OMAXT',
+            decimals: 18,
+            address: '0x0000000000000000000000000000000000000000',
+            isNative: true,
+            fee: 0,
+            chainId: 332,
+            icon: usdt_omax.src
+        },
+        {
+            name: 'USD Coin',
+            symbol: 'USDC',
+            decimals: 18,
+            address: '0x457f64Af9E3b9dea59Ab5FEc362d140CE95969ab',
+            isNative: false,
+            fee: 0,
+            chainId: 332,
+            icon: usdc_omax.src
+        },
+        {
+            name: 'Tether USD',
+            symbol: 'USDT',
+            decimals: 18,
+            address: '',
+            isNative: false,
+            fee: 0.0,
+            chainId: 332,
+            icon: usdt_omax.src
+        },
+    ],
+};
