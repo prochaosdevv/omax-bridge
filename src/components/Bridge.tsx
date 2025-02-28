@@ -44,6 +44,7 @@ import ReviewBridge from "./ReviewBridge";
 import ActivityModal from "./ActivityModal";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useTranslation } from "react-i18next";
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -68,6 +69,7 @@ const networkToItems = [
 ];
 
 const Bridge = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,7 +124,7 @@ const Bridge = () => {
             height: "30px !important"
           }}
         >
-          Bridge
+          {t("Bridge")}
         </Button>
         <Box>
           {/* <Button
