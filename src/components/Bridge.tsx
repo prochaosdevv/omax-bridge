@@ -35,6 +35,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { networkItems, tokenItems } from "@/config";
 import { useAccount, WagmiContext } from "wagmi";
 import { readContracts } from "@wagmi/core";
+import { getWalletBalance } from "@/services/abi";
+import { TokenBalance } from "@/types";
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -55,6 +57,7 @@ const Bridge = () => {
 
   const [selectedFrom, setSelectedFrom] = useState("311"); // Default to OMAX
   const [selectedTo, setSelectedTo] = useState("1"); // Default to Ethereum
+  const [walletBalance, setWalletBalance] = useState([] as TokenBalance[]);
 
   const getLogoWidth = (chainId: number) => {
     if (chainId == 311 || chainId == 332) return 32;
@@ -78,10 +81,28 @@ const Bridge = () => {
   };
 
   useEffect(() => {
-    if (account && account.address) {
-
+    async function fetchBalance(address: string) {
+      const walletTokenBalance =  await getWalletBalance(Number(selectedFrom), address, config);
+      setWalletBalance(walletTokenBalance);
     }
-  }, [account])
+    if (account && account.address) {
+      fetchBalance(account.address)
+    }
+  }, [account, selectedFrom]);
+
+  const getTokenBalance = (symbol: string) => {
+    if (walletBalance.length == 0) return "0 " + symbol;
+    const tokenInfo = walletBalance.find(token => token.symbol === symbol);
+    if (tokenInfo != undefined) return tokenInfo.balance + " " + symbol;
+    else return "0 " + symbol;
+  }
+
+  const getTokenPrice = (symbol: string) => {
+    if (walletBalance.length == 0) return "$ 0";
+    const tokenInfo = walletBalance.find(token => token.symbol === symbol);
+    if (tokenInfo != undefined) return "$ " + tokenInfo.price;
+    else return "$ 0";
+  }
 
   return (
     <Box
@@ -358,10 +379,10 @@ const Bridge = () => {
             </Box>
           </Box>
           <Box className="flex" mt={"0.5rem"}>
-            <Typography className="light_dark_text">$2.766</Typography>
+            <Typography className="light_dark_text">{getTokenPrice(selectedCoin)}</Typography>
             {account && account.address &&
               <Typography className="light_dark_text">
-                0.2123 USDC available{" "}
+                {getTokenBalance(selectedCoin)} available{" "}
                 <Typography
                   component={"img"}
                   src={available.src}
@@ -380,9 +401,9 @@ const Bridge = () => {
           }}
         >
           <Box className="flex">
-            <Typography className="text_" flex={1}>Get on Base Sepolia</Typography>
+            <Typography className="text_" flex={1}>Get on {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label}</Typography>
 
-            <Box
+            {/* <Box
               className="flex"
               sx={{
                 background: `var(--light_dark_bg)`,
@@ -399,7 +420,7 @@ const Bridge = () => {
               >
                 Native Bridge
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
           <Box
             my={"0.5rem"}
@@ -429,9 +450,9 @@ const Bridge = () => {
                   // lineHeight: "normal",
                 }}
               >
-                0.001 USDC
+                {amount} {selectedCoin}
               </Typography>
-              <Typography className="light_dark_text">$2.766</Typography>
+              <Typography className="light_dark_text">{getTokenPrice(selectedCoin)}</Typography>
             </Box>
           </Box>
           <Box className="flex" mt={"1.5rem"} flexWrap={"wrap"}>
@@ -468,7 +489,7 @@ const Bridge = () => {
                   src={fuel.src}
                   sx={{ verticalAlign: "middle", mb: "3px" }}
                 />{" "}
-                0.0003562 ETH
+                0.0003562 {networkItems.find((item) => item.chainId.toString() === selectedFrom)?.symbol}
               </Typography>
             </Box>
 

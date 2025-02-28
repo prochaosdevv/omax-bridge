@@ -8,16 +8,16 @@ import usdc_bnb from "../assets/usdc_bnb-01.svg";
 
 export const tokenItems: Record<number, TokenInfo[]> = {
     [1]: [
-        {
-            name: 'Eth',
-            symbol: 'ETH',
-            decimals: 18,
-            address: '0x0000000000000000000000000000000000000000',
-            isNative: true,
-            fee: 0.0,
-            chainId: 56,
-            icon: usdt_eth.src
-        },
+        // {
+        //     name: 'Eth',
+        //     symbol: 'ETH',
+        //     decimals: 18,
+        //     address: '0x0000000000000000000000000000000000000000',
+        //     isNative: true,
+        //     fee: 0.0,
+        //     chainId: 56,
+        //     icon: usdt_eth.src
+        // },
         {
             name: 'USD Coin',
             symbol: 'USDC',
@@ -40,16 +40,16 @@ export const tokenItems: Record<number, TokenInfo[]> = {
         },
     ],
     [56]: [
-        {
-            name: 'BNB',
-            symbol: 'BNB',
-            decimals: 18,
-            address: '0x0000000000000000000000000000000000000000',
-            isNative: true,
-            fee: 0.0,
-            chainId: 56,
-            icon: usdt_bnb.src
-        },
+        // {
+        //     name: 'BNB',
+        //     symbol: 'BNB',
+        //     decimals: 18,
+        //     address: '0x0000000000000000000000000000000000000000',
+        //     isNative: true,
+        //     fee: 0.0,
+        //     chainId: 56,
+        //     icon: usdt_bnb.src
+        // },
         {
             name: 'USD Coin',
             symbol: 'USDC',
@@ -72,16 +72,16 @@ export const tokenItems: Record<number, TokenInfo[]> = {
         },
     ],
     [97]: [
-        {
-            name: 'tBNB',
-            symbol: 'tBNB',
-            decimals: 18,
-            address: '0x0000000000000000000000000000000000000000',
-            isNative: true,
-            fee: 0,
-            chainId: 97,
-            icon: usdt_bnb.src
-        },
+        // {
+        //     name: 'tBNB',
+        //     symbol: 'tBNB',
+        //     decimals: 18,
+        //     address: '0x0000000000000000000000000000000000000000',
+        //     isNative: true,
+        //     fee: 0,
+        //     chainId: 97,
+        //     icon: usdt_bnb.src
+        // },
         {
             name: 'USD Coin',
             symbol: 'USDC',
@@ -104,16 +104,16 @@ export const tokenItems: Record<number, TokenInfo[]> = {
         },
     ],
     [311]: [
-        {
-            name: 'OMAX',
-            symbol: 'OMAX',
-            decimals: 18,
-            address: '0x0000000000000000000000000000000000000000',
-            isNative: true,
-            fee: 0.0,
-            chainId: 311,
-            icon: usdt_omax.src
-        },
+        // {
+        //     name: 'OMAX',
+        //     symbol: 'OMAX',
+        //     decimals: 18,
+        //     address: '0x0000000000000000000000000000000000000000',
+        //     isNative: true,
+        //     fee: 0.0,
+        //     chainId: 311,
+        //     icon: usdt_omax.src
+        // },
         {
             name: 'USD Coin',
             symbol: 'USDC',
@@ -136,16 +136,16 @@ export const tokenItems: Record<number, TokenInfo[]> = {
         },
     ],
     [332]: [
-        {
-            name: 'OMAXT',
-            symbol: 'OMAXT',
-            decimals: 18,
-            address: '0x0000000000000000000000000000000000000000',
-            isNative: true,
-            fee: 0,
-            chainId: 332,
-            icon: usdt_omax.src
-        },
+        // {
+        //     name: 'OMAXT',
+        //     symbol: 'OMAXT',
+        //     decimals: 18,
+        //     address: '0x0000000000000000000000000000000000000000',
+        //     isNative: true,
+        //     fee: 0,
+        //     chainId: 332,
+        //     icon: usdt_omax.src
+        // },
         {
             name: 'USD Coin',
             symbol: 'USDC',

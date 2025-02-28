@@ -1,18 +1,5 @@
 export const erc20ABI = [    
-    {
-        "inputs": [],
-        "name": "_launched",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
+   {
         "inputs": [
             {
                 "internalType": "address",

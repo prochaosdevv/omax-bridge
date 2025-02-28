@@ -22,9 +22,11 @@ export interface ModalProps {
   setIsDialogOpen: (value: boolean) => void;
 };
 
-export interface ItemInfo {
+export interface NetworkInfo {
   chainId: number,
+  symbol: string,
   label: string,
+  bridge: string,
   icon: any,
   width?: string,
   height?: string
@@ -39,4 +41,10 @@ export interface TokenInfo {
   fee: number;
   chainId: number;
   icon: any;
+}
+
+export interface TokenBalance {
+  symbol: string;
+  balance: string;
+  price: string;
 }

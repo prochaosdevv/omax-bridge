@@ -2,8 +2,41 @@
 import millify from "millify";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import axios from 'axios';
 
 import { FormatNumberOptions } from "@/types";
+
+export const fetchAPI = async (
+  url: string,
+  method: "GET" | "POST",
+  data: Record<string, any> = {}
+): Promise<any | null> => {
+  return new Promise((resolve) => {
+      if (method === "POST") {
+          axios
+              .post(url, data)
+              .then((response) => {
+                  let json = response.data;
+                  resolve(json);
+              })
+              .catch((error) => {
+                  console.error('[fetchAPI]', error)
+                  resolve(null);
+              });
+      } else {
+          axios
+              .get(url)
+              .then((response) => {
+                  let json = response.data;
+                  resolve(json);
+              })
+              .catch((error) => {
+                  console.error('fetchAPI', error);
+                  resolve(null);
+              });
+      }
+  });
+};
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -129,4 +162,23 @@ export function formatDuration(timestamp: number): string {
 
   const diffInDays = Math.floor(diffInHours / 24);
   return `${diffInDays}d ago`;
+}
+
+export const decimalToEth = (amount: string) => {
+  if (Number(amount) > 0) {
+    return Number(amount) / Number(10 ** 18);
+  }
+  return 0;
+}
+
+export async function getTokenPrice(symbol: string) {
+  try {
+      const response = await axios.get(`https://api.coinbase.com/v2/prices/${symbol}-USD/spot`);
+      const newPrice = Number(response.data.data.amount);
+      return newPrice;
+      // console.log('SUI Price in USD:', suiPrice, Date.now() / 1000);
+  } catch (err) {
+      console.error('Error fetching SUI price:', err);
+      return 0;
+  }
 }
