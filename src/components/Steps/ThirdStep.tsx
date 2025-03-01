@@ -15,6 +15,9 @@ import { BridgeStepProps } from "@/types";
 import { networkItems, tokenItems } from "@/config";
 import { useAccount, WagmiContext } from "wagmi";
 import { truncateAddress } from "@/utils/functions";
+import { writeContract, waitForTransactionReceipt, simulateContract } from "@wagmi/core";
+import { erc20ABI, bridgeABI } from "@/services/abi";
+import { parseEther, getAddress } from "viem";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -33,29 +36,60 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 const ThirdStep = (stepProps: BridgeStepProps) => {
   const account = useAccount();
   const config = useContext(WagmiContext);
+  if (!config) {
+    console.error("WagmiContext is not available");
+    return <></>;
+  }
+  if (!account) {
+    console.error("Wallet is not connected");
+    return <></>;
+  }
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [text, setText] = useState(false)
   const [loading, setLoading] = useState(false)
   const [check_1, setCheck_1] = useState(false)
   const [check_2, setCheck_2] = useState(false)
   const [check_3, setCheck_3] = useState(false)
-  const handleStart = () => {
+  const handleStart = async () => {
     setText(true)
+    setLoading(true);
+    setCheck_1(true);
+    const tokenAddress = tokenItems[stepProps.from].find((item) => item.symbol == stepProps.symbol)?.address;
+    if (!tokenAddress) return;
+    const formattedTokentAddress = getAddress(tokenAddress);
 
+    const bridgeAddress = networkItems.find((item) => item.chainId == stepProps.from)?.bridge;
+    if (!bridgeAddress) return;
+    const formattedBridgeAddress = getAddress(bridgeAddress);
 
-    setTimeout(() => {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false)
-        setCheck_1(true);
-        setTimeout(() => {
-          setCheck_2(true);
-          setTimeout(() => {
-            setCheck_3(true)
-          }, 3000);
-        }, 3000);
-      }, 3000);
-    }, 3000);
+    const amountWei = parseEther(stepProps.amount.toString());
+
+    const approveTx = await writeContract(config, {
+      abi: erc20ABI,
+      address: formattedTokentAddress,
+      functionName: "approve",
+      args: [formattedBridgeAddress, amountWei],
+      chainId: stepProps.from
+    });
+
+    const reciptApprove = await waitForTransactionReceipt(config, { hash: approveTx });
+
+    const { request } = await simulateContract(config, {
+      abi: bridgeABI,
+      address: formattedBridgeAddress,
+      functionName: "depositToken",
+      args: [
+        formattedTokentAddress,
+        amountWei.toString(),
+        account.address,
+        stepProps.from.toString()
+      ],
+      chainId: stepProps.from
+    });
+    const tx = await writeContract(config, request);
+    setLoading(false)
+    setCheck_2(true);
+    setCheck_3(true)
   };
 
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
@@ -161,16 +195,16 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
                 alignItems: "center",
               }}
             >
-              <Typography component={"img"} src={networkItems.find((item)=>item.chainId==stepProps.from)?.icon} width={32} height = {32} />
+              <Typography component={"img"} src={networkItems.find((item) => item.chainId == stepProps.from)?.icon} width={32} height={32} />
               <Box>
-                <Typography className="text_">Start on {networkItems.find((item)=>item.chainId==stepProps.from)?.label}</Typography>
+                <Typography className="text_">Start on {networkItems.find((item) => item.chainId == stepProps.from)?.label}</Typography>
                 <Typography
                   className="light_dark_text"
                   sx={{
                     fontSize: "13px !important",
                   }}
                 >
-                  <Typography component={"img"} src={fuel.src} /> {stepProps.estimatedGas} {networkItems.find((item)=>item.chainId==stepProps.from)?.symbol}
+                  <Typography component={"img"} src={fuel.src} /> {stepProps.estimatedGas} {networkItems.find((item) => item.chainId == stepProps.from)?.symbol}
                 </Typography>
               </Box>
             </Box>
@@ -237,12 +271,12 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
             >
               <Typography
                 component={"img"}
-                src={networkItems.find((item)=>item.chainId==stepProps.to)?.icon}
+                src={networkItems.find((item) => item.chainId == stepProps.to)?.icon}
                 width={32}
                 height={32}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
-              Get {stepProps.amount} {stepProps.symbol} on {networkItems.find((item)=>item.chainId==stepProps.to)?.label}
+              Get {stepProps.amount} {stepProps.symbol} on {networkItems.find((item) => item.chainId == stepProps.to)?.label}
             </Typography>
             {check_3 && <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />}
           </Box>
@@ -265,18 +299,18 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
             <Typography className="text_">
               <Typography
                 component={"img"}
-                src={networkItems.find((item)=>item.chainId==stepProps.from)?.icon}
+                src={networkItems.find((item) => item.chainId == stepProps.from)?.icon}
                 width={32}
                 height={32}
                 sx={{ width: "18px", height: "18px" }}
               />{" "}
-              From {networkItems.find((item)=>item.chainId==stepProps.from)?.label}
+              From {networkItems.find((item) => item.chainId == stepProps.from)?.label}
             </Typography>
             <Typography className="text_">
               {stepProps.amount} {stepProps.symbol}{" "}
               <Typography
                 component={"img"}
-                src={tokenItems[stepProps.from].find((item)=>item.symbol==stepProps.symbol)?.icon}
+                src={tokenItems[stepProps.from].find((item) => item.symbol == stepProps.symbol)?.icon}
                 width={28}
                 height={28}
                 sx={{ verticalAlign: "middle" }}
@@ -287,18 +321,18 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
             <Typography className="text_">
               <Typography
                 component={"img"}
-                src={networkItems.find((item)=>item.chainId==stepProps.to)?.icon}
+                src={networkItems.find((item) => item.chainId == stepProps.to)?.icon}
                 width={32}
                 height={32}
                 sx={{ width: "18px", height: "18px", borderRadius: "5px" }}
               />{" "}
-              To {networkItems.find((item)=>item.chainId==stepProps.to)?.label}
+              To {networkItems.find((item) => item.chainId == stepProps.to)?.label}
             </Typography>
             <Typography className="text_">
               {stepProps.amount} {stepProps.symbol}{" "}
               <Typography
                 component={"img"}
-                src={tokenItems[stepProps.to].find((item)=>item.symbol==stepProps.symbol)?.icon}
+                src={tokenItems[stepProps.to].find((item) => item.symbol == stepProps.symbol)?.icon}
                 width={28}
                 height={28}
                 sx={{ verticalAlign: "middle" }}

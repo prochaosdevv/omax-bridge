@@ -95,6 +95,23 @@ const Bridge = () => {
     else return "0 " + symbol;
   }
 
+  const getTitle = () => {
+    if (getTokenBalance1(selectedCoin) > Number(amount) && account != undefined && account.address != undefined) 
+      return "Review Bridge";
+    else return "Insufficient Balance";
+  }
+
+  const onReviewClick = () => {
+    setIsModalOpen(true);
+  }
+
+  const getTokenBalance1 = (symbol: string) => {
+    if (walletBalance.length == 0) return 0;
+    const tokenInfo = walletBalance.find(token => token.symbol === symbol);
+    if (tokenInfo != undefined) return Number(tokenInfo.balance);
+    else return 0;
+  }
+
   const getTokenPrice = (symbol: string) => {
     if (walletBalance.length == 0) return "$ 0";
     const tokenInfo = walletBalance.find(token => token.symbol === symbol);
@@ -551,9 +568,10 @@ const Bridge = () => {
             mt: "1.5rem",
             // fontFamily: Inter_font.style.fontFamily,
           }}
-          onClick={() => setIsModalOpen(true)}
+          disabled={getTokenBalance1(selectedCoin) < Number(amount) || account == undefined || account.address == undefined}
+          onClick={() => onReviewClick()}
         >
-          Review Bridge
+          {getTitle()}
         </Button>
       </Box>
       {

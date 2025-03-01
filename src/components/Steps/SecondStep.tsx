@@ -4,8 +4,14 @@ import base from "../../assets/base_step_2.png";
 import { Box, Button, Checkbox, Typography } from "@mui/material";
 import { BridgeStepProps } from "@/types";
 import { networkItems } from "@/config";
+import { useAccount } from "wagmi";
 
 const SecondStep = (stepProps: BridgeStepProps) => {
+  const account = useAccount();
+  if (!account) {
+    console.error("Wallet is not connected");
+    return <></>;
+  }
   return (
     <Box textAlign={"center"} my={"1rem"}>
       <Typography

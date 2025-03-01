@@ -16,7 +16,10 @@ import { getLogoWidth, truncateAddress } from "@/utils/functions";
 
 const FirstStep = (stepProps: BridgeStepProps) => {
   const account = useAccount();
-
+  if (!account) {
+    console.error("Wallet is not connected");
+    return <></>;
+  }
   return (
     <Box>
       <Typography
