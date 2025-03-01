@@ -51,6 +51,11 @@ body {
   height: 100%;
 
 }
+/* ul {
+  color: var(--foreground);
+  background: var(--background);
+
+} */
 
 
 * {

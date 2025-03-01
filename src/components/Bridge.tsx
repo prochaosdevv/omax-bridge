@@ -10,16 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 // import { Inter, Jost } from "next/font/google";
-import React, { useState } from "react";
-import op from "../assets/op.svg";
-import eth from "../assets/eth.svg";
-import bridge from "../assets/bridge.svg";
-import setting from "../assets/setting_icon.svg";
-import clock from "../assets/clock_icon.svg";
-import base_icon from "../assets/base_icon.svg";
+import React, { useContext, useState } from "react";
 import base_icon_ from "../assets/base_icon_.svg";
-import eth_icon from "../assets/eth_icon.svg";
-import usdc_icon from "../assets/usdc_icon.svg";
 
 import usdt_omax from "../assets/usdt_omax-01.svg";
 import usdc_eth from "../assets/usdc_eth-01.svg";
@@ -45,6 +37,8 @@ import ActivityModal from "./ActivityModal";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { ContractContext } from "@/Context/ContractContext";
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -69,7 +63,14 @@ const networkToItems = [
 ];
 
 const Bridge = () => {
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
+  const {currentLang,setCurrentLang}=useContext(ContractContext)
+  const changeLanguage = (languageCode: string) => {
+    localStorage.setItem("lang", languageCode);
+    setCurrentLang(languageCode);
+    // setAnchorEl_lang(null)
+    i18n.changeLanguage(languageCode);
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -234,6 +235,16 @@ const Bridge = () => {
                     "& fieldset": { border: "none" },
                     "& svg": { display: "none" },
                   }}
+                  
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                       background: `var(--common) !important`,
+                  color:"var(--foreground) !important",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
+                      },
+                    },
+                  }}
                 >
                   {networkToItems.map((item) => (
                     <MenuItem key={item.value} value={item.value}>
@@ -285,6 +296,15 @@ const Bridge = () => {
                     },
                     "& fieldset": { border: "none" },
                     "& svg": { display: "none" },
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                       background: `var(--common) !important`,
+                  color:"var(--foreground) !important",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
+                      },
+                    },
                   }}
                 >
                   {networkToItems.map((item) => (
@@ -351,6 +371,15 @@ const Bridge = () => {
                   },
                   "& svg": {
                     color: "#fff",
+                  },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                     background: `var(--common) !important`,
+                color:"var(--foreground) !important",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
+                    },
                   },
                 }}
               >
@@ -503,6 +532,15 @@ const Bridge = () => {
          {t("Review Bridge")}
         </Button>
       </Box>
+     {currentLang!=="en"&& <Typography py={"1rem"} sx={{
+        fontSize:"12px",
+        textAlign:"center",
+        color:"var(--foreground)",
+        opacity:"0.7",
+        "&:hover":{
+          opacity:"0.9"
+        }
+      }}>OMAX {t("Bridge")} {t("available in")}: <Link href={"/"}><b style={{textDecoration:"underline"}} onClick={()=>changeLanguage("en")}>English</b></Link></Typography>}
       {
         isModalOpen && (
           <ReviewBridge

@@ -6,11 +6,15 @@ interface ContractContextType {
   setSelectedChain: React.Dispatch<React.SetStateAction<string>>;
   theme: string;
   setTheme: React.Dispatch<React.SetStateAction<string>>;
+  currentLang: string;
+  setCurrentLang: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const defaultContext: ContractContextType = {
   selectedChain:"0",
   setSelectedChain: () => {},
+  currentLang:"en",
+  setCurrentLang: () => {},
   theme:"dark",
   setTheme: () => {},
 };
@@ -21,6 +25,7 @@ export const ContractContext = createContext<ContractContextType>(defaultContext
 const ContractContextProvider = ({ children }: { children: ReactNode }) => {
   const [selectedChain, setSelectedChain] = useState("0");
   const [theme, setTheme] = useState("dark");
+  const [currentLang, setCurrentLang] = useState<string>("en");
 
   useEffect(( ) => {
     if(typeof window !== "undefined") {
@@ -29,7 +34,7 @@ const ContractContextProvider = ({ children }: { children: ReactNode }) => {
   },[])
 
   return (
-    <ContractContext.Provider value={{ selectedChain, setSelectedChain,theme, setTheme}}>
+    <ContractContext.Provider value={{currentLang, setCurrentLang, selectedChain, setSelectedChain,theme, setTheme}}>
       {children}
     </ContractContext.Provider>
   );
