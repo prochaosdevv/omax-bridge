@@ -27,10 +27,20 @@ export interface BridgeStepProps {
   fee: number;
 }
 
+export interface AgreedProps {
+  agreed: boolean;
+  setAgreed: (value: boolean) => void;
+}
+
 export interface ModalProps {
   isDialogOpen: boolean;
   setIsDialogOpen: (value: boolean) => void;
   stepProps: BridgeStepProps;
+};
+
+export interface ConnectModalProps {
+  isDialogOpen: boolean;
+  setIsDialogOpen: (value: boolean) => void;
 };
 
 export interface NetworkInfo {

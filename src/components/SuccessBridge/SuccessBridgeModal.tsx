@@ -59,6 +59,7 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
 export default function SuccessBridgeModal({
   isDialogOpen,
   setIsDialogOpen,
+  stepProps
 }: ModalProps) {
   return (
     <Dialog
@@ -98,7 +99,8 @@ export default function SuccessBridgeModal({
         <Typography />
       </BootstrapDialogTitle>
       <DialogContent>
-        <SuccessfullBridge />
+        <SuccessfullBridge
+          {...stepProps} />
       </DialogContent>
     </Dialog>
   );

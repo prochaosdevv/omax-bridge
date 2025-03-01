@@ -13,7 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import metamask from "../assets/MetaMASK.svg";
 import coin_wallet from "../assets/coin_wallet.svg";
 import wallet_connect from "../assets/wallet_connect.svg";
-import { ModalProps } from "@/types";
+import { ConnectModalProps } from "@/types";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -69,7 +69,7 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
   );
 }
 
-export default function ConnectModal({ isDialogOpen, setIsDialogOpen }: ModalProps) {
+export default function ConnectModal({ isDialogOpen, setIsDialogOpen }: ConnectModalProps) {
   return (
     <Dialog
       onClose={() => setIsDialogOpen(false)}

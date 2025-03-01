@@ -17,11 +17,11 @@ import React, { useState, useContext, useEffect } from "react";
 // import setting from "../assets/setting_icon.svg";
 // import clock from "../assets/clock_icon.svg";
 // import base_icon from "../assets/base_icon.svg";
-import base_icon_ from "../assets/base_icon_.svg";
+// import base_icon_ from "../assets/base_icon_.svg";
 // import eth_icon from "../assets/eth_icon.svg";
 // import usdc_icon from "../assets/usdc_icon.svg";
 
-import usdc_logo from "../assets/usdc_logo.svg";
+// import usdc_logo from "../assets/usdc_logo.svg";
 import available from "../assets/available.svg";
 // import dollar from "../assets/dollar.svg";
 // import SettingsIcon from '@mui/icons-material/Settings';
@@ -34,7 +34,6 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { networkItems, tokenItems } from "@/config";
 import { useAccount, WagmiContext } from "wagmi";
-import { readContracts } from "@wagmi/core";
 import { getWalletBalance, estimateTransactionGas, estimateTransactionTime } from "@/services/abi";
 import { TokenBalance } from "@/types";
 import { decimalFromEth, formatTime, getLogoWidth } from "@/utils/functions";
@@ -44,6 +43,9 @@ import { decimalFromEth, formatTime, getLogoWidth } from "@/utils/functions";
 //   subsets: ["latin"],
 //   weight: "400",
 // });
+
+const sourceChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "332" : "311");
+const targetChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "97" : "1");
 
 const Bridge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,26 +58,38 @@ const Bridge = () => {
   const [activityOpen, setActivityOpen] = useState(false);
   // const [settingOpen, setSettingOpen] = useState(false);
 
-  const [selectedFrom, setSelectedFrom] = useState("311"); // Default to OMAX
-  const [selectedTo, setSelectedTo] = useState("1"); // Default to Ethereum
+  const [selectedFrom, setSelectedFrom] = useState(sourceChain); // Default to OMAX
+  const [selectedTo, setSelectedTo] = useState(targetChain); // Default to Ethereum
   const [walletBalance, setWalletBalance] = useState([] as TokenBalance[]);
   const [estimatedGas, setEstimatedGas] = useState('0');
   const [estimatedTransactionTime, setEstimatedTransactionTime] = useState('0sec');
+  const [selectedCoin, setSelectedCoin] = useState("USDC");
 
   const handleFromChange = (event: SelectChangeEvent<string>) => {
-    if (event.target.value != selectedTo)
-      setSelectedFrom(event.target.value);
+    setSelectedFrom(event.target.value);
+    if (selectedTo == sourceChain && event.target.value == sourceChain)
+      setSelectedTo(targetChain);
+    else if (sourceChain != event.target.value)
+      setSelectedTo(sourceChain);
   };
 
   const handleToChange = (event: SelectChangeEvent<string>) => {
-    if (event.target.value != selectedFrom)
-      setSelectedTo(event.target.value);
+    setSelectedTo(event.target.value);
+    if (selectedFrom == sourceChain && event.target.value == sourceChain)
+      setSelectedFrom(targetChain);
+    else if (event.target.value != sourceChain)
+      setSelectedFrom(sourceChain)
   };
 
-  const [selectedCoin, setSelectedCoin] = useState("USDC");
   const handleCoin = (event: SelectChangeEvent<string>) => {
     const selectedCoin = event.target.value;
     setSelectedCoin(selectedCoin);
+  };
+
+  const handleChange = () => {
+    const source = selectedFrom;
+    setSelectedFrom(selectedTo);
+    setSelectedTo(source);
   };
 
   useEffect(() => {
@@ -96,7 +110,7 @@ const Bridge = () => {
   }
 
   const getTitle = () => {
-    if (getTokenBalance1(selectedCoin) > Number(amount) && account != undefined && account.address != undefined) 
+    if (getTokenBalance1(selectedCoin) > Number(amount) && account != undefined && account.address != undefined)
       return "Review Bridge";
     else return "Insufficient Balance";
   }
@@ -266,7 +280,9 @@ const Bridge = () => {
               top: "50%",
               left: "51%",
               transform: "translate(-50%, -50%)",
-            }}>
+            }}
+              onClick={() => handleChange()}
+            >
               <ArrowForwardIosIcon sx={{ fontSize: "1rem", color: "var(--light_dark)" }} />
             </Box>
             <Box className="box">
@@ -582,7 +598,7 @@ const Bridge = () => {
             stepProps={{
               amount: Number(amount),
               from: Number(selectedFrom),
-              to: Number(selectedTo),              
+              to: Number(selectedTo),
               estimatedGas: Number(estimatedGas),
               estimatedTime: estimatedTransactionTime,
               symbol: selectedCoin,
@@ -599,7 +615,7 @@ const Bridge = () => {
             stepProps={{
               amount: Number(amount),
               from: Number(selectedFrom),
-              to: Number(selectedTo),              
+              to: Number(selectedTo),
               estimatedGas: Number(estimatedGas),
               estimatedTime: estimatedTransactionTime,
               symbol: selectedCoin,

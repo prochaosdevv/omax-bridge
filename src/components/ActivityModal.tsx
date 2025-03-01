@@ -10,12 +10,15 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 // import { Inter, Jost } from "next/font/google";
-import eth from "../assets/eth.svg";
-import base_ from "../assets/base_step_2.png";
+// import eth from "../assets/eth.svg";
+// import base_ from "../assets/base_step_2.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useState } from "react";
 import SuccessBridgeModal from "./SuccessBridge/SuccessBridgeModal";
 import { ModalProps } from "@/types";
+import { truncateAddress } from "@/utils/functions";
+import { useAccount } from "wagmi";
+import { networkItems } from "@/config";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -67,6 +70,10 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
 }
 
 export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps }: ModalProps) {
+  const account = useAccount();
+  if (!account) {
+    return <></>;
+  }
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <Dialog
@@ -139,7 +146,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
               sx={{ opacity: "0.6" }}
               component={"span"}
             >
-              0xabc....4f9E
+              {truncateAddress(account.address)}
             </Typography>
           </Typography>
         </Box>
@@ -168,7 +175,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
                 alignItems: "center",
               }}
             >
-              <Typography component={"img"} src={eth.src} />
+              <Typography component={"img"} src={networkItems.find((item)=>item.chainId==stepProps.to)?.icon} width={32} height={32} />
               <Box>
                 <Typography
                   className="light_dark_text"
@@ -176,17 +183,17 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
                     fontSize: "13px !important",
                   }}
                 >
-                  6 minutes ago
+                  {stepProps.estimatedTime} ago
                 </Typography>
                 <Typography
                   className="foreground_text"
                   sx={{ fontSize: "20px !important" }}
                 >
-                  0.001 USDC
+                  {stepProps.amount} {stepProps.symbol}
                 </Typography>
               </Box>
             </Box>
-            <Typography
+            {/* <Typography
               className="light_dark_text"
               sx={{
                 fontSize: "13px !important",
@@ -211,7 +218,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
                 src={base_.src}
                 sx={{ width: "18px", height: "18px", borderRadius: "5px" }}
               />
-            </Typography>
+            </Typography> */}
           </Box>
           <Box
             sx={{
@@ -232,6 +239,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
       <SuccessBridgeModal
         isDialogOpen={isModalOpen}
         setIsDialogOpen={setIsModalOpen}
+        stepProps={stepProps}
       />
     </Dialog>
   );

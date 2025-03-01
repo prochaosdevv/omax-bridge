@@ -2,19 +2,20 @@
 import React, { useState } from "react";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import usdc from "../../assets/usdc_step_3.png";
-import usdc_icon from "../../assets/usdc_icon.svg";
+// import usdc_icon from "../../assets/usdc_icon.svg";
 import watch from "../../assets/watch.svg";
 import fuel from "../../assets/fuel.svg";
-import eth from "../../assets/eth.svg";
 import via from "../../assets/via.svg";
-import base_icon from "../../assets/base_icon_.svg";
-import base_ from "../../assets/base_step_2.png";
 import HelpIcon from "@mui/icons-material/Help";
 // import what from "../../assets/what.svg";
 // import dollar from "../../assets/gray_dollar.svg";
 import add_from from "../../assets/from.svg";
 import add_to from "../../assets/to.svg";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { BridgeStepProps } from "@/types";
+import { networkItems, tokenItems } from "@/config";
+import { truncateAddress } from "@/utils/functions";
+import { useAccount } from "wagmi";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -30,7 +31,11 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
   );
 };
 
-const SuccessfullBridge = () => {
+const SuccessfullBridge = (stepProps: BridgeStepProps) => {
+  const account = useAccount();
+  if (!account) {
+    return <></>;
+  }
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
@@ -61,9 +66,9 @@ const SuccessfullBridge = () => {
           fontWeight: "600",
         }}
       >
-        Bridge 0.001 USDC
+        Bridge {stepProps.amount} {stepProps.symbol}
       </Typography>
-      <Typography
+      {/* <Typography
         sx={{
           pb: "0.5rem",
           fontSize: "13px",
@@ -71,7 +76,7 @@ const SuccessfullBridge = () => {
         }}
       >
         Via Native Bridge
-      </Typography>
+      </Typography> */}
       <Box
         sx={{
           display: "flex",
@@ -136,16 +141,16 @@ const SuccessfullBridge = () => {
                 alignItems: "center",
               }}
             >
-              <Typography component={"img"} src={eth.src} />
+              <Typography component={"img"} src={networkItems.find((item) => item.chainId == stepProps.from)?.icon} width={32} height={32} />
               <Box>
-                <Typography className="text_">Start on Sepolia</Typography>
+                <Typography className="text_">Start on {networkItems.find((item) => item.chainId == stepProps.from)?.label}</Typography>
                 <Typography
                   className="light_dark_text"
                   sx={{
                     fontSize: "13px !important",
                   }}
                 >
-                  <Typography component={"img"} src={fuel.src} /> 0.0003562 ETH
+                  <Typography component={"img"} src={fuel.src} /> {stepProps.estimatedGas} {networkItems.find((item) => item.chainId == stepProps.from)?.symbol}
                 </Typography>
               </Box>
             </Box>
@@ -169,7 +174,7 @@ const SuccessfullBridge = () => {
                 src={watch.src}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
-              Wait 6 mins
+              Wait {stepProps.estimatedTime}
             </Typography>
             <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
           </Box>
@@ -187,10 +192,12 @@ const SuccessfullBridge = () => {
             >
               <Typography
                 component={"img"}
-                src={base_icon.src}
+                src={networkItems.find((item) => item.chainId == stepProps.to)?.icon}
+                width={32}
+                height={32}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
-              Get 0.001 USDC on Base Sepolia
+              Get {stepProps.amount} {stepProps.symbol} on {networkItems.find((item) => item.chainId == stepProps.to)?.label}
             </Typography>
             <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
           </Box>
@@ -213,16 +220,20 @@ const SuccessfullBridge = () => {
             <Typography className="text_">
               <Typography
                 component={"img"}
-                src={eth.src}
+                src={networkItems.find((item) => item.chainId == stepProps.from)?.icon}
+                width={32}
+                height={32}
                 sx={{ width: "18px", height: "18px" }}
               />{" "}
-              From Sepolia
+              From {networkItems.find((item) => item.chainId == stepProps.from)?.label}
             </Typography>
             <Typography className="text_">
-              0.001 USDC{" "}
+              {stepProps.amount} {stepProps.symbol}{" "}
               <Typography
                 component={"img"}
-                src={usdc_icon.src}
+                src={tokenItems[stepProps.from].find((item)=>item.symbol==stepProps.symbol)?.icon}
+                width={32}
+                height={32}
                 sx={{ verticalAlign: "middle" }}
               />
             </Typography>
@@ -231,16 +242,20 @@ const SuccessfullBridge = () => {
             <Typography className="text_">
               <Typography
                 component={"img"}
-                src={base_.src}
+                src={networkItems.find((item) => item.chainId == stepProps.to)?.icon}
+                width={32}
+                height={32}
                 sx={{ width: "18px", height: "18px", borderRadius: "5px" }}
               />{" "}
-              To Base Sepolia
+              To {networkItems.find((item) => item.chainId == stepProps.to)?.label}
             </Typography>
             <Typography className="text_">
-              0.001 USDC{" "}
+              {stepProps.amount} {stepProps.symbol}{" "}
               <Typography
                 component={"img"}
-                src={usdc_icon.src}
+                src={tokenItems[stepProps.to].find((item)=>item.symbol==stepProps.symbol)?.icon}
+                width={32}
+                height={32}
                 sx={{ verticalAlign: "middle" }}
               />
             </Typography>
@@ -249,32 +264,32 @@ const SuccessfullBridge = () => {
             <Typography className="text_">
               <Typography component={"img"} src={via.src} /> Via
             </Typography>
-            <Typography className="text_">
+            {/* <Typography className="text_">
               Native Bridge{" "}
               <Typography
                 component={"img"}
                 src={base_icon.src}
                 sx={{ verticalAlign: "middle" }}
               />
-            </Typography>
+            </Typography> */}
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
               <Typography component={"img"} src={add_from.src} /> From Address
             </Typography>
-            <Typography className="text_">0xabc....4f9E</Typography>
+            <Typography className="text_">{truncateAddress(account.address)}</Typography>
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
               <Typography component={"img"} src={add_to.src} /> To Address
             </Typography>
-            <Typography className="text_">0xabc....4f9E</Typography>
+            <Typography className="text_">{truncateAddress(account.address)}</Typography>
           </Box>
           <Box className="flex">
             <Typography className="text_">
               <Typography component={"img"} src={watch.src} /> Transfer Time
             </Typography>
-            <Typography className="text_">-6mins</Typography>
+            <Typography className="text_">-{stepProps.estimatedTime}</Typography>
           </Box>
         </Box>
       </TabPanel>

@@ -19,21 +19,11 @@ export const omaxtestnet = defineChain({
   },
 });
 
-export const chains = [
-  mainnet,
-  bsc,
-  omax,
-  ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [bscTestnet, omaxtestnet] : []),
-];
+export const chains = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [bscTestnet, omaxtestnet] : [mainnet, bsc, omax]);
 
 export const config = getDefaultConfig({
   appName: 'RainbowKit demo',
   projectId: 'YOUR_PROJECT_ID',
-  chains: [
-    mainnet,
-    bsc,
-    omax,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [bscTestnet, omaxtestnet] : []),
-  ],
+  chains: (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [bscTestnet, omaxtestnet] : [mainnet, bsc, omax]),
   ssr: true,
 });

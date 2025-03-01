@@ -18,6 +18,7 @@ import { truncateAddress } from "@/utils/functions";
 import { writeContract, waitForTransactionReceipt, simulateContract } from "@wagmi/core";
 import { erc20ABI, bridgeABI } from "@/services/abi";
 import { parseEther, getAddress } from "viem";
+import { bridging } from "@/api";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,7 +41,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     console.error("WagmiContext is not available");
     return <></>;
   }
-  if (!account) {
+  if (!account || !account.address) {
     console.error("Wallet is not connected");
     return <></>;
   }
@@ -62,6 +63,9 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     if (!bridgeAddress) return;
     const formattedBridgeAddress = getAddress(bridgeAddress);
 
+    const withdrawToken = tokenItems[stepProps.to].find((item)=>item.symbol==stepProps.symbol)?.address;
+    if (!withdrawToken) return;
+
     const amountWei = parseEther(stepProps.amount.toString());
 
     const approveTx = await writeContract(config, {
@@ -82,12 +86,13 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
         formattedTokentAddress,
         amountWei.toString(),
         account.address,
-        stepProps.from.toString()
+        stepProps.to.toString()
       ],
       chainId: stepProps.from
     });
-    const tx = await writeContract(config, request);
+    const tx = await writeContract(config, request);    
     setLoading(false)
+    await bridging(account.address||"0x", stepProps.amount.toString(), formattedTokentAddress, tx, stepProps.from, account.address||"0x", stepProps.fee, stepProps.to, withdrawToken );
     setCheck_2(true);
     setCheck_3(true)
   };

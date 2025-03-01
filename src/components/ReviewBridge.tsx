@@ -107,6 +107,8 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
     }
   };
 
+  const [agreed, setAgreed] = useState(false);
+
   return (
     <Dialog
       onClose={() => setIsDialogOpen(false)}
@@ -182,10 +184,10 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
       </BootstrapDialogTitle>
       <DialogContent>
         {activeStep === 0 && <FirstStep {...stepProps}/>}
-        {activeStep === 1 && <SecondStep {...stepProps}/>}
+        {activeStep === 1 && <SecondStep stepProps={stepProps} agreedProps={{ agreed, setAgreed }} />}
         {activeStep === 2 && <ThirdStep {...stepProps}/>}
         {activeStep !== 2 && <Box mt={"1.5rem"}>
-          <Button className="common_btn" onClick={handleNext}>
+          <Button className="common_btn" onClick={handleNext} disabled={activeStep!=1 ? false : agreed}>
             {activeStep < steps.length - 1 ? "Continue" : "Finish"}
           </Button>
         </Box>}

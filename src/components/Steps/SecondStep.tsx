@@ -2,16 +2,18 @@
 import React from "react";
 import base from "../../assets/base_step_2.png";
 import { Box, Button, Checkbox, Typography } from "@mui/material";
-import { BridgeStepProps } from "@/types";
+import { BridgeStepProps, AgreedProps } from "@/types";
 import { networkItems } from "@/config";
 import { useAccount } from "wagmi";
 
-const SecondStep = (stepProps: BridgeStepProps) => {
+const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; agreedProps: AgreedProps }) => {
+  console.log("stepProps: ", stepProps)
   const account = useAccount();
   if (!account) {
     console.error("Wallet is not connected");
     return <></>;
   }
+  
   return (
     <Box textAlign={"center"} my={"1rem"}>
       <Typography
@@ -27,7 +29,7 @@ const SecondStep = (stepProps: BridgeStepProps) => {
         }}
       >
         Make sure the wallet you’re
-        <br /> bridging to supports {networkItems.find((item)=>item.chainId==stepProps.to)?.label}
+        <br /> bridging to supports {networkItems.find((item) => item.chainId == stepProps.to)?.label}
       </Typography>
       <Typography
         sx={{
@@ -36,7 +38,7 @@ const SecondStep = (stepProps: BridgeStepProps) => {
           opacity: "0.7",
         }}
       >
-        Check {networkItems.find((item)=>item.chainId==stepProps.to)?.label} before your bridge <br />
+        Check {networkItems.find((item) => item.chainId == stepProps.to)?.label} before your bridge <br />
         or you may lose your crypto. Do not
         <br />
         bridge to an exchange.
@@ -67,7 +69,7 @@ const SecondStep = (stepProps: BridgeStepProps) => {
             wordBreak: "break-all"
           }}
         >
-          {networkItems.find((item)=>item.chainId==stepProps.to)?.bridge}
+          {networkItems.find((item) => item.chainId == stepProps.to)?.bridge}
         </Typography>
       </Box>
       <Box
@@ -88,8 +90,8 @@ const SecondStep = (stepProps: BridgeStepProps) => {
             borderRadius: "3px !important",
           }}
           id="terms"
-        // checked={agreed}
-        // onCheckedChange={(value) => setAgreed(value as boolean)}
+          checked={!agreedProps.agreed}
+          onChange={() => agreedProps.setAgreed(!agreedProps.agreed)}
         />
         <Typography
           className="text_"
@@ -98,7 +100,7 @@ const SecondStep = (stepProps: BridgeStepProps) => {
             fontWeight: "400 !important",
           }}
         >
-          My wallet supports <b>{networkItems.find((item)=>item.chainId==stepProps.to)?.label}</b>
+          My wallet supports <b>{networkItems.find((item) => item.chainId == stepProps.to)?.label}</b>
         </Typography>
       </Box>
     </Box>
