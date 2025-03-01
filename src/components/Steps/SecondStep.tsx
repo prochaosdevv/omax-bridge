@@ -2,8 +2,10 @@
 import React from "react";
 import base from "../../assets/base_step_2.png";
 import { Box, Button, Checkbox, Typography } from "@mui/material";
+import { BridgeStepProps } from "@/types";
+import { networkItems } from "@/config";
 
-const SecondStep = () => {
+const SecondStep = (stepProps: BridgeStepProps) => {
   return (
     <Box textAlign={"center"} my={"1rem"}>
       <Typography
@@ -19,7 +21,7 @@ const SecondStep = () => {
         }}
       >
         Make sure the wallet you’re
-        <br /> bridging to supports Base Sepolina
+        <br /> bridging to supports {networkItems.find((item)=>item.chainId==stepProps.to)?.label}
       </Typography>
       <Typography
         sx={{
@@ -28,7 +30,7 @@ const SecondStep = () => {
           opacity: "0.7",
         }}
       >
-        Check Base Sepolia before your bridge <br />
+        Check {networkItems.find((item)=>item.chainId==stepProps.to)?.label} before your bridge <br />
         or you may lose your crypto. Do not
         <br />
         bridge to an exchange.
@@ -59,7 +61,7 @@ const SecondStep = () => {
             wordBreak: "break-all"
           }}
         >
-          0xA1B2C3D4E5F67890123456789ABCDEF123456789
+          {networkItems.find((item)=>item.chainId==stepProps.to)?.bridge}
         </Typography>
       </Box>
       <Box
@@ -90,7 +92,7 @@ const SecondStep = () => {
             fontWeight: "400 !important",
           }}
         >
-          My wallet supports <b>Base Sepolia</b>
+          My wallet supports <b>{networkItems.find((item)=>item.chainId==stepProps.to)?.label}</b>
         </Typography>
       </Box>
     </Box>

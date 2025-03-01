@@ -3,16 +3,20 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import usdc_logo from "../../assets/usdc_logo.svg";
 import dollar from "../../assets/gray_dollar.svg";
 import watch from "../../assets/watch.svg";
 import fuel from "../../assets/fuel.svg";
 import what from "../../assets/what.svg";
 import via from "../../assets/via.svg";
-import base_icon_ from "../../assets/base_icon_.svg";
+import { useAccount } from "wagmi";
+import { BridgeStepProps } from "@/types";
+import { networkItems, tokenItems } from "@/config";
+import { getLogoWidth, truncateAddress } from "@/utils/functions";
 
 
-const FirstStep = () => {
+const FirstStep = (stepProps: BridgeStepProps) => {
+  const account = useAccount();
+
   return (
     <Box>
       <Typography
@@ -35,7 +39,7 @@ const FirstStep = () => {
       >
         <Box className="flex">
           <Typography className="light_dark_text">
-            Bridge from USDC
+            Bridge from {stepProps.symbol}
           </Typography>
           <Box
             className="flex"
@@ -45,7 +49,7 @@ const FirstStep = () => {
               p: "0.3rem 0.7rem",
             }}
           >
-            <Typography className="foreground_text">0xabc....4f9E</Typography>
+            <Typography className="foreground_text">{truncateAddress(account.address)}</Typography>
           </Box>
         </Box>
         <Typography
@@ -62,7 +66,11 @@ const FirstStep = () => {
             },
           }}
         >
-          <Typography component={"img"} src={usdc_logo.src} /> 0.001 USDC
+          <Typography
+            component={"img"}
+            src={tokenItems[stepProps.from].find((item) => item.symbol == stepProps.symbol)?.icon}
+          />
+          {stepProps.amount} {stepProps.symbol}
         </Typography>
       </Box>
       <Box
@@ -75,7 +83,7 @@ const FirstStep = () => {
       >
         <Box className="flex">
           <Typography className="light_dark_text">
-            Get on Base Sepolia
+            Get on {networkItems.find((item) => item.chainId === stepProps.to)?.label}
           </Typography>
           <Box
             className="flex"
@@ -85,7 +93,7 @@ const FirstStep = () => {
               p: "0.3rem 0.7rem",
             }}
           >
-            <Typography className="foreground_text">0xabc....4f9E</Typography>
+            <Typography className="foreground_text">{truncateAddress(account.address)}</Typography>
           </Box>
         </Box>
         <Typography
@@ -102,7 +110,11 @@ const FirstStep = () => {
             },
           }}
         >
-          <Typography component={"img"} src={usdc_logo.src} /> 0.001 USDC
+          <Typography
+            component={"img"}
+            src={tokenItems[stepProps.to].find((item) => item.symbol == stepProps.symbol)?.icon}
+          />
+          {stepProps.amount} {stepProps.symbol}
         </Typography>
       </Box>
       <Box
@@ -116,7 +128,7 @@ const FirstStep = () => {
           }
         }}
       >
-        <Box className="flex" mb={"1rem"}>
+        {/* <Box className="flex" mb={"1rem"}>
           <Typography className="text_">
             <Typography component={"img"} src={via.src} /> Via
           </Typography>
@@ -128,13 +140,13 @@ const FirstStep = () => {
               sx={{ verticalAlign: "middle" }}
             />
           </Typography>
-        </Box>
+        </Box> */}
         <Box className="flex" mb={"1rem"}>
           <Typography className="text_">
             <Typography component={"img"} src={watch.src} /> Transfer Time
           </Typography>
           <Typography className="text_">
-            -6mins
+            ~{stepProps.estimatedTime}
 
           </Typography>
         </Box>
@@ -143,7 +155,7 @@ const FirstStep = () => {
             <Typography component={"img"} src={fuel.src} /> Gas Costs
           </Typography>
           <Typography className="text_">
-            0.0003562 ETH{" "}
+            {stepProps.estimatedGas} {networkItems.find((item)=>item.chainId==stepProps.from)?.symbol}{" "}
             <Typography
               component={"img"}
               src={what.src}

@@ -37,7 +37,7 @@ import { useAccount, WagmiContext } from "wagmi";
 import { readContracts } from "@wagmi/core";
 import { getWalletBalance, estimateTransactionGas, estimateTransactionTime } from "@/services/abi";
 import { TokenBalance } from "@/types";
-import { decimalFromEth, formatTime } from "@/utils/functions";
+import { decimalFromEth, formatTime, getLogoWidth } from "@/utils/functions";
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -61,11 +61,6 @@ const Bridge = () => {
   const [walletBalance, setWalletBalance] = useState([] as TokenBalance[]);
   const [estimatedGas, setEstimatedGas] = useState('0');
   const [estimatedTransactionTime, setEstimatedTransactionTime] = useState('0sec');
-
-  const getLogoWidth = (chainId: number) => {
-    if (chainId == 311 || chainId == 332) return 32;
-    else return 28;
-  }
 
   const handleFromChange = (event: SelectChangeEvent<string>) => {
     if (event.target.value != selectedTo)
@@ -117,7 +112,13 @@ const Bridge = () => {
     } else return 0;
   }
 
-  const estimateTime = async()=> {
+  const getLogo = () => {
+    const logo = tokenItems[Number(selectedTo)].find((item) => item.symbol === selectedCoin)?.icon;
+    console.log("logo: ", logo);
+    return logo;
+  }
+
+  const estimateTime = async () => {
     const approveTime = await estimateTransactionTime(Number(selectedFrom), config, BigInt(30000000));
     const withdrawTime = await estimateTransactionTime(Number(selectedTo), config, BigInt(30000000));
     const totalTime = (approveTime * BigInt(2) + withdrawTime) * BigInt(2);
@@ -466,8 +467,14 @@ const Bridge = () => {
             }}
           >
             <Box position={"relative"} lineHeight={0}>
-              <Typography component={"img"} src={usdc_logo.src} />
               <Typography
+                component={"img"}
+                src={getLogo()}
+                width={48}
+                height={48}
+                mr={"0.3rem"}
+              />
+              {/* <Typography
                 component={"img"}
                 src={base_icon_.src}
                 sx={{
@@ -475,7 +482,7 @@ const Bridge = () => {
                   bottom: "0",
                   right: "0",
                 }}
-              />
+              /> */}
             </Box>
             <Box>
               <Typography
@@ -554,6 +561,15 @@ const Bridge = () => {
           <ReviewBridge
             isDialogOpen={isModalOpen}
             setIsDialogOpen={setIsModalOpen}
+            stepProps={{
+              amount: Number(amount),
+              from: Number(selectedFrom),
+              to: Number(selectedTo),              
+              estimatedGas: Number(estimatedGas),
+              estimatedTime: estimatedTransactionTime,
+              symbol: selectedCoin,
+              fee: 0
+            }}
           />
         )
       }
@@ -562,6 +578,15 @@ const Bridge = () => {
           <ActivityModal
             isDialogOpen={activityOpen}
             setIsDialogOpen={setActivityOpen}
+            stepProps={{
+              amount: Number(amount),
+              from: Number(selectedFrom),
+              to: Number(selectedTo),              
+              estimatedGas: Number(estimatedGas),
+              estimatedTime: estimatedTransactionTime,
+              symbol: selectedCoin,
+              fee: 0
+            }}
           />
         )
       }

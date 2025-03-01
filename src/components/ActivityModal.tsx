@@ -66,7 +66,7 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
   );
 }
 
-export default function ActivityModal({ isDialogOpen, setIsDialogOpen }: ModalProps) {
+export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps }: ModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <Dialog

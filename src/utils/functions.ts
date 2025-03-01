@@ -12,29 +12,29 @@ export const fetchAPI = async (
   data: Record<string, any> = {}
 ): Promise<any | null> => {
   return new Promise((resolve) => {
-      if (method === "POST") {
-          axios
-              .post(url, data)
-              .then((response) => {
-                  let json = response.data;
-                  resolve(json);
-              })
-              .catch((error) => {
-                  console.error('[fetchAPI]', error)
-                  resolve(null);
-              });
-      } else {
-          axios
-              .get(url)
-              .then((response) => {
-                  let json = response.data;
-                  resolve(json);
-              })
-              .catch((error) => {
-                  console.error('fetchAPI', error);
-                  resolve(null);
-              });
-      }
+    if (method === "POST") {
+      axios
+        .post(url, data)
+        .then((response) => {
+          let json = response.data;
+          resolve(json);
+        })
+        .catch((error) => {
+          console.error('[fetchAPI]', error)
+          resolve(null);
+        });
+    } else {
+      axios
+        .get(url)
+        .then((response) => {
+          let json = response.data;
+          resolve(json);
+        })
+        .catch((error) => {
+          console.error('fetchAPI', error);
+          resolve(null);
+        });
+    }
   });
 };
 
@@ -42,7 +42,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const truncateAddress = (walletAddress: string, len = 4) => {
+export const truncateAddress = (walletAddress: string |undefined, len = 4) => {
+  if (walletAddress == undefined) return '';
   return walletAddress.slice(0, len) + "..." + walletAddress.slice(-len);
 };
 
@@ -195,19 +196,24 @@ export const decimalToEth = (amount: string) => {
 
 export const decimalFromEth = (amount: number) => {
   if (amount > 0) {
-      return BigInt(Math.floor(amount * (10 ** 18)));
+    return BigInt(Math.floor(amount * (10 ** 18)));
   }
   return BigInt(0);
 }
 
 export async function getTokenPrice(symbol: string) {
   try {
-      const response = await axios.get(`https://api.coinbase.com/v2/prices/${symbol}-USD/spot`);
-      const newPrice = Number(response.data.data.amount);
-      return newPrice;
-      // console.log('SUI Price in USD:', suiPrice, Date.now() / 1000);
+    const response = await axios.get(`https://api.coinbase.com/v2/prices/${symbol}-USD/spot`);
+    const newPrice = Number(response.data.data.amount);
+    return newPrice;
+    // console.log('SUI Price in USD:', suiPrice, Date.now() / 1000);
   } catch (err) {
-      console.error('Error fetching SUI price:', err);
-      return 0;
+    console.error('Error fetching SUI price:', err);
+    return 0;
   }
+}
+
+export const getLogoWidth = (chainId: number) => {
+  if (chainId == 311 || chainId == 332) return 32;
+  else return 28;
 }

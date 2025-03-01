@@ -89,7 +89,7 @@ const DotStepIcon = ({ active = false, completed = false }: DotProps) => {
   );
 };
 
-export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: ModalProps) {
+export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps }: ModalProps) {
   const steps = ["1", "2", "3"];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -181,9 +181,9 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen }: ModalPro
         </Stepper>
       </BootstrapDialogTitle>
       <DialogContent>
-        {activeStep === 0 && <FirstStep />}
-        {activeStep === 1 && <SecondStep />}
-        {activeStep === 2 && <ThirdStep />}
+        {activeStep === 0 && <FirstStep {...stepProps}/>}
+        {activeStep === 1 && <SecondStep {...stepProps}/>}
+        {activeStep === 2 && <ThirdStep {...stepProps}/>}
         {activeStep !== 2 && <Box mt={"1.5rem"}>
           <Button className="common_btn" onClick={handleNext}>
             {activeStep < steps.length - 1 ? "Continue" : "Finish"}

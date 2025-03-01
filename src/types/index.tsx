@@ -17,9 +17,20 @@ export type FormatNumberOptions = {
   placeholder?: string;
 };
 
+export interface BridgeStepProps {
+  amount: number;
+  from: number;
+  to: number;
+  estimatedGas: number;
+  estimatedTime: string;
+  symbol: string;
+  fee: number;
+}
+
 export interface ModalProps {
   isDialogOpen: boolean;
   setIsDialogOpen: (value: boolean) => void;
+  stepProps: BridgeStepProps;
 };
 
 export interface NetworkInfo {
