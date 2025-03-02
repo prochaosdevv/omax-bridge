@@ -15,7 +15,7 @@ import { BridgeStepProps } from "@/types";
 import { networkItems, tokenItems } from "@/config";
 import { useAccount, WagmiContext } from "wagmi";
 import { truncateAddress } from "@/utils/functions";
-import { writeContract, waitForTransactionReceipt, simulateContract } from "@wagmi/core";
+import { writeContract, waitForTransactionReceipt, simulateContract, getBlock } from "@wagmi/core";
 import { erc20ABI, bridgeABI } from "@/services/abi";
 import { parseEther, getAddress } from "viem";
 import { bridging } from "@/api";
@@ -64,11 +64,14 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     if (!bridgeAddress) return;
     const formattedBridgeAddress = getAddress(bridgeAddress);
 
-    const withdrawToken = tokenItems[stepProps.to].find((item)=>item.symbol==stepProps.symbol)?.address;
+    const withdrawToken = tokenItems[stepProps.to].find((item) => item.symbol == stepProps.symbol)?.address;
     if (!withdrawToken) return;
 
     const amountWei = parseEther(stepProps.amount.toString());
 
+    const startBlock = await getBlock(config, {
+      chainId: stepProps.from
+    });
     const approveTx = await writeContract(config, {
       abi: erc20ABI,
       address: formattedTokentAddress,
@@ -91,9 +94,15 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
       ],
       chainId: stepProps.from
     });
-    const tx = await writeContract(config, request);    
+    const tx = await writeContract(config, request);
+    const recipt = await waitForTransactionReceipt(config, { hash: tx });
+    const endBlock = await getBlock(config, {
+      blockNumber: recipt.logs[0].blockNumber,
+      chainId: stepProps.from
+    });
     setLoading(false)
-    await bridging(account.address||"0x", stepProps.amount.toString(), formattedTokentAddress, tx, stepProps.from, account.address||"0x", stepProps.fee, stepProps.to, withdrawToken );
+    const delay = endBlock.timestamp - startBlock.timestamp;
+    await bridging(account.address || "0x", stepProps.amount.toString(), formattedTokentAddress, tx, stepProps.from, account.address || "0x", stepProps.fee, stepProps.to, withdrawToken, Number(delay.toString()));
     setCheck_2(true);
     setCheck_3(true)
   };
@@ -101,6 +110,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
     setTabIndex(newIndex);
   };
+
   return (
     <Box
       textAlign={"center"}
@@ -237,7 +247,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
                   }}
                   onClick={handleStart}
                 >
-              {text ?`${t("Bridging")}..`:t("Start")}
+                  {text ? `${t("Bridging")}..` : t("Start")}
                 </Button>
             }
           </Box>

@@ -13,13 +13,14 @@ import CloseIcon from "@mui/icons-material/Close";
 // import eth from "../assets/eth.svg";
 // import base_ from "../assets/base_step_2.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SuccessBridgeModal from "./SuccessBridge/SuccessBridgeModal";
-import { ModalProps } from "@/types";
-import { truncateAddress } from "@/utils/functions";
+import { BridgeStepProps, ModalProps } from "@/types";
+import { formatTime, truncateAddress } from "@/utils/functions";
 import { useAccount } from "wagmi";
-import { networkItems } from "@/config";
+import { networkItems, tokenItems } from "@/config";
 import { t } from "i18next";
+import { get_history } from "@/api";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -75,7 +76,37 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
   if (!account) {
     return <></>;
   }
+
+  const [bridgeHistory, setBridgeHistory] = useState([]);
+  const [selectHist, setSelectHist] = useState({} as BridgeStepProps);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    async function fetchHist(address: string) {
+      const hist = await get_history(address)
+      console.log("history: ", hist);
+      setBridgeHistory(hist);
+    }
+    if (account && account.address) {
+      fetchHist(account.address)
+    }
+  }, [account]);
+
+  const onSelectHist = (selectNum: number) => {
+    setIsModalOpen(true);
+    const bridgeItem: any = bridgeHistory[selectNum]
+    const hist: BridgeStepProps = {
+      amount: Number(bridgeItem.depositAmount),
+      from: bridgeItem.sourceChainId,
+      to: bridgeItem.targetChainId,
+      estimatedGas: stepProps.estimatedGas,
+      estimatedTime: formatTime(bridgeItem.delay),
+      symbol: tokenItems[bridgeItem.sourceChainId].find((item) => item.address == bridgeItem.depositToken)?.symbol ?? "USDC",
+      fee: bridgeItem.fee
+    }
+    setSelectHist(hist);
+  }
+
   return (
     <Dialog
       onClose={() => setIsDialogOpen(true)}
@@ -128,7 +159,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
             display: "flex",
             justifyContent: "center",
             alignSelf: "center",
-            my: "2rem",
+            my: "2rem"
           }}
         >
           <Typography
@@ -141,7 +172,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
             }}
           >
             {" "}
-           {("ACTIVITY")}{" "}
+            {("ACTIVITY")}{" "}
             <Typography
               className="foreground_text"
               sx={{ opacity: "0.6" }}
@@ -151,96 +182,74 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
             </Typography>
           </Typography>
         </Box>
-        <Box
-          sx={{
-            background: `var(--box_bg)`,
-            borderRadius: "13px",
-            p: "1rem",
-            cursor: "pointer",
-          }}
-          onClick={() => setIsModalOpen(true)}
-        >
+        {bridgeHistory.map((bridgeItem: any, key) => (
           <Box
+            key={key}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: "1rem",
-              //   alignItems: "center",
+              background: `var(--box_bg)`,
+              borderRadius: "13px",
+              p: "1rem",
+              cursor: "pointer",
+              mb: "1rem", // Add margin between elements
             }}
+            onClick={() => onSelectHist(key)}
           >
             <Box
               sx={{
                 display: "flex",
-                gap: "8px",
-                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: "1rem",
+                //   alignItems: "center",
               }}
             >
-              <Typography component={"img"} src={networkItems.find((item)=>item.chainId==stepProps.to)?.icon} width={32} height={32} />
-              <Box>
-                <Typography
-                  className="light_dark_text"
-                  sx={{
-                    fontSize: "13px !important",
-                  }}
-                >
-                  {stepProps.estimatedTime} {t("minutes ago")}
-                </Typography>
-                <Typography
-                  className="foreground_text"
-                  sx={{ fontSize: "20px !important" }}
-                >
-                  {stepProps.amount} {stepProps.symbol}
-                </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "8px",
+                  alignItems: "center",
+                }}
+              >
+                <Typography component={"img"} src={networkItems.find((item) => item.chainId == bridgeItem.sourceChainId)?.icon} width={32} height={32} />
+                <Box>
+                  <Typography
+                    className="light_dark_text"
+                    sx={{
+                      fontSize: "13px !important",
+                    }}
+                  >
+                    {formatTime(Date.now() / 1000 - bridgeItem.timestamp)} {t("ago")}
+                  </Typography>
+                  <Typography
+                    className="foreground_text"
+                    sx={{ fontSize: "20px !important" }}
+                  >
+                    {bridgeItem.depositAmount} {tokenItems[bridgeItem.sourceChainId].find((item) => item.address == bridgeItem.depositToken)?.symbol}
+                  </Typography>
+                </Box>
               </Box>
             </Box>
-            {/* <Typography
-              className="light_dark_text"
+            <Box
               sx={{
-                fontSize: "13px !important",
+                m: "1rem auto 0",
+                width: "88%",
                 display: "flex",
                 gap: "5px",
                 alignItems: "center",
               }}
             >
-              {t("Via Native Bridge")}{" "}
-              <Typography
-                component={"img"}
-                src={eth.src}
-                sx={{
-                  width: "18px",
-                  height: "18px",
-                  borderRadius: "5px",
-                  ml: "5px",
-                }}
-              />
-              <Typography
-                component={"img"}
-                src={base_.src}
-                sx={{ width: "18px", height: "18px", borderRadius: "5px" }}
-              />
-            </Typography> */}
+              <CheckCircleIcon />
+              <Typography className="foreground_text">
+                {t("Bridge successfull")}
+              </Typography>
+            </Box>
           </Box>
-          <Box
-            sx={{
-              m: "1rem auto 0",
-              width: "88%",
-              display: "flex",
-              gap: "5px",
-              alignItems: "center",
-            }}
-          >
-            <CheckCircleIcon />
-            <Typography className="foreground_text">
-              {t("Bridge successfull")}
-            </Typography>
-          </Box>
-        </Box>
+        ))}
       </DialogContent>
       <SuccessBridgeModal
         isDialogOpen={isModalOpen}
         setIsDialogOpen={setIsModalOpen}
-        stepProps={stepProps}
+        stepProps={selectHist}
       />
     </Dialog>
   );

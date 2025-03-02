@@ -9,10 +9,11 @@ export async function bridging(
     to: string,
     fee: number,
     targetChainId: number,
-    withdrawToken: string
+    withdrawToken: string,
+    delay: number,
 ) {
     const result = await axiosPublic.post(`/bridging`, {
-        from, depositAmount, depositToken, depositTransaction, sourceChainId, to, fee, targetChainId, withdrawToken
+        from, depositAmount, depositToken, depositTransaction, sourceChainId, to, fee, targetChainId, withdrawToken, delay
     })
     return result.data
 }
@@ -27,5 +28,4 @@ export async function get_history(
         console.log("error: ", error)
         return null;
     }
-
 }

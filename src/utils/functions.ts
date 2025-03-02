@@ -3,6 +3,7 @@ import millify from "millify";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import axios from 'axios';
+import { t } from "i18next";
 
 import { FormatNumberOptions } from "@/types";
 
@@ -168,23 +169,23 @@ export function formatDuration(timestamp: number): string {
 export function formatTime(time: number): string {
   if (time < 60) {
     // Less than a minute ago
-    return `${time}sec`;
+    return t(`${time}sec`);
   }
 
   const diffInMinutes = Math.floor(time / 60);
   if (diffInMinutes < 60) {
     // Less than an hour ago
-    return `${diffInMinutes}min`;
+    return t(`${diffInMinutes}min`);
   }
 
   const diffInHours = Math.floor(diffInMinutes / 60);
   if (diffInHours < 24) {
     // Less than a day ago
-    return `${diffInHours}hour`;
+    return t(`${diffInHours}hour`);
   }
 
   const diffInDays = Math.floor(diffInHours / 24);
-  return `${diffInDays}day`;
+  return t(`${diffInDays}day`);
 }
 
 export const decimalToEth = (amount: string) => {

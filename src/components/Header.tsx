@@ -247,10 +247,10 @@ const Header = () => {
                 component={"img"}
                 src={logo_mobile.src}
                 className="omx-logo"
-                // sx={{
-                //   width:"48px",
-                //   height:"40px"
-                // }}
+                sx={{
+                  width:"48px",
+                  height:"40px"
+                }}
               />
               <Typography
                 sx={{
