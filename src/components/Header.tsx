@@ -369,6 +369,8 @@ const Header = () => {
                       width="19"
                       height="19"
                       fill="var(--foreground)"
+                      stroke="var(--foreground)"
+                      stroke-width="1"
                       viewBox="0 0 32 32"
                       opacity="0.6"
                     >
@@ -443,13 +445,15 @@ const Header = () => {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="var(--foreground)"
+                      stroke="var(--foreground)"
+                      stroke-width="2"
                       style={{
                         marginRight: "-2px",
                       }}
                       width="20"
                       height="20"
                       viewBox="0 0 64 64"
-                      opacity="0.8"
+                      opacity="0.6"
                     >
                       <g data-name="File Checklist">
                         <path d="M46 41a11 11 0 1 0 11 11 11.013 11.013 0 0 0-11-11zm0 20a9 9 0 1 1 9-9 9.01 9.01 0 0 1-9 9z" />
