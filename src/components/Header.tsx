@@ -206,6 +206,7 @@ const Header = () => {
                     sx: {
                       minWidth: "196px",
                       maxHeight: "350px",
+                      marginTop: "10px",
                       overflow: "auto",
                       // backgroundColor: "rgb(255, 255, 255)",
                       background: "var(--connect_bg) !important",
@@ -213,24 +214,23 @@ const Header = () => {
                         "rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px",
                       border: "none",
                       borderRadius: "12px",
-                      padding: "0.5rem 0px",
+                      padding: "0.1rem 0px",
                       display: "flex",
                       flexDirection: "column",
-                      fontSize: "16px",
                       zIndex: 100,
                     },
                   }}
                   sx={{
                     "& .MuiButtonBase-root":{
                       display: "flex",
-                      paddingTop: "6px",
-                      paddingBottom: "6px",
+                      paddingTop: "5px",
+                      paddingBottom: "8px",
                       minHeight: "auto",
                       justifyContent: "space-between",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       opacity:"0.7",
                       "& p": {
-                        fontSize: "14px",
+                        fontSize: "16px",
                         color: "var(--foreground)",
                       },
                       "&:hover": {
@@ -255,7 +255,6 @@ const Header = () => {
                     target="_blank"
                     href="https://omax.app"
                     onClick={() => setAnchorEl(null)}
-                 
                   >
                     <Typography>{t("About")}</Typography>
                     <svg
@@ -473,7 +472,6 @@ const Header = () => {
                       minWidth: "196px",
                       maxHeight: "350px",
                       overflow: "auto",
-                      // backgroundColor: "rgb(255, 255, 255)",
                       background: "var(--connect_bg) !important",
                       boxShadow:
                         "rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px",
@@ -484,9 +482,8 @@ const Header = () => {
                       flexDirection: "column",
                       fontSize: "16px",
                       position: "absolute !important",
-                      top: "62px !important",
+                      top: "68px !important",
                       p: "0",
-                      // zIndex: 100,
                     },
                   }}
                 >
