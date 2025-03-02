@@ -19,7 +19,7 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
     <Box textAlign={"center"} my={"1rem"}>
       <Typography
         component={"img"}
-        src={base.src}
+        src={networkItems.find((item)=>item.chainId==stepProps.to)?.icon}
         sx={{ width: "67px", height: "67px" }}
       />
       <Typography
@@ -70,7 +70,7 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
             wordBreak: "break-all"
           }}
         >
-          {networkItems.find((item) => item.chainId == stepProps.to)?.bridge}
+          {account.address}
         </Typography>
       </Box>
       <Box
