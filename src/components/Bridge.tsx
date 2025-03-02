@@ -622,8 +622,13 @@ const Bridge = () => {
             mt: "1.5rem",
             // fontFamily: Inter_font.style.fontFamily,
           }}
-          disabled={getTokenBalance1(selectedCoin) < Number(amount) || account == undefined || account.address == undefined}
-          onClick={() => onReviewClick()}
+          // disabled={}
+          onClick={() => {
+              if (getTokenBalance1(selectedCoin) < Number(amount) || account == undefined || account.address == undefined)
+                return
+              onReviewClick()
+            }
+          }
         >
           {getTitle()}
         </Button>

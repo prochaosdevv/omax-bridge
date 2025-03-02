@@ -1,7 +1,7 @@
 import { NetworkInfo } from "@/types";
 import Ethereum from '../assets/Ethereum.svg';
 import bsc_logo from "../assets/BSC.svg";
-import logo_mobile from "../assets/new_logo.png";
+import logo_mobile from "../assets/new_logo_omax.svg";
 
 export const networkItems: NetworkInfo[] = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [
     {
@@ -13,11 +13,11 @@ export const networkItems: NetworkInfo[] = (process.env.NEXT_PUBLIC_ENABLE_TESTN
     },
     {
         chainId: 332,
-        label: "Omax Testnet",
+        label: "OMAX Testnet",
         symbol: "OMAXT",
         bridge: '0x8E99e480d7825Ce95b9D270A3d891c8303259A9d',
         icon: logo_mobile.src,
-        width: "32px",
+        width: "28px",
         height: "28px"
     }
 ]:[
@@ -41,7 +41,7 @@ export const networkItems: NetworkInfo[] = (process.env.NEXT_PUBLIC_ENABLE_TESTN
         symbol: "OMAX",
         bridge: '',
         icon: logo_mobile.src,
-        width: "32px",
+        width: "28px",
         height: "28px"
     }
 ]);
