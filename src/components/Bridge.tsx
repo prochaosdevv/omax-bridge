@@ -9,22 +9,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-// import { Inter, Jost } from "next/font/google";
 import React, { useState, useContext, useEffect } from "react";
-// import op from "../assets/op.svg";
-// import eth from "../assets/eth.svg";
-// import bridge from "../assets/bridge.svg";
-// import setting from "../assets/setting_icon.svg";
-// import clock from "../assets/clock_icon.svg";
-// import base_icon from "../assets/base_icon.svg";
-// import base_icon_ from "../assets/base_icon_.svg";
-// import eth_icon from "../assets/eth_icon.svg";
-// import usdc_icon from "../assets/usdc_icon.svg";
 
-// import usdc_logo from "../assets/usdc_logo.svg";
 import available from "../assets/available.svg";
-// import dollar from "../assets/dollar.svg";
-// import SettingsIcon from '@mui/icons-material/Settings';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import watch from "../assets/watch.svg";
 import fuel from "../assets/fuel.svg";
@@ -42,12 +29,6 @@ import Link from "next/link";
 import { ThemeContext } from "@/context/ThemeContext";
 
 
-// const Inter_font = Inter({
-//   variable: "--font-Inter-sans",
-//   subsets: ["latin"],
-//   weight: "400",
-// });
-
 const sourceChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "332" : "311");
 const targetChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "97" : "1");
 
@@ -57,7 +38,6 @@ const Bridge = () => {
   const changeLanguage = (languageCode: string) => {
     localStorage.setItem("lang", languageCode);
     setCurrentLang(languageCode);
-    // setAnchorEl_lang(null)
     i18n.changeLanguage(languageCode);
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,7 +48,6 @@ const Bridge = () => {
     setAmount(event.target.value);
   };
   const [activityOpen, setActivityOpen] = useState(false);
-  // const [settingOpen, setSettingOpen] = useState(false);
 
   const [selectedFrom, setSelectedFrom] = useState(sourceChain); // Default to OMAX
   const [selectedTo, setSelectedTo] = useState(targetChain); // Default to Ethereum
@@ -439,7 +418,7 @@ const Bridge = () => {
                 displayEmpty
                 aria-label="Network Selector"
                 sx={{
-                  borderRadius: "20px",
+                  borderRadius: "23px",
                   // fontFamily: Inter_font.style.fontFamily,
                   fontWeight: "600",
                   background: "var(--light_dark)",
@@ -475,8 +454,8 @@ const Bridge = () => {
                     <Typography
                       component={"img"}
                       src={item.icon}
-                      width={28}
-                      height={28}
+                      width={32}
+                      height={32}
                       mr={"0.3rem"}
                     />
                     {item.symbol}

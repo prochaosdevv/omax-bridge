@@ -263,8 +263,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -334,9 +334,7 @@ const Header = () => {
                   onClick={handleClickLang}
             
                   >
-                    <Typography
-                      
-                    >
+                    <Typography>
                       {t("Language")}
                     </Typography>
                     <svg
@@ -344,8 +342,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -381,11 +379,9 @@ const Header = () => {
                     </svg>
                   </MenuItem>
                   <MenuItem
-                    // onClick={() => setAnchorEl(null)}
                     component={Link}
                       target="_blank"
                       href="https://docs.omax.app/omaxbridge/omax-bridge/help"
-                 
                   >
                     <Typography>
                       {t("Help")}
@@ -395,8 +391,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -422,8 +418,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
