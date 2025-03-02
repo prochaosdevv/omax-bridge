@@ -10,6 +10,9 @@ import { t } from "i18next";
 const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; agreedProps: AgreedProps }) => {
   console.log("stepProps: ", stepProps)
   const account = useAccount();
+  const [checkReq, setCheckReq] = React.useState(false);
+
+
   if (!account) {
     console.error("Wallet is not connected");
     return <></>;
@@ -91,8 +94,8 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
             borderRadius: "3px !important",
           }}
           id="terms"
-          checked={!agreedProps.agreed}
-          onChange={() => agreedProps.setAgreed(!agreedProps.agreed)}
+          checked={checkReq}
+          onChange={() => setCheckReq(!checkReq)}
         />
         <Typography
           className="text_"
