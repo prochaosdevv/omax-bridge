@@ -6,6 +6,8 @@ interface ThemeContextType {
   setSelectedChain: React.Dispatch<React.SetStateAction<string>>;
   theme: string;
   setTheme: React.Dispatch<React.SetStateAction<string>>;
+  currentLang: string;
+  setCurrentLang: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const defaultContext: ThemeContextType = {
@@ -13,6 +15,8 @@ const defaultContext: ThemeContextType = {
   setSelectedChain: () => {},
   theme:"dark",
   setTheme: () => {},
+  currentLang:"en",
+  setCurrentLang: () => {},
 };
 
 // Create the context
@@ -21,6 +25,7 @@ export const ThemeContext = createContext<ThemeContextType>(defaultContext);
 const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
   const [selectedChain, setSelectedChain] = useState("0");
   const [theme, setTheme] = useState("dark");
+  const [currentLang, setCurrentLang] = useState<string>("en");
 
   useEffect(( ) => {
     if(typeof window !== "undefined") {
@@ -29,7 +34,7 @@ const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
   },[])
 
   return (
-    <ThemeContext.Provider value={{ selectedChain, setSelectedChain,theme, setTheme}}>
+    <ThemeContext.Provider value={{currentLang, setCurrentLang,  selectedChain, setSelectedChain,theme, setTheme}}>
       {children}
     </ThemeContext.Provider>
   );

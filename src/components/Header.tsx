@@ -100,40 +100,41 @@ import { t } from "i18next";
 const languageList = [
   { language: "English", code: "en" }, // English
   { language: "Afrikaans", code: "af" }, // Afrikaans
-  { language: "???????", code: "ar" }, // Arabic
-  { language: "Catal�", code: "ca" }, // Catalan
-  { language: "Ce�tina", code: "cs" }, // Czech
+  { language: "العربية", code: "ar" }, // Arabic
+  { language: "Català", code: "ca" }, // Catalan
+  { language: "Čeština", code: "cs" }, // Czech
   { language: "Dansk", code: "da" }, // Danish
   { language: "Deutsch", code: "de" }, // German
-  { language: "????????", code: "el" }, // Greek
-  { language: "Espa�ol", code: "es" }, // Spanish
+  { language: "Ελληνικά", code: "el" }, // Greek
+  { language: "Español", code: "es" }, // Spanish
   { language: "Suomi", code: "fi" }, // Finnish
-  { language: "Fran�ais", code: "fr" }, // French
-  { language: "???????", code: "he" }, // Hebrew
+  { language: "Français", code: "fr" }, // French
+  { language: "עִברִית", code: "he" }, // Hebrew
   { language: "Magyar", code: "hu" }, // Hungarian
   { language: "Bahasa Indonesia", code: "id" }, // Indonesian
   { language: "Italiano", code: "it" }, // Italian
-  { language: "???", code: "ja" }, // Japanese
-  { language: "???", code: "ko" }, // Korean
+  { language: "日本語", code: "ja" }, // Japanese
+  { language: "한국어", code: "ko" }, // Korean
   { language: "Nederlands", code: "nl" }, // Dutch
   { language: "Norsk", code: "no" }, // Norwegian
   { language: "Polski", code: "pl" }, // Polish
-  { language: "Portugu�s", code: "pt" }, // Portuguese
-  { language: "Rom�na", code: "ro" }, // Romanian
-  { language: "???????", code: "ru" }, // Russian
-  { language: "??????", code: "sr" }, // Serbian
+  { language: "Português", code: "pt" }, // Portuguese
+  { language: "Română", code: "ro" }, // Romanian
+  { language: "Русский", code: "ru" }, // Russian
+  { language: "Српски", code: "sr" }, // Serbian
   { language: "Svenska", code: "sv" }, // Swedish
   { language: "Kiswahili", code: "sw" }, // Swahili
-  { language: "T�rk�e", code: "tr" }, // Turkish
-  { language: "??????????", code: "uk" }, // Ukrainian
-  { language: "Ti?ng Vi?t", code: "vi" }, // Vietnamese
-  { language: "????", code: "zhCN" }, // Simplified Chinese
-  { language: "????", code: "zhTW" }, // Traditional Chinese
+  { language: "Türkçe", code: "tr" }, // Turkish
+  { language: "Українська", code: "uk" }, // Ukrainian
+  { language: "Tiếng Việt", code: "vi" }, // Vietnamese
+  { language: "简体中文", code: "zhCN" }, // Simplified Chinese
+  { language: "繁体中文", code: "zhTW" }, // Traditional Chinese
 ];
+
 
 const Header = () => {
   const { i18n } = useTranslation();
-  const {currentLang, setCurrentLang}=useContext(ContractContext)
+  const {currentLang, setCurrentLang}=useContext(ThemeContext)
 
   useEffect(() => {
     if (i18n.language !== currentLang) {

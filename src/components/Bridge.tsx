@@ -53,7 +53,7 @@ const targetChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "97" :
 
 const Bridge = () => {
   const { t,i18n } = useTranslation();
-  const {currentLang,setCurrentLang}=useContext(ContractContext)
+  const {currentLang,setCurrentLang}=useContext(ThemeContext)
   const changeLanguage = (languageCode: string) => {
     localStorage.setItem("lang", languageCode);
     setCurrentLang(languageCode);
@@ -123,8 +123,8 @@ const Bridge = () => {
 
   const getTitle = () => {
     if (getTokenBalance1(selectedCoin) > Number(amount) && account != undefined && account.address != undefined)
-      return "Review Bridge";
-    else return "Insufficient Balance";
+      return t("Review Bridge");
+    else return t("Insufficient Balance");
   }
 
   const onReviewClick = () => {
@@ -341,9 +341,9 @@ const Bridge = () => {
                   ))}
                 </Select>
                 <Box>
-                  <Typography className="light_dark_text">From</Typography>
+                  <Typography className="light_dark_text">{t("From")}</Typography>
                   <Typography className="text_">
-                    {networkItems.find((item) => item.chainId.toString() === selectedFrom)?.label ?? "Select Network"}
+                    {networkItems.find((item) => item.chainId.toString() === selectedFrom)?.label ?? t("Select Network")}
                   </Typography>
                 </Box>
               </Box>
@@ -355,7 +355,7 @@ const Bridge = () => {
                 <Box>
                   <Typography className="light_dark_text">{t("To")}</Typography>
                   <Typography className="text_">
-                    {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label ?? "Select Network"}
+                    {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label ?? t("Select Network")}
                   </Typography>
                 </Box>
 
