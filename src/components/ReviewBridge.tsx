@@ -19,6 +19,7 @@ import SecondStep from "./Steps/SecondStep";
 import ThirdStep from "./Steps/ThirdStep";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { ModalProps } from "@/types";
+import { useTranslation } from "react-i18next";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -90,6 +91,7 @@ const DotStepIcon = ({ active = false, completed = false }: DotProps) => {
 };
 
 export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps }: ModalProps) {
+  const {t} = useTranslation()
   const steps = ["1", "2", "3"];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -188,7 +190,7 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
         {activeStep === 2 && <ThirdStep {...stepProps}/>}
         {activeStep !== 2 && <Box mt={"1.5rem"}>
           <Button className="common_btn" onClick={handleNext} disabled={activeStep!=1 ? false : agreed}>
-            {activeStep < steps.length - 1 ? "Continue" : "Finish"}
+            {activeStep < steps.length - 1 ? t("Continue") : t("Finish")}
           </Button>
         </Box>}
       </DialogContent>

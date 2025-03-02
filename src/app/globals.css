@@ -5,7 +5,7 @@
   --svgFill: #fff;
   --common: #2B2538;
   --connect_color: #C6806D;
-  --connect_bg: #362D46;
+  --connect_bg: #2b2538;
   --black: #000;
   --box_bg: #211D28;
   --text: #8A898E;
@@ -51,6 +51,11 @@ body {
   height: 100%;
 
 }
+/* ul {
+  color: var(--foreground);
+  background: var(--background);
+
+} */
 
 
 * {

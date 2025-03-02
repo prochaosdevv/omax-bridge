@@ -19,6 +19,7 @@ import { ModalProps } from "@/types";
 import { truncateAddress } from "@/utils/functions";
 import { useAccount } from "wagmi";
 import { networkItems } from "@/config";
+import { t } from "i18next";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -140,7 +141,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
             }}
           >
             {" "}
-            ACTIVITY{" "}
+           {("ACTIVITY")}{" "}
             <Typography
               className="foreground_text"
               sx={{ opacity: "0.6" }}
@@ -183,7 +184,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
                     fontSize: "13px !important",
                   }}
                 >
-                  {stepProps.estimatedTime} ago
+                  {stepProps.estimatedTime} {t("minutes ago")}
                 </Typography>
                 <Typography
                   className="foreground_text"
@@ -202,7 +203,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
                 alignItems: "center",
               }}
             >
-              Via Native Bridge{" "}
+              {t("Via Native Bridge")}{" "}
               <Typography
                 component={"img"}
                 src={eth.src}
@@ -231,7 +232,7 @@ export default function ActivityModal({ isDialogOpen, setIsDialogOpen, stepProps
           >
             <CheckCircleIcon />
             <Typography className="foreground_text">
-              Bridge successfull
+              {t("Bridge successfull")}
             </Typography>
           </Box>
         </Box>

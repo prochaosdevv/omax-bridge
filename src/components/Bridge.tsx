@@ -37,6 +37,10 @@ import { useAccount, WagmiContext } from "wagmi";
 import { getWalletBalance, estimateTransactionGas, estimateTransactionTime } from "@/services/abi";
 import { TokenBalance } from "@/types";
 import { decimalFromEth, formatTime, getLogoWidth } from "@/utils/functions";
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { ThemeContext } from "@/context/ThemeContext";
+
 
 // const Inter_font = Inter({
 //   variable: "--font-Inter-sans",
@@ -48,6 +52,14 @@ const sourceChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "332" 
 const targetChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "97" : "1");
 
 const Bridge = () => {
+  const { t,i18n } = useTranslation();
+  const {currentLang,setCurrentLang}=useContext(ContractContext)
+  const changeLanguage = (languageCode: string) => {
+    localStorage.setItem("lang", languageCode);
+    setCurrentLang(languageCode);
+    // setAnchorEl_lang(null)
+    i18n.changeLanguage(languageCode);
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const account = useAccount();
   const config = useContext(WagmiContext);
@@ -175,7 +187,6 @@ const Bridge = () => {
     <Box
       sx={{
         width: { sm: "440px", xs: "100%" },
-        height: "100vh",
         m: { sm: "5rem auto", xs: "1rem auto 2rem" },
         "& p": {
           // fontFamily: Inter_font.style.fontFamily,
@@ -200,7 +211,7 @@ const Bridge = () => {
             height: "30px !important"
           }}
         >
-          Bridge
+          {t("Bridge")}
         </Button>
         <Box>
           {/* <Button
@@ -225,7 +236,7 @@ const Bridge = () => {
                 background: `var(--box_bg)`,
                 transition: "0.3s all",
                 "& svg": {
-                  transform: "translateY(-2px)"
+                  transform: "translateY(-1px)"
                 }
               }
             }}
@@ -312,6 +323,15 @@ const Bridge = () => {
                     "& fieldset": { border: "none" },
                     "& svg": { display: "none" },
                   }}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                       background: `var(--common) !important`,
+                  color:"var(--foreground) !important",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
+                      },
+                    },
+                  }}
                 >
                   {networkItems.map((item) => (
                     <MenuItem key={item.chainId.toString()} value={item.chainId.toString()}>
@@ -333,7 +353,7 @@ const Bridge = () => {
             <Box className="box">
               <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "7px" }}>
                 <Box>
-                  <Typography className="light_dark_text">To</Typography>
+                  <Typography className="light_dark_text">{t("To")}</Typography>
                   <Typography className="text_">
                     {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label ?? "Select Network"}
                   </Typography>
@@ -363,6 +383,15 @@ const Bridge = () => {
                     },
                     "& fieldset": { border: "none" },
                     "& svg": { display: "none" },
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                       background: `var(--common) !important`,
+                  color:"var(--foreground) !important",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
+                      },
+                    },
                   }}
                 >
                   {networkItems.map((item) => (
@@ -431,6 +460,15 @@ const Bridge = () => {
                     color: "#fff",
                   },
                 }}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                     background: `var(--common) !important`,
+                color:"var(--foreground) !important",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
+                    },
+                  },
+                }}
               >
                 {tokenItems[Number(selectedFrom)].map((item) => (
                   <MenuItem key={item.symbol} value={item.symbol}>
@@ -451,7 +489,7 @@ const Bridge = () => {
             <Typography className="light_dark_text">{getTokenPrice(selectedCoin)}</Typography>
             {account && account.address &&
               <Typography className="light_dark_text">
-                {getTokenBalance(selectedCoin)} available{" "}
+                {getTokenBalance(selectedCoin)} {t("available")}{" "}
                 <Typography
                   component={"img"}
                   src={available.src}
@@ -470,7 +508,7 @@ const Bridge = () => {
           }}
         >
           <Box className="flex">
-            <Typography className="text_" flex={1}>Get on {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label}</Typography>
+            <Typography className="text_" flex={1}>{t("Get on")} {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label}</Typography>
 
             {/* <Box
               className="flex"
@@ -487,7 +525,7 @@ const Bridge = () => {
                   fontSize: { sm: "16px !important" },
                 }}
               >
-                Native Bridge
+                {t("Native Bridge")}
               </Typography>
             </Box> */}
           </Box>
@@ -556,7 +594,7 @@ const Bridge = () => {
                   sx={{ verticalAlign: "middle" }}
                 />{" "} */}
                 <MonetizationOnIcon sx={{ fontSize: "1.2rem" }} />
-                0 Fees
+                0 {t("Fees")}
               </Box>
               <Typography className="light_dark_text" lineHeight={"normal"}>
                 <Typography
@@ -590,6 +628,15 @@ const Bridge = () => {
           {getTitle()}
         </Button>
       </Box>
+     {currentLang!=="en"&& <Typography py={"1rem"} sx={{
+        fontSize:"12px",
+        textAlign:"center",
+        color:"var(--foreground)",
+        opacity:"0.7",
+        "&:hover":{
+          opacity:"0.9"
+        }
+      }}>OMAX {t("Bridge")} {t("available in")}: <Link href={"/"}><b style={{textDecoration:"underline"}} onClick={()=>changeLanguage("en")}>English</b></Link></Typography>}
       {
         isModalOpen && (
           <ReviewBridge

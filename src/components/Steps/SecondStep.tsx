@@ -5,6 +5,7 @@ import { Box, Button, Checkbox, Typography } from "@mui/material";
 import { BridgeStepProps, AgreedProps } from "@/types";
 import { networkItems } from "@/config";
 import { useAccount } from "wagmi";
+import { t } from "i18next";
 
 const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; agreedProps: AgreedProps }) => {
   console.log("stepProps: ", stepProps)
@@ -28,8 +29,8 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
           fontWeight: "600",
         }}
       >
-        Make sure the wallet you’re
-        <br /> bridging to supports {networkItems.find((item) => item.chainId == stepProps.to)?.label}
+        {t("Make sure the wallet you’re")}
+        <br /> {t("bridging to supports")} {networkItems.find((item) => item.chainId == stepProps.to)?.label}
       </Typography>
       <Typography
         sx={{
@@ -38,10 +39,10 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
           opacity: "0.7",
         }}
       >
-        Check {networkItems.find((item) => item.chainId == stepProps.to)?.label} before your bridge <br />
-        or you may lose your crypto. Do not
+        {t("Check")} {networkItems.find((item) => item.chainId == stepProps.to)?.label} {t("before your bridge")} <br />
+        {t("or you may lose your crypto. Do not")}
         <br />
-        bridge to an exchange.
+        {t("bridge to an exchange.")}
       </Typography>
       <Button
         className="btn"
@@ -51,7 +52,7 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
           background: "var(--light_dark_bg) !important",
         }}
       >
-        Learn More
+        {t("Learn More")}
       </Button>
       <Box
         sx={{
@@ -100,7 +101,7 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
             fontWeight: "400 !important",
           }}
         >
-          My wallet supports <b>{networkItems.find((item) => item.chainId == stepProps.to)?.label}</b>
+          {t("My wallet supports")} <b>{networkItems.find((item) => item.chainId == stepProps.to)?.label}</b>
         </Typography>
       </Box>
     </Box>

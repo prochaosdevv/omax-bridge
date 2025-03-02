@@ -12,6 +12,8 @@ import HelpIcon from "@mui/icons-material/Help";
 import add_from from "../../assets/from.svg";
 import add_to from "../../assets/to.svg";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { BridgeStepProps } from "@/types";
 import { networkItems, tokenItems } from "@/config";
 import { truncateAddress } from "@/utils/functions";
@@ -36,6 +38,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
   if (!account) {
     return <></>;
   }
+  const {t}=useTranslation()
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
@@ -66,7 +69,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
           fontWeight: "600",
         }}
       >
-        Bridge {stepProps.amount} {stepProps.symbol}
+        {t("Bridge")} {stepProps.amount} {stepProps.symbol}
       </Typography>
       {/* <Typography
         sx={{
@@ -75,7 +78,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
           opacity: "0.7",
         }}
       >
-        Via Native Bridge
+        {t("Via Native Bridge")}
       </Typography> */}
       <Box
         sx={{
@@ -118,8 +121,8 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
         }}
       >
         <Tabs value={tabIndex} onChange={handleChange} sx={{ lineHeight: "0" }}>
-          <Tab label="Steps" />
-          <Tab label="Bridge Info" />
+          <Tab label={t("Steps")} />
+          <Tab label={t("Bridge Info")} />
         </Tabs>
       </Box>
       <TabPanel value={tabIndex} index={0}>
@@ -143,7 +146,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
             >
               <Typography component={"img"} src={networkItems.find((item) => item.chainId == stepProps.from)?.icon} width={32} height={32} />
               <Box>
-                <Typography className="text_">Start on {networkItems.find((item) => item.chainId == stepProps.from)?.label}</Typography>
+                <Typography className="text_">{t("Start on")} {networkItems.find((item) => item.chainId == stepProps.from)?.label}</Typography>
                 <Typography
                   className="light_dark_text"
                   sx={{
@@ -174,7 +177,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
                 src={watch.src}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
-              Wait {stepProps.estimatedTime}
+              {t("Wait")} {stepProps.estimatedTime}
             </Typography>
             <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
           </Box>
@@ -197,7 +200,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
                 height={32}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
-              Get {stepProps.amount} {stepProps.symbol} on {networkItems.find((item) => item.chainId == stepProps.to)?.label}
+              {t("Get")} {stepProps.amount} {stepProps.symbol} on {networkItems.find((item) => item.chainId == stepProps.to)?.label}
             </Typography>
             <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
           </Box>
@@ -225,7 +228,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
                 height={32}
                 sx={{ width: "18px", height: "18px" }}
               />{" "}
-              From {networkItems.find((item) => item.chainId == stepProps.from)?.label}
+              {t("From")} {networkItems.find((item) => item.chainId == stepProps.from)?.label}
             </Typography>
             <Typography className="text_">
               {stepProps.amount} {stepProps.symbol}{" "}
@@ -247,7 +250,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
                 height={32}
                 sx={{ width: "18px", height: "18px", borderRadius: "5px" }}
               />{" "}
-              To {networkItems.find((item) => item.chainId == stepProps.to)?.label}
+              {t("To")} {networkItems.find((item) => item.chainId == stepProps.to)?.label}
             </Typography>
             <Typography className="text_">
               {stepProps.amount} {stepProps.symbol}{" "}
@@ -262,10 +265,10 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={via.src} /> Via
+              <Typography component={"img"} src={via.src} /> {t("Via")}
             </Typography>
             {/* <Typography className="text_">
-              Native Bridge{" "}
+              {t("Native Bridge")}{" "}
               <Typography
                 component={"img"}
                 src={base_icon.src}
@@ -275,19 +278,19 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={add_from.src} /> From Address
+              <Typography component={"img"} src={add_from.src} /> {t("From")} {t("Address")}
             </Typography>
             <Typography className="text_">{truncateAddress(account.address)}</Typography>
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={add_to.src} /> To Address
+              <Typography component={"img"} src={add_to.src} /> {t("To")} {t("Address")}
             </Typography>
             <Typography className="text_">{truncateAddress(account.address)}</Typography>
           </Box>
           <Box className="flex">
             <Typography className="text_">
-              <Typography component={"img"} src={watch.src} /> Transfer Time
+              <Typography component={"img"} src={watch.src} /> {t("Transfer Time")}
             </Typography>
             <Typography className="text_">-{stepProps.estimatedTime}</Typography>
           </Box>
@@ -303,7 +306,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
           //   lineHeight:"0"
         }}
       >
-        Need help? View FAQs <HelpIcon sx={{ fontSize: "1rem", ml: "5px" }} />
+       {t("Need help? View FAQs")} <HelpIcon sx={{ fontSize: "1rem", ml: "5px" }} />
       </Button>
     </Box>
   );

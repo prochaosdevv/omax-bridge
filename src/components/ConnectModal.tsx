@@ -14,6 +14,7 @@ import metamask from "../assets/MetaMASK.svg";
 import coin_wallet from "../assets/coin_wallet.svg";
 import wallet_connect from "../assets/wallet_connect.svg";
 import { ConnectModalProps } from "@/types";
+import { t } from "i18next";
 
 interface BootstrapDialogTitleProps {
   children: React.ReactNode;
@@ -163,7 +164,7 @@ export default function ConnectModal({ isDialogOpen, setIsDialogOpen }: ConnectM
             className="foreground_text"
             sx={{ fontWeight: "400 !important" }}
           >
-            New to wallet?
+           {t("New to wallet")}
           </Typography>
           <Button
             className="btn"
