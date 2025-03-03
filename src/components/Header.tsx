@@ -14,6 +14,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import dynamic from "next/dynamic";
+import { useAccount } from "wagmi";
 
 const ConnectButton = dynamic(() => import("@rainbow-me/rainbowkit").then((mod) => mod.ConnectButton), {
   ssr: false, // Disable Server-Side Rendering for this component
@@ -55,6 +56,7 @@ const languageList = [
 
 const Header = () => {
   const { i18n } = useTranslation();
+  const {address}=useAccount()
   const {currentLang, setCurrentLang}=useContext(ContractContext)
 
   useEffect(() => {
@@ -197,7 +199,7 @@ const Header = () => {
               }}
             >
               <Box className="btn_wrap_connect">
-                <ConnectButton chainStatus={"none"} />
+                {address ?address:<ConnectButton chainStatus={"none"} />}
               </Box>
 
               <Box className="menu_btn_wrapper" position={"relative"}>
