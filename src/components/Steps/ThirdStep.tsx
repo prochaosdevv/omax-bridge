@@ -67,7 +67,12 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     const withdrawToken = tokenItems[stepProps.to].find((item) => item.symbol == stepProps.symbol)?.address;
     if (!withdrawToken) return;
 
-    const amountWei = parseEther(stepProps.amount.toString());
+    let amountWei;
+    if (stepProps.from == 1) {
+      amountWei = BigInt(stepProps.amount * 1_000_000);
+    } else {
+      amountWei = parseEther(stepProps.amount.toString());
+    }    
 
     const startBlock = await getBlock(config, {
       chainId: stepProps.from

@@ -21,7 +21,7 @@ export const tokenItems: Record<number, TokenInfo[]> = {
         {
             name: 'USD Coin',
             symbol: 'USDC',
-            decimals: 18,
+            decimals: 6,
             address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
             isNative: false,
             fee: 0.0,
@@ -31,7 +31,7 @@ export const tokenItems: Record<number, TokenInfo[]> = {
         {
             name: 'Tether USD',
             symbol: 'USDT',
-            decimals: 18,
+            decimals: 6,
             address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
             isNative: false,
             fee: 0.0,
