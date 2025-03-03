@@ -16,5 +16,5 @@ export const config = getDefaultConfig({
     bscTestnet,
     base
   ],
-  ssr: true,
+  ssr: false,
 });
