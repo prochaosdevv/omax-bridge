@@ -25,14 +25,14 @@ export const networkItems: NetworkInfo[] = (process.env.NEXT_PUBLIC_ENABLE_TESTN
         chainId: 1,
         symbol: "ETH",
         label: "Ethereum",
-        bridge: '',
+        bridge: '0x2c37de5b35ABA64BDebfA7472282A169339861C0',
         icon: Ethereum.src
     },
     {
         chainId: 56,
         label: "BSC",
         symbol: "BNB",
-        bridge: '',
+        bridge: '0x98F48b373FD0cAdAEA14Ae129056D5Aa75cE8b8e',
         icon: bsc_logo.src
     },
     {

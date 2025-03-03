@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import logo_mobile from "../assets/new_logo_omax.svg";
-import ConnectModal from "./ConnectModal";
+// import ConnectModal from "./ConnectModal";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
