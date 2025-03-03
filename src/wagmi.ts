@@ -16,5 +16,5 @@ export const config = getDefaultConfig({
     bscTestnet,
     base
   ],
-  ssr: typeof window === 'undefined', 
+  ssr: true,
 });
