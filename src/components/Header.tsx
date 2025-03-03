@@ -9,10 +9,15 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { ContractContext } from "@/Context/ContractContext";
 
 import Link from "next/link";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
 import DoneIcon from "@mui/icons-material/Done";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
+import dynamic from "next/dynamic";
+
+const ConnectButton = dynamic(() => import("@rainbow-me/rainbowkit").then((mod) => mod.ConnectButton), {
+  ssr: false, // Disable Server-Side Rendering for this component
+});
 
 const languageList = [
   { language: "English", code: "en" }, // English
