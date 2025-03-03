@@ -39,7 +39,7 @@ export const networkItems: NetworkInfo[] = (process.env.NEXT_PUBLIC_ENABLE_TESTN
         chainId: 311,
         label: "Omax",
         symbol: "OMAX",
-        bridge: '',
+        bridge: '0x72945f6673fA949982511D6d4D454C82BEeCeB4f',
         icon: logo_mobile.src,
         width: "28px",
         height: "28px"
