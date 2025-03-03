@@ -82,6 +82,11 @@ a {
   cursor: pointer;
 }
 
+.common_btn:disabled {
+  color: var(--black);
+  cursor: not-allowed !important;
+}
+
 .light_dark_text {
   color: var(--text);
   font-size: 14px;

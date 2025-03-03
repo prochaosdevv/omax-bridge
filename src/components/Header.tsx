@@ -230,7 +230,7 @@ const Header = () => {
                       fontSize: "16px",
                       opacity:"0.7",
                       "& p": {
-                        fontSize: "16px",
+                        fontSize: "15px",
                         color: "var(--foreground)",
                       },
                       "&:hover": {

@@ -53,8 +53,8 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
           onClick={onClose}
           sx={{
             position: "absolute",
-            right: 6,
-            top: 6,
+            right: 16,
+            top: 16,
             color: "var(--foreground)",
             background: "var(--light_dark)",
             "&:hover": {
@@ -151,7 +151,7 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
             disableRipple
             onClick={handleBack}
             sx={{
-              position: "absolute", left: 16, color: "var(--foreground) !important",
+              position: "absolute", left: 16, top: 16, color: "var(--foreground) !important",
               background: "var(--light_dark) !important",
               display: "flex",
               justifyContent: "center",
@@ -189,7 +189,7 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
         {activeStep === 1 && <SecondStep stepProps={stepProps} agreedProps={{ agreed, setAgreed }} />}
         {activeStep === 2 && <ThirdStep {...stepProps}/>}
         {activeStep !== 2 && <Box mt={"1.5rem"}>
-          <Button className="common_btn" onClick={handleNext} disabled={activeStep!=1 ? false : !agreed}>
+          <Button className="common_btn" onClick={handleNext} disabled={activeStep==1 && !agreed}>
             {activeStep < steps.length - 1 ? t("Continue") : t("Finish")}
           </Button>
         </Box>}
