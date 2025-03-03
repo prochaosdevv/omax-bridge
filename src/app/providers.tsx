@@ -6,7 +6,7 @@ import { WagmiProvider } from 'wagmi';
 import { darkTheme, lightTheme, Locale, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import "./i18n"; // ✅ Import i18n here
 
-import { wagmiConfig } from '../wagmi';
+import { config } from '../wagmi';
 import { ContractContext } from '@/Context/ContractContext';
 import i18n from './i18n';
 
@@ -30,7 +30,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     : "en";
 
   return (
-    <WagmiProvider config={wagmiConfig}>
+    <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider locale={locale} modalSize="compact" theme={theme === "dark" ? darkTheme() : lightTheme()}>
           {children}
