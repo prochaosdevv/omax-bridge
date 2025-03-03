@@ -45,10 +45,6 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
           background: "#000102"
         }
       }}>
-
-
-
-
         <Box
           sx={{
             // position: "fixed",
