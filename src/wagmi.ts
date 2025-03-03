@@ -11,10 +11,10 @@ import {
 
 export const config = getDefaultConfig({
   appName: 'OMAX BRIDGE',
-  projectId: '87ed16ada1051dcc9d68c7bba24ac90f',
+  projectId: 'b08599a140566dff8bd3f3e0e9db3d6a',
   chains: [
     bscTestnet,
     base
   ],
-  ssr: false,
+  ssr: true,
 });
