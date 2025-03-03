@@ -206,6 +206,7 @@ const Header = () => {
                     sx: {
                       minWidth: "196px",
                       maxHeight: "350px",
+                      marginTop: "10px",
                       overflow: "auto",
                       // backgroundColor: "rgb(255, 255, 255)",
                       background: "var(--connect_bg) !important",
@@ -213,24 +214,23 @@ const Header = () => {
                         "rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px",
                       border: "none",
                       borderRadius: "12px",
-                      padding: "0.5rem 0px",
+                      padding: "0.1rem 0px",
                       display: "flex",
                       flexDirection: "column",
-                      fontSize: "16px",
                       zIndex: 100,
                     },
                   }}
                   sx={{
                     "& .MuiButtonBase-root":{
                       display: "flex",
-                      paddingTop: "6px",
-                      paddingBottom: "6px",
+                      paddingTop: "5px",
+                      paddingBottom: "8px",
                       minHeight: "auto",
                       justifyContent: "space-between",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       opacity:"0.7",
                       "& p": {
-                        fontSize: "14px",
+                        fontSize: "16px",
                         color: "var(--foreground)",
                       },
                       "&:hover": {
@@ -255,7 +255,6 @@ const Header = () => {
                     target="_blank"
                     href="https://omax.app"
                     onClick={() => setAnchorEl(null)}
-                 
                   >
                     <Typography>{t("About")}</Typography>
                     <svg
@@ -263,8 +262,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -334,9 +333,7 @@ const Header = () => {
                   onClick={handleClickLang}
             
                   >
-                    <Typography
-                      
-                    >
+                    <Typography>
                       {t("Language")}
                     </Typography>
                     <svg
@@ -344,8 +341,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -371,6 +368,8 @@ const Header = () => {
                       width="19"
                       height="19"
                       fill="var(--foreground)"
+                      stroke="var(--foreground)"
+                      stroke-width="1"
                       viewBox="0 0 32 32"
                       opacity="0.6"
                     >
@@ -381,11 +380,9 @@ const Header = () => {
                     </svg>
                   </MenuItem>
                   <MenuItem
-                    // onClick={() => setAnchorEl(null)}
                     component={Link}
                       target="_blank"
                       href="https://docs.omax.app/omaxbridge/omax-bridge/help"
-                 
                   >
                     <Typography>
                       {t("Help")}
@@ -395,8 +392,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -422,8 +419,8 @@ const Header = () => {
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
-                      fill="var(--svgFill)"
-                      stroke="currentColor"
+                      fill="var(--connect_bg)"
+                      stroke="var(--foreground)"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -447,13 +444,15 @@ const Header = () => {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="var(--foreground)"
+                      stroke="var(--foreground)"
+                      stroke-width="2"
                       style={{
                         marginRight: "-2px",
                       }}
                       width="20"
                       height="20"
                       viewBox="0 0 64 64"
-                      opacity="0.8"
+                      opacity="0.6"
                     >
                       <g data-name="File Checklist">
                         <path d="M46 41a11 11 0 1 0 11 11 11.013 11.013 0 0 0-11-11zm0 20a9 9 0 1 1 9-9 9.01 9.01 0 0 1-9 9z" />
@@ -473,7 +472,6 @@ const Header = () => {
                       minWidth: "196px",
                       maxHeight: "350px",
                       overflow: "auto",
-                      // backgroundColor: "rgb(255, 255, 255)",
                       background: "var(--connect_bg) !important",
                       boxShadow:
                         "rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px",
@@ -484,9 +482,8 @@ const Header = () => {
                       flexDirection: "column",
                       fontSize: "16px",
                       position: "absolute !important",
-                      top: "62px !important",
+                      top: "68px !important",
                       p: "0",
-                      // zIndex: 100,
                     },
                   }}
                 >

@@ -156,7 +156,7 @@ const FirstStep = (stepProps: BridgeStepProps) => {
         </Box>
         <Box className="flex" mb={"1rem"}>
           <Typography className="text_">
-            <Typography component={"img"} src={fuel.src} /> {t("Gas Costs")}
+            <Typography component={"img"} src={fuel.src} className="w-[17px]" /> {t("Gas Costs")}
           </Typography>
           <Typography className="text_">
             {stepProps.estimatedGas} {networkItems.find((item)=>item.chainId==stepProps.from)?.symbol}{" "}
@@ -169,7 +169,7 @@ const FirstStep = (stepProps: BridgeStepProps) => {
         </Box>
         <Box className="flex">
           <Typography className="text_">
-            <Typography component={"img"} src={dollar.src} /> {t("Fees")}
+            <Typography component={"img"} src={dollar.src}/> {t("Fees")}
           </Typography>
           <Typography className="text_">
             0 {t("Fees")}

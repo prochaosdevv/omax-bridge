@@ -189,7 +189,7 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
         {activeStep === 1 && <SecondStep stepProps={stepProps} agreedProps={{ agreed, setAgreed }} />}
         {activeStep === 2 && <ThirdStep {...stepProps}/>}
         {activeStep !== 2 && <Box mt={"1.5rem"}>
-          <Button className="common_btn" onClick={handleNext} disabled={activeStep!=1 ? false : agreed}>
+          <Button className="common_btn" onClick={handleNext} disabled={activeStep!=1 ? false : !agreed}>
             {activeStep < steps.length - 1 ? t("Continue") : t("Finish")}
           </Button>
         </Box>}
