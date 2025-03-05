@@ -76,7 +76,6 @@ const Header = () => {
   const changeLanguage = (languageCode: string) => {
     localStorage.setItem("lang", languageCode);
     setCurrentLang(languageCode);
-    // setAnchorEl_lang(null)
     i18n.changeLanguage(languageCode);
   };
   const { theme, setTheme } = useContext(ThemeContext);
@@ -155,15 +154,16 @@ const Header = () => {
                 alignItems: "center",
               }}
             >
+              <a href="https://omax.app/" target="_blank">
               <Typography
                 component={"img"}
                 src={logo_mobile.src}
                 className="omx-logo"
-                // sx={{
-                //   width:"48px",
-                //   height:"40px"
-                // }}
+                sx={{
+                  cursor: "pointer"
+                }}
               />
+              </a>
               <Typography
                 sx={{
                   fontSize: "30px",

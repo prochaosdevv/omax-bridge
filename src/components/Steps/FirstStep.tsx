@@ -43,7 +43,7 @@ const FirstStep = (stepProps: BridgeStepProps) => {
       >
         <Box className="flex">
           <Typography className="light_dark_text">
-            {t("Bridge from")} {stepProps.symbol}
+            {t("Bridge from")} {networkItems.find((item) => item.chainId === stepProps.from)?.label}
           </Typography>
           <Box
             className="flex"
@@ -147,7 +147,7 @@ const FirstStep = (stepProps: BridgeStepProps) => {
         </Box> */}
         <Box className="flex" mb={"1rem"}>
           <Typography className="text_">
-            <Typography component={"img"} src={watch.src} /> {t("Transfer Time")}
+            <Typography component={"img"} width={20} src={watch.src} /> {t("Transfer Time")}
           </Typography>
           <Typography className="text_">
             ~{stepProps.estimatedTime}
@@ -156,20 +156,21 @@ const FirstStep = (stepProps: BridgeStepProps) => {
         </Box>
         <Box className="flex" mb={"1rem"}>
           <Typography className="text_">
-            <Typography component={"img"} src={fuel.src} className="w-[17px]" /> {t("Gas Costs")}
+            <Typography component={"img"} height={18} paddingLeft={"2px"} paddingRight={"1px"} src={fuel.src} className="w-[17px]" /> {t("Gas Costs")}
           </Typography>
           <Typography className="text_">
             {stepProps.estimatedGas} {networkItems.find((item)=>item.chainId==stepProps.from)?.symbol}{" "}
             <Typography
               component={"img"}
               src={what.src}
+              width={18}
               sx={{ verticalAlign: "middle" }}
             />
           </Typography>
         </Box>
         <Box className="flex">
           <Typography className="text_">
-            <Typography component={"img"} src={dollar.src}/> {t("Fees")}
+            <Typography component={"img"} width={19} paddingRight={"1px"} src={dollar.src}/> {t("Fees")}
           </Typography>
           <Typography className="text_">
             0 {t("Fees")}

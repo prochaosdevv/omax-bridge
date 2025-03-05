@@ -204,6 +204,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
             className="box"
             sx={{
               mt: "0.5rem",
+              py: "0.8rem !important",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
@@ -222,7 +223,10 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
                 <Typography
                   className="light_dark_text"
                   sx={{
-                    fontSize: "13px !important",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    fontSize: "12px !important",
                   }}
                 >
                   <Typography component={"img"} src={fuel.src} /> {stepProps.estimatedGas} {networkItems.find((item) => item.chainId == stepProps.from)?.symbol}
@@ -272,6 +276,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               <Typography
                 component={"img"}
                 src={watch.src}
+                width={32}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
               {t("Wait")} {stepProps.estimatedTime}

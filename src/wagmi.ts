@@ -9,13 +9,13 @@ import {
 
 export const omaxtestnet = defineChain({
   id: 332,
-  name: 'Omax Testnet',
-  nativeCurrency: { name: 'OmaxT', symbol: 'OMAXT', decimals: 18 },
+  name: 'OMAX Testnet',
+  nativeCurrency: { name: 'OMAXT', symbol: 'OMAXT', decimals: 18 },
   rpcUrls: {
     default: { http: ['https://testapi.omaxray.com'] },
   },
   blockExplorers: {
-    default: { name: 'Omaxscan', url: 'https://testnet.omaxscan.com' },
+    default: { name: 'OMAXcan', url: 'https://testnet.omaxscan.com' },
   },
 });
 

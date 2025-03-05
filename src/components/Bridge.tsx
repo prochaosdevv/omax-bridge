@@ -185,7 +185,6 @@ const Bridge = () => {
         <Button
           className="btn"
           sx={{
-            // fontFamily: Inter_font.style.fontFamily,
             px: "15px",
             height: "30px !important"
           }}
@@ -193,22 +192,6 @@ const Bridge = () => {
           {t("Bridge")}
         </Button>
         <Box>
-          {/* <Button
-            sx={{
-              minWidth: "30px", height: "30px", p: "5px", background: `var(--common)`, borderRadius: "5px", "&:hover": {
-                background: `var(--box_bg)`,
-                transition: "0.3s all",
-                "& svg": {
-                  transform: "translateY(-2px)"
-                }
-              }
-            }}
-            disableRipple
-            onClick={() => setSettingOpen(true)}
-
-          >
-            <SettingsIcon sx={{ fontSize: "1.2rem", color: "var(--foreground)" }} />
-          </Button> */}
           <Button
             sx={{
               minWidth: "30px", height: "30px", px: "5px", background: `var(--common)`, borderRadius: "5px", ml: "8px", "&:hover": {
@@ -236,7 +219,6 @@ const Bridge = () => {
             borderRadius: "20px",
             p: "1rem",
             mb: "0.5rem",
-            // fontFamily: Inter_font.style.fontFamily,
           },
           "& .bin1": {
             "& input,textarea": {
@@ -247,16 +229,6 @@ const Bridge = () => {
       >
         <Grid container spacing={1} position={"relative"}>
           <Grid item md={6} xs={6}>
-            {/* <Typography
-              component={"img"}
-              src={bridge.src}
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "51%",
-                transform: "translate(-50%, -50%)",
-              }}
-            /> */}
             <Box sx={{
               width: "23px",
               height: "25px",
@@ -273,7 +245,7 @@ const Bridge = () => {
             }}
               onClick={() => handleChange()}
             >
-              <ArrowForwardIosIcon sx={{ fontSize: "1rem", color: "var(--light_dark)" }} />
+              <ArrowForwardIosIcon sx={{ fontSize: "1rem", color: "var(--light_dark)", cursor: "pointer"}} />
             </Box>
             <Box className="box">
               <Box sx={{ display: "flex", alignItems: "center", gap: "7px" }}>
@@ -419,11 +391,9 @@ const Bridge = () => {
                 aria-label="Network Selector"
                 sx={{
                   borderRadius: "23px",
-                  // fontFamily: Inter_font.style.fontFamily,
                   fontWeight: "600",
                   background: "var(--light_dark)",
                   color: "var(--foreground)",
-                  // width: "120px",
                   "& .MuiOutlinedInput-input": {
                     p: "7px 14px",
                     display: "flex",
@@ -488,25 +458,6 @@ const Bridge = () => {
         >
           <Box className="flex">
             <Typography className="text_" flex={1}>{t("Get on")} {networkItems.find((item) => item.chainId.toString() === selectedTo)?.label}</Typography>
-
-            {/* <Box
-              className="flex"
-              sx={{
-                background: `var(--light_dark_bg)`,
-                borderRadius: "20px",
-                p: "0.5rem 1rem",
-              }}
-            >
-              <Typography component={"img"} src={base_icon_.src} />
-              <Typography
-                className="text_"
-                sx={{
-                  fontSize: { sm: "16px !important" },
-                }}
-              >
-                {t("Native Bridge")}
-              </Typography>
-            </Box> */}
           </Box>
           <Box
             my={"0.5rem"}
@@ -524,22 +475,12 @@ const Bridge = () => {
                 height={48}
                 mr={"0.3rem"}
               />
-              {/* <Typography
-                component={"img"}
-                src={base_icon_.src}
-                sx={{
-                  position: "absolute",
-                  bottom: "0",
-                  right: "0",
-                }}
-              /> */}
             </Box>
             <Box>
               <Typography
                 className="text_"
                 sx={{
                   fontSize: "18px !important",
-                  // lineHeight: "normal",
                 }}
               >
                 {amount} {selectedCoin}
@@ -567,11 +508,6 @@ const Bridge = () => {
                   gap: "5px"
                 }}
               >
-                {/* <Typography
-                  component={"img"}
-                  src={dollar.src}
-                  sx={{ verticalAlign: "middle" }}
-                />{" "} */}
                 <MonetizationOnIcon sx={{ fontSize: "1.2rem" }} />
                 0 {t("Fees")}
               </Box>

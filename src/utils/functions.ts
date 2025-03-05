@@ -169,23 +169,23 @@ export function formatDuration(timestamp: number): string {
 export function formatTime(time: number): string {
   if (time < 60) {
     // Less than a minute ago
-    return t(`${time}sec`);
+    return t(`${time} sec`);
   }
 
   const diffInMinutes = Math.floor(time / 60);
   if (diffInMinutes < 60) {
     // Less than an hour ago
-    return t(`${diffInMinutes}min`);
+    return t(`${diffInMinutes} min`);
   }
 
   const diffInHours = Math.floor(diffInMinutes / 60);
   if (diffInHours < 24) {
     // Less than a day ago
-    return t(`${diffInHours}hour`);
+    return t(`${diffInHours} hour`);
   }
 
   const diffInDays = Math.floor(diffInHours / 24);
-  return t(`${diffInDays}day`);
+  return t(`${diffInDays} D`);
 }
 
 export const decimalToEth = (amount: string) => {
