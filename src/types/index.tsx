@@ -48,6 +48,7 @@ export interface NetworkInfo {
   symbol: string,
   label: string,
   bridge: string,
+  scanUrl: string,
   icon: any,
   width?: string,
   height?: string

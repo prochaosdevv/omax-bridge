@@ -72,7 +72,7 @@ a {
 .common_btn {
   color: var(--black);
   background: var(--foreground);
-  font-size: 16px;
+  font-size: 15px;
   width: 100%;
   border-radius: 50px;
   height: 46px;
@@ -97,6 +97,11 @@ a {
   color: var(--foreground);
   font-size: 14px;
   font-weight: 600;
+}
+
+.foreground_text_12 {
+  color: var(--foreground);
+  font-size: 12px;
 }
 
 .text_ {

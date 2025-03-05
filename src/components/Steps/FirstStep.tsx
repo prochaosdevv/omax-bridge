@@ -45,16 +45,18 @@ const FirstStep = (stepProps: BridgeStepProps) => {
           <Typography className="light_dark_text">
             {t("Bridge from")} {networkItems.find((item) => item.chainId === stepProps.from)?.label}
           </Typography>
-          <Box
-            className="flex"
-            sx={{
-              background: `var(--light_dark)`,
-              borderRadius: "20px",
-              p: "0.3rem 0.7rem",
-            }}
-          >
-            <Typography className="foreground_text">{truncateAddress(account.address)}</Typography>
-          </Box>
+          <a href={networkItems.find((item) => item.chainId === stepProps.from)?.scanUrl + "/address/" + account.address} target="_blank" >
+            <Box
+              className="flex"
+              sx={{
+                background: `var(--light_dark)`,
+                borderRadius: "20px",
+                p: "2px 10px",
+              }}
+            >
+              <Typography className="foreground_text_12">{truncateAddress(account.address)}</Typography>
+            </Box>
+          </a>
         </Box>
         <Typography
           className="text_"
@@ -89,16 +91,18 @@ const FirstStep = (stepProps: BridgeStepProps) => {
           <Typography className="light_dark_text">
             {t("Get on")} {networkItems.find((item) => item.chainId === stepProps.to)?.label}
           </Typography>
-          <Box
-            className="flex"
-            sx={{
-              background: `var(--light_dark)`,
-              borderRadius: "20px",
-              p: "0.3rem 0.7rem",
-            }}
-          >
-            <Typography className="foreground_text">{truncateAddress(account.address)}</Typography>
-          </Box>
+          <a href={networkItems.find((item) => item.chainId === stepProps.to)?.scanUrl + "/address/" + account.address} target="_blank" >
+            <Box
+              className="flex"
+              sx={{
+                background: `var(--light_dark)`,
+                borderRadius: "20px",
+                p: "2px 10px",
+              }}
+            >
+              <Typography className="foreground_text_12">{truncateAddress(account.address)}</Typography>
+            </Box>
+          </a>
         </Box>
         <Typography
           className="text_"
@@ -132,19 +136,6 @@ const FirstStep = (stepProps: BridgeStepProps) => {
           }
         }}
       >
-        {/* <Box className="flex" mb={"1rem"}>
-          <Typography className="text_">
-            <Typography component={"img"} src={via.src} /> {t("Via")}
-          </Typography>
-          <Typography className="text_">
-            {t("Native Bridge")}{" "}
-            <Typography
-              component={"img"}
-              src={base_icon_.src}
-              sx={{ verticalAlign: "middle" }}
-            />
-          </Typography>
-        </Box> */}
         <Box className="flex" mb={"1rem"}>
           <Typography className="text_">
             <Typography component={"img"} width={20} src={watch.src} /> {t("Transfer Time")}
@@ -160,12 +151,12 @@ const FirstStep = (stepProps: BridgeStepProps) => {
           </Typography>
           <Typography className="text_">
             {stepProps.estimatedGas} {networkItems.find((item)=>item.chainId==stepProps.from)?.symbol}{" "}
-            <Typography
+            {/* <Typography
               component={"img"}
               src={what.src}
               width={18}
               sx={{ verticalAlign: "middle" }}
-            />
+            /> */}
           </Typography>
         </Box>
         <Box className="flex">

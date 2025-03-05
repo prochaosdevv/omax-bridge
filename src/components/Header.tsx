@@ -208,7 +208,6 @@ const Header = () => {
                       maxHeight: "350px",
                       marginTop: "10px",
                       overflow: "auto",
-                      // backgroundColor: "rgb(255, 255, 255)",
                       background: "var(--connect_bg) !important",
                       boxShadow:
                         "rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px",
@@ -434,9 +433,8 @@ const Header = () => {
                     </svg>
                   </MenuItem>
                   <MenuItem
-                  
                      component={Link}
-                      href="/"
+                      href="https://docs.omax.app/omaxbridge/omax-bridge/privacy-policy"
                   >
                     <Typography>
                       {t("Privacy policy")}

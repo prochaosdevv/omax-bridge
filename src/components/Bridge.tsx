@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState, useContext, useEffect } from "react";
 
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import available from "../assets/available.svg";
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import watch from "../assets/watch.svg";
@@ -48,6 +49,7 @@ const Bridge = () => {
     setAmount(event.target.value);
   };
   const [activityOpen, setActivityOpen] = useState(false);
+  const { openConnectModal } = useConnectModal();
 
   const [selectedFrom, setSelectedFrom] = useState(sourceChain); // Default to OMAX
   const [selectedTo, setSelectedTo] = useState(targetChain); // Default to Ethereum
@@ -101,6 +103,9 @@ const Bridge = () => {
   }
 
   const getTitle = () => {
+    if (!account || !account.address) {
+      return t("CONNECT WALLET");
+    }
     if (getTokenBalance1(selectedCoin) > Number(amount) && account != undefined && account.address != undefined)
       return t("Review Bridge");
     else return t("Insufficient Balance");
@@ -535,10 +540,12 @@ const Bridge = () => {
           className="common_btn"
           sx={{
             mt: "1.5rem",
-            // fontFamily: Inter_font.style.fontFamily,
           }}
           // disabled={}
           onClick={() => {
+              if (!account || !account.address) {
+                openConnectModal!();
+              }
               if (getTokenBalance1(selectedCoin) < Number(amount) || account == undefined || account.address == undefined)
                 return
               onReviewClick()

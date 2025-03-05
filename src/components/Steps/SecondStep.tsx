@@ -45,7 +45,7 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
         <br />
         {t("bridge to an exchange.")}
       </Typography>
-      <Button
+      {/* <Button
         className="btn"
         sx={{
           mb: "1rem",
@@ -54,7 +54,7 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
         }}
       >
         {t("Learn More")}
-      </Button>
+      </Button> */}
       <Box
         sx={{
           background: `var(--box_bg)`,

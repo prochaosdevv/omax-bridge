@@ -78,8 +78,8 @@ const DotStepIcon = ({ active = false, completed = false }: DotProps) => {
   return (
     <div
       style={{
-        width: 12,
-        height: 12,
+        width: 9,
+        height: 9,
         borderRadius: "50%",
         background:
           completed || active ? "var(--foreground)" : "var(--foreground)",
@@ -126,7 +126,6 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
         },
         "& .MuiDialog-container": {
           backdropFilter: "blur(12px)",
-          //   marginTop: "-10rem",
         },
         "& .MuiPaper-root": {
           maxWidth: "440px",
@@ -137,7 +136,6 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
           color: `var(--foreground)`,
           width: { md: "100% !important", xs: "440px !important" },
           overflowX: { md: "auto", xs: "scroll" },
-          //   boxShadow: "inset 0px 0px 15px rgba(255, 255, 255, 0.4)",
         },
         "& p,div,a,button": {
           // fontFamily: Inter_font.style.fontFamily,
@@ -170,7 +168,7 @@ export default function ReviewBridge({ isDialogOpen, setIsDialogOpen, stepProps 
           connector={null}
           sx={{
             justifyContent: "center",
-            mt: "1rem",
+            mt: "22px",
           }}
         >
           {steps.map((step, index) => (

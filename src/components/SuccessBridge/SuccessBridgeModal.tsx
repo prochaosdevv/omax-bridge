@@ -7,8 +7,6 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-// import { Inter, Jost } from "next/font/google";
-// import { useState } from "react";
 import SuccessfullBridge from "./SuccessfullBridge";
 import { ModalProps } from "@/types";
 
@@ -17,11 +15,6 @@ interface BootstrapDialogTitleProps {
   onClose?: () => void;
 }
 
-// const Inter_font = Inter({
-//   variable: "--font-Inter-sans",
-//   subsets: ["latin"],
-//   weight: "400",
-// });
 
 function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
   const { children, onClose, ...other } = props;
@@ -32,7 +25,6 @@ function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
         m: 0,
         fontSize: "1.2rem",
         p: 1.2,
-        // borderBottom: "2px solid rgba(255, 255, 255, 0.22)",
         fontWeight: "600",
       }}
       {...other}

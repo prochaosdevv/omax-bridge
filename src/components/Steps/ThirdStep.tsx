@@ -1,13 +1,12 @@
 "use client";
 import React, { useContext, useState } from "react";
 import { Box, Button, CircularProgress, Tab, Tabs, Typography } from "@mui/material";
-import usdc from "../../assets/usdc_step_3.png";
+import usdc from "../../assets/usdc.png";
+import usdt from "../../assets/usdt.svg";
 import watch from "../../assets/watch.svg";
 import fuel from "../../assets/fuel.svg";
 import via from "../../assets/via.svg";
 import HelpIcon from "@mui/icons-material/Help";
-// import what from "../../assets/what.svg";
-// import dollar from "../../assets/gray_dollar.svg";
 import add_from from "../../assets/from.svg";
 import add_to from "../../assets/to.svg";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -131,7 +130,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     >
       <Typography
         component={"img"}
-        src={usdc.src}
+        src={stepProps.symbol == "USDT" ? usdt.src : usdc.src}
         sx={{ width: "67px", height: "67px" }}
       />
       <Typography
@@ -143,15 +142,6 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
       >
         {t("Bridge")} {stepProps.amount} {stepProps.symbol}
       </Typography>
-      {/* <Typography
-        sx={{
-          pb: "0.5rem",
-          fontSize: "13px",
-          opacity: "0.7",
-        }}
-      >
-        {t("Via Native Bridge")}
-      </Typography> */}
       <Box
         sx={{
           display: "flex",
@@ -164,7 +154,6 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
             justifyContent: "center",
             border: "none",
             gap: "5px",
-            // fontFamily: `${Press_Start_2P_font.style.fontFamily}`,
             p: "10px 15px",
             fontSize: "13px !important",
             fontWeight: "600 !important",
@@ -178,14 +167,12 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
             overflow: "auto",
             justifyContent: "center",
             background: "#8A898E",
-            borderRadius: "20px",
-
-
+            borderRadius: "21px",
           },
           "& .MuiTab-root.Mui-selected": {
             background: "var(--light_dark)",
             borderRadius: "20px",
-            border: "none"
+            // border: "none"
           },
           "& .MuiTouchRipple-root": {
             display: "none",
@@ -217,7 +204,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
                 alignItems: "center",
               }}
             >
-              <Typography component={"img"} src={networkItems.find((item) => item.chainId == stepProps.from)?.icon} width={32} height={32} />
+              <Typography component={"img"} src={networkItems.find((item) => item.chainId == stepProps.from)?.icon} width={26} height={26} />
               <Box>
                 <Typography className="text_">{t("Start on")} {networkItems.find((item) => item.chainId == stepProps.from)?.label}</Typography>
                 <Typography
@@ -234,19 +221,15 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               </Box>
             </Box>
             {loading ?
-
               <CircularProgress
                 sx={{
                   width: "20px !important",
                   height: "20px !important",
                   color: "var(--foreground)",
-                  // ml: "10px",
                 }}
               />
               :
-
               check_1 ? <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />
-
                 :
                 <Button
                   className="common_btn"
@@ -276,7 +259,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               <Typography
                 component={"img"}
                 src={watch.src}
-                width={32}
+                width={26}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
               {t("Wait")} {stepProps.estimatedTime}
@@ -298,8 +281,8 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               <Typography
                 component={"img"}
                 src={networkItems.find((item) => item.chainId == stepProps.to)?.icon}
-                width={32}
-                height={32}
+                width={26}
+                height={26}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
               {t("Get")} {stepProps.amount} {stepProps.symbol} on {networkItems.find((item) => item.chainId == stepProps.to)?.label}
@@ -365,19 +348,6 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               />
             </Typography>
           </Box>
-          {/* <Box className="flex" mb={"1rem"}>
-            <Typography className="text_">
-              <Typography component={"img"} src={via.src} /> {t("Via")}
-            </Typography>
-            <Typography className="text_">
-              {t("Native Bridge")}{" "}
-              <Typography
-                component={"img"}
-                src={base_icon.src}
-                sx={{ verticalAlign: "middle" }}
-              />
-            </Typography>
-          </Box> */}
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
               <Typography component={"img"} src={add_from.src} /> {t("From")} {t("Address")}
@@ -398,18 +368,19 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
           </Box>
         </Box>
       </TabPanel>
-      <Button
-        className="btn"
-        sx={{
-          mt: "2rem",
-          px: "20px",
-          fontSize: "12px !important",
-          background: "var(--light_dark_bg) !important",
-          //   lineHeight:"0"
-        }}
-      >
-        {t("Need help? View FAQs")} <HelpIcon sx={{ fontSize: "1rem", ml: "5px" }} />
-      </Button>
+      <a href="https://docs.omax.app/omaxbridge/omax-bridge/help" target="_blank">
+        <Button
+          className="btn"
+          sx={{
+            mt: "2rem",
+            px: "20px",
+            fontSize: "12px !important",
+            background: "var(--light_dark_bg) !important",
+          }}
+        >
+          {t("Need help? View FAQs")} <HelpIcon sx={{ fontSize: "1rem", ml: "5px" }} />
+        </Button>
+      </a>
     </Box>
   );
 };

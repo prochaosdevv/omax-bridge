@@ -1,14 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
-import usdc from "../../assets/usdc_step_3.png";
-// import usdc_icon from "../../assets/usdc_icon.svg";
+import usdc from "../../assets/usdc.png";
 import watch from "../../assets/watch.svg";
 import fuel from "../../assets/fuel.svg";
 import via from "../../assets/via.svg";
 import HelpIcon from "@mui/icons-material/Help";
-// import what from "../../assets/what.svg";
-// import dollar from "../../assets/gray_dollar.svg";
 import add_from from "../../assets/from.svg";
 import add_to from "../../assets/to.svg";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
