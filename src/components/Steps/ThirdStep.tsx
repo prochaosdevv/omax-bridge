@@ -352,13 +352,17 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
             <Typography className="text_">
               <Typography component={"img"} src={add_from.src} /> {t("From")} {t("Address")}
             </Typography>
-            <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            <a href={networkItems.find((item) => item.chainId === stepProps.from)?.scanUrl + "/address/" + account.address} target="_blank" >
+              <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            </a>
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
               <Typography component={"img"} src={add_to.src} /> {t("To")} {t("Address")}
             </Typography>
-            <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            <a href={networkItems.find((item) => item.chainId === stepProps.to)?.scanUrl + "/address/" + account.address} target="_blank" >
+              <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            </a>
           </Box>
           <Box className="flex">
             <Typography className="text_">

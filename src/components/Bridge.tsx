@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState, useContext, useEffect } from "react";
 
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { useConnectModal, useChainModal } from '@rainbow-me/rainbowkit';
 import available from "../assets/available.svg";
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import watch from "../assets/watch.svg";
@@ -21,7 +21,7 @@ import ActivityModal from "./ActivityModal";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { networkItems, tokenItems } from "@/config";
-import { useAccount, WagmiContext } from "wagmi";
+import { useChainId, useAccount, useSwitchChain, WagmiContext } from "wagmi";
 import { getWalletBalance, estimateTransactionGas, estimateTransactionTime } from "@/services/abi";
 import { TokenBalance } from "@/types";
 import { decimalFromEth, formatTime, getLogoWidth } from "@/utils/functions";
@@ -50,6 +50,9 @@ const Bridge = () => {
   };
   const [activityOpen, setActivityOpen] = useState(false);
   const { openConnectModal } = useConnectModal();
+  const { openChainModal } = useChainModal();
+  const chainId = useChainId();
+  const { chains, switchChain } = useSwitchChain()
 
   const [selectedFrom, setSelectedFrom] = useState(sourceChain); // Default to OMAX
   const [selectedTo, setSelectedTo] = useState(targetChain); // Default to Ethereum
@@ -546,9 +549,13 @@ const Bridge = () => {
               if (!account || !account.address) {
                 openConnectModal!();
               }
+              if (chainId.toString() != selectedFrom) {
+                switchChain({ chainId: Number(selectedFrom) });
+                // openChainModal!();
+              }
               if (getTokenBalance1(selectedCoin) < Number(amount) || account == undefined || account.address == undefined)
-                return
-              onReviewClick()
+                return;
+              onReviewClick();
             }
           }
         >
