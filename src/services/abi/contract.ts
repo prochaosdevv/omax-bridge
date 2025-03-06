@@ -1,7 +1,7 @@
-import { readContract, estimateGas, getBalance, estimateFeesPerGas, estimateMaxPriorityFeePerGas } from "@wagmi/core";
+import { readContract, estimateGas, getBalance, estimateFeesPerGas, getGasPrice } from "@wagmi/core";
 import { erc20ABI } from "./erc20ABI";
 import { bridgeABI } from "./bridgeABI";
-import { decimalToEth } from "@/utils/functions";
+import { decimalToEth, decimalToUSD } from "@/utils/functions";
 import { networkItems } from "@/config";
 // import { parseEther } from "viem";
 import { getAddress, encodeFunctionData, createPublicClient, http, formatUnits, parseEther } from "viem";
@@ -39,7 +39,7 @@ export const getTokenBalance = async (
                 args: [formattedWalletAddress],
                 chainId
             }) as bigint;
-            return decimalToEth(amount.toString());
+            return decimalToUSD(amount.toString(), chainId);
         } catch (error) {
             console.error("Invalid token address:", tokenAddress, error);
             return 0;
@@ -78,7 +78,7 @@ export const estimateTransactionGas = async (
     try {
         const publicClient = createPublicClient({
             chain: chains.find((chain) => chain.id == chainId), // Change this to your target chain
-            transport: http()
+            transport: chainId === 1 ? http('https://eth.merkle.io') : http()
         });
 
         const bridgeAddresss = networkItems.find((item) => item.chainId == chainId)?.bridge;
@@ -134,7 +134,7 @@ export const estimateTransactionTime = async (chainId: number, wagmiContext: any
     try {
         const publicClient = createPublicClient({
             chain: chains.find((chain) => chain.id == chainId), // Change this to your target chain
-            transport: http()
+            transport: chainId === 1 ? http('https://eth.merkle.io') : http()
         });
         // Get the latest gas price data
         const gasData = await getGasEstimation(wagmiContext, chainId);
@@ -161,3 +161,4 @@ export const estimateTransactionTime = async (chainId: number, wagmiContext: any
         return BigInt(0);
     }
 };
+

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
 import { darkTheme, lightTheme, Locale, RainbowKitProvider } from '@rainbow-me/rainbowkit';
@@ -9,7 +9,6 @@ import "./i18n"; // ? Import i18n here
 import { config } from '../wagmi';
 import { ThemeContext } from '@/context/ThemeContext';
 import i18n from './i18n';
-
 
 const queryClient = new QueryClient();
 
@@ -27,8 +26,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   // Ensure locale is valid, otherwise fallback to 'en'
   const locale: Locale = supportedLocales.includes(i18n.language as Locale)
     ? (i18n.language as Locale)
-    : "en";
-
+    : "en"; 
+  
+  
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>

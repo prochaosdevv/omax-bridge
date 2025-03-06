@@ -24,7 +24,7 @@ import { networkItems, tokenItems } from "@/config";
 import { useChainId, useAccount, useSwitchChain, WagmiContext } from "wagmi";
 import { getWalletBalance, estimateTransactionGas, estimateTransactionTime } from "@/services/abi";
 import { TokenBalance } from "@/types";
-import { decimalFromEth, formatTime, getLogoWidth } from "@/utils/functions";
+import { decimalFromUSD, formatTime, getLogoWidth } from "@/utils/functions";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { ThemeContext } from "@/context/ThemeContext";
@@ -110,7 +110,7 @@ const Bridge = () => {
     if (!account || !account.address) {
       return t("CONNECT WALLET");
     }
-    if (getTokenBalance1(selectedCoin) > Number(amount) && account != undefined && account.address != undefined)
+    if (getTokenBalance1(selectedCoin) >= Number(amount) && account != undefined && account.address != undefined)
       return t("Review Bridge");
     else return t("Insufficient Balance");
   }
@@ -139,7 +139,7 @@ const Bridge = () => {
       if (!tokenAddress) {
         throw new Error("Token address is undefined");
       }
-      return await estimateTransactionGas(Number(selectedFrom), account.address, tokenAddress, decimalFromEth(Number(amount)), config)
+      return await estimateTransactionGas(Number(selectedFrom), account.address, tokenAddress, decimalFromUSD(Number(amount), chainId), config)
     } else return 0;
   }
 

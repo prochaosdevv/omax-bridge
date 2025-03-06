@@ -43,7 +43,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const truncateAddress = (walletAddress: string |undefined, len = 4) => {
+export const truncateAddress = (walletAddress: string | undefined, len = 4) => {
   if (walletAddress == undefined) return '';
   return walletAddress.slice(0, len) + "..." + walletAddress.slice(-len);
 };
@@ -195,8 +195,26 @@ export const decimalToEth = (amount: string) => {
   return 0;
 }
 
+export const decimalToUSD = (amount: string, chainId: number) => {
+  if (Number(amount) > 0) {
+    if (chainId == 1)
+      return Number(amount) / Number(10 ** 6);
+    return Number(amount) / Number(10 ** 18);
+  }
+  return 0;
+}
+
 export const decimalFromEth = (amount: number) => {
   if (amount > 0) {
+    return BigInt(Math.floor(amount * (10 ** 18)));
+  }
+  return BigInt(0);
+}
+
+export const decimalFromUSD = (amount: number, chainId: number) => {
+  if (amount > 0) {
+    if (chainId == 1)
+      return BigInt(Math.floor(amount * (10 ** 6)));
     return BigInt(Math.floor(amount * (10 ** 18)));
   }
   return BigInt(0);

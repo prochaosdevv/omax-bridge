@@ -40,7 +40,7 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
           opacity: "0.7",
         }}
       >
-        {t("Check")} {networkItems.find((item) => item.chainId == stepProps.to)?.label} {t("before your bridge")} <br />
+        {t("Check")} {networkItems.find((item) => item.chainId == stepProps.to)?.label} {t("support before your bridge")} <br />
         {t("or you may lose your crypto. Do not")}
         <br />
         {t("bridge to an exchange.")}
@@ -64,15 +64,17 @@ const SecondStep = ({ stepProps, agreedProps }: { stepProps: BridgeStepProps; ag
           textAlign: "start",
         }}
       >
-        <Typography
-          className="text_"
-          sx={{
-            fontSize: "13px !important",
-            wordBreak: "break-all"
-          }}
-        >
-          {account.address}
-        </Typography>
+        <a href={networkItems.find((item) => item.chainId === stepProps.to)?.scanUrl + "/address/" + account.address} target="_blank" >
+          <Typography
+            className="text_"
+            sx={{
+              fontSize: "13px !important",
+              wordBreak: "break-all"
+            }}
+          >
+            {account.address}
+          </Typography>
+        </a>
       </Box>
       <Box
         sx={{

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Box, Button, CircularProgress, Tab, Tabs, Typography } from "@mui/material";
 import usdc from "../../assets/usdc.png";
 import usdt from "../../assets/usdt.svg";
@@ -14,11 +14,12 @@ import { BridgeStepProps } from "@/types";
 import { networkItems, tokenItems } from "@/config";
 import { useAccount, WagmiContext } from "wagmi";
 import { truncateAddress } from "@/utils/functions";
-import { writeContract, waitForTransactionReceipt, simulateContract, getBlock } from "@wagmi/core";
+import { writeContract, waitForTransactionReceipt, simulateContract, getBlock, getGasPrice } from "@wagmi/core";
 import { erc20ABI, bridgeABI } from "@/services/abi";
 import { parseEther, getAddress } from "viem";
 import { bridging } from "@/api";
 import { t } from "i18next";
+import { AppContext } from "@/context/AppContext";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,10 +42,9 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     console.error("WagmiContext is not available");
     return <></>;
   }
-  if (!account || !account.address) {
-    console.error("Wallet is not connected");
-    return <></>;
-  }
+
+  const { withdrawStatus, withdrawTx } = useContext(AppContext);
+
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [text, setText] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -71,16 +71,21 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
       amountWei = BigInt(stepProps.amount * 1_000_000);
     } else {
       amountWei = parseEther(stepProps.amount.toString());
-    }    
+    }
 
     const startBlock = await getBlock(config, {
       chainId: stepProps.from
     });
+    const gasPrice = await getGasPrice(config, {
+      chainId: stepProps.from,
+    })
+    const applyingGasPrice = Math.ceil(Number(gasPrice.toString()) * 1.5);
     const approveTx = await writeContract(config, {
       abi: erc20ABI,
       address: formattedTokentAddress,
       functionName: "approve",
       args: [formattedBridgeAddress, amountWei],
+      gasPrice: BigInt(applyingGasPrice),
       chainId: stepProps.from
     });
 
@@ -96,6 +101,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
         account.address,
         stepProps.to.toString()
       ],
+      gasPrice: BigInt(applyingGasPrice),
       chainId: stepProps.from
     });
     const tx = await writeContract(config, request);
@@ -106,10 +112,24 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     });
     setLoading(false)
     const delay = endBlock.timestamp - startBlock.timestamp;
-    await bridging(account.address || "0x", stepProps.amount.toString(), formattedTokentAddress, tx, stepProps.from, account.address || "0x", stepProps.fee, stepProps.to, withdrawToken, Number(delay.toString()));
-    setCheck_2(true);
-    setCheck_3(true)
+    await bridging(account.address || "0x",
+      stepProps.amount.toString(),
+      formattedTokentAddress,
+      tx,
+      stepProps.from,
+      account.address || "0x",
+      stepProps.fee,
+      stepProps.to,
+      withdrawToken,
+      Number(delay.toString()));
   };
+
+  useEffect(() => {
+    if (withdrawStatus == 1)
+      setCheck_2(true);
+    else if (withdrawStatus == 2)
+      setCheck_3(true)
+  }, [withdrawStatus]);
 
   const handleChange = (_event: React.SyntheticEvent, newIndex: number) => {
     setTabIndex(newIndex);
