@@ -141,13 +141,16 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
                 alignItems: "center",
               }}
             >
-              <Typography component={"img"} src={networkItems.find((item) => item.chainId == stepProps.from)?.icon} width={32} height={32} />
+              <Typography component={"img"} src={networkItems.find((item) => item.chainId == stepProps.from)?.icon} width={26} height={26} />
               <Box>
                 <Typography className="text_">{t("Start on")} {networkItems.find((item) => item.chainId == stepProps.from)?.label}</Typography>
                 <Typography
                   className="light_dark_text"
                   sx={{
-                    fontSize: "13px !important",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    fontSize: "12px !important",
                   }}
                 >
                   <Typography component={"img"} src={fuel.src} /> {stepProps.estimatedGas} {networkItems.find((item) => item.chainId == stepProps.from)?.symbol}
@@ -171,6 +174,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
             >
               <Typography
                 component={"img"}
+                width={26}
                 src={watch.src}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
@@ -193,8 +197,8 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
               <Typography
                 component={"img"}
                 src={networkItems.find((item) => item.chainId == stepProps.to)?.icon}
-                width={32}
-                height={32}
+                width={26}
+                height={26}
                 sx={{ verticalAlign: "middle" }}
               />{" "}
               {t("Get")} {stepProps.amount} {stepProps.symbol} on {networkItems.find((item) => item.chainId == stepProps.to)?.label}
@@ -260,30 +264,34 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
               />
             </Typography>
           </Box>
-          <Box className="flex" mb={"1rem"}>
+          {/* <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
               <Typography component={"img"} src={via.src} /> {t("Via")}
             </Typography>
-            {/* <Typography className="text_">
+            <Typography className="text_">
               {t("Native Bridge")}{" "}
               <Typography
                 component={"img"}
                 src={base_icon.src}
                 sx={{ verticalAlign: "middle" }}
               />
-            </Typography> */}
-          </Box>
+            </Typography>
+          </Box> */}
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
               <Typography component={"img"} src={add_from.src} /> {t("From")} {t("Address")}
             </Typography>
-            <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            <a href={networkItems.find((item) => item.chainId === stepProps.from)?.scanUrl + "/address/" + account.address} target="_blank" >
+              <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            </a>
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
               <Typography component={"img"} src={add_to.src} /> {t("To")} {t("Address")}
             </Typography>
-            <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            <a href={networkItems.find((item) => item.chainId === stepProps.to)?.scanUrl + "/address/" + account.address} target="_blank" >
+              <Typography className="text_">{truncateAddress(account.address)}</Typography>
+            </a>
           </Box>
           <Box className="flex">
             <Typography className="text_">

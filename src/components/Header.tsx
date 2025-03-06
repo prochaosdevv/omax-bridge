@@ -537,12 +537,6 @@ const Header = () => {
           </Box>
         </>
       </Box>
-      {/* {isModalOpen && (
-        <ConnectModal
-          isDialogOpen={isModalOpen}
-          setIsDialogOpen={setIsModalOpen}
-        />
-      )} */}
     </>
   );
 };

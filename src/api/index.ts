@@ -1,6 +1,6 @@
 import { axiosPublic } from "./axiosPublic";
 
-export async function bridging(
+export function bridging(
     from: string,
     depositAmount: string,
     depositToken: string,
@@ -12,10 +12,10 @@ export async function bridging(
     withdrawToken: string,
     delay: number,
 ) {
-    const result = await axiosPublic.post(`/bridging`, {
+    axiosPublic.post(`/bridging`, {
         from, depositAmount, depositToken, depositTransaction, sourceChainId, to, fee, targetChainId, withdrawToken, delay
     })
-    return result.data
+    return true;
 }
 
 export async function get_history(

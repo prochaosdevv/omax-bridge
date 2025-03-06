@@ -28,19 +28,21 @@ import { decimalFromUSD, formatTime, getLogoWidth } from "@/utils/functions";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { ThemeContext } from "@/context/ThemeContext";
+import { AppContext } from "@/context/AppContext";
 
 
 const sourceChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "332" : "311");
 const targetChain = (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? "97" : "1");
 
 const Bridge = () => {
-  const { t,i18n } = useTranslation();
-  const {currentLang,setCurrentLang}=useContext(ThemeContext)
+  const { t, i18n } = useTranslation();
+  const { currentLang, setCurrentLang } = useContext(ThemeContext)
   const changeLanguage = (languageCode: string) => {
     localStorage.setItem("lang", languageCode);
     setCurrentLang(languageCode);
     i18n.changeLanguage(languageCode);
   };
+  const { setWithdrawStatus } = useContext(AppContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const account = useAccount();
   const config = useContext(WagmiContext);
@@ -97,7 +99,12 @@ const Bridge = () => {
     if (account && account.address) {
       fetchBalance(account.address)
     }
+    setWithdrawStatus(0);
   }, [account, selectedFrom]);
+
+  useEffect(() => {
+    setWithdrawStatus(0);
+  }, []);
 
   const getTokenBalance = (symbol: string) => {
     if (walletBalance.length == 0) return "0 " + symbol;
@@ -254,7 +261,7 @@ const Bridge = () => {
             }}
               onClick={() => handleChange()}
             >
-              <ArrowForwardIosIcon sx={{ fontSize: "1rem", color: "var(--light_dark)", cursor: "pointer"}} />
+              <ArrowForwardIosIcon sx={{ fontSize: "1rem", color: "var(--light_dark)", cursor: "pointer" }} />
             </Box>
             <Box className="box">
               <Box sx={{ display: "flex", alignItems: "center", gap: "7px" }}>
@@ -286,8 +293,8 @@ const Bridge = () => {
                   MenuProps={{
                     PaperProps: {
                       sx: {
-                       background: `var(--common) !important`,
-                  color:"var(--foreground) !important",
+                        background: `var(--common) !important`,
+                        color: "var(--foreground) !important",
                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
                       },
                     },
@@ -347,8 +354,8 @@ const Bridge = () => {
                   MenuProps={{
                     PaperProps: {
                       sx: {
-                       background: `var(--common) !important`,
-                  color:"var(--foreground) !important",
+                        background: `var(--common) !important`,
+                        color: "var(--foreground) !important",
                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
                       },
                     },
@@ -421,8 +428,8 @@ const Bridge = () => {
                 MenuProps={{
                   PaperProps: {
                     sx: {
-                     background: `var(--common) !important`,
-                color:"var(--foreground) !important",
+                      background: `var(--common) !important`,
+                      color: "var(--foreground) !important",
                       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Optional: Adds shadow
                     },
                   },
@@ -547,31 +554,31 @@ const Bridge = () => {
           }}
           // disabled={}
           onClick={() => {
-              if (!account || !account.address) {
-                openConnectModal!();
-              }
-              if (chainId.toString() != selectedFrom) {
-                switchChain({ chainId: Number(selectedFrom) });
-                // openChainModal!();
-              }
-              if (getTokenBalance1(selectedCoin) < Number(amount) || account == undefined || account.address == undefined)
-                return;
-              onReviewClick();
+            if (!account || !account.address) {
+              openConnectModal!();
             }
+            if (chainId.toString() != selectedFrom) {
+              switchChain({ chainId: Number(selectedFrom) });
+              // openChainModal!();
+            }
+            if (getTokenBalance1(selectedCoin) < Number(amount) || account == undefined || account.address == undefined)
+              return;
+            onReviewClick();
+          }
           }
         >
           {getTitle()}
         </Button>
       </Box>
-     {currentLang!=="en"&& <Typography py={"1rem"} sx={{
-        fontSize:"12px",
-        textAlign:"center",
-        color:"var(--foreground)",
-        opacity:"0.7",
-        "&:hover":{
-          opacity:"0.9"
+      {currentLang !== "en" && <Typography py={"1rem"} sx={{
+        fontSize: "12px",
+        textAlign: "center",
+        color: "var(--foreground)",
+        opacity: "0.7",
+        "&:hover": {
+          opacity: "0.9"
         }
-      }}>OMAX {t("Bridge")} {t("available in")}: <Link href={"/"}><b style={{textDecoration:"underline"}} onClick={()=>changeLanguage("en")}>English</b></Link></Typography>}
+      }}>OMAX {t("Bridge")} {t("available in")}: <Link href={"/"}><b style={{ textDecoration: "underline" }} onClick={() => changeLanguage("en")}>English</b></Link></Typography>}
       {
         isModalOpen && (
           <ReviewBridge

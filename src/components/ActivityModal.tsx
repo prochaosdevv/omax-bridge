@@ -9,9 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-// import { Inter, Jost } from "next/font/google";
-// import eth from "../assets/eth.svg";
-// import base_ from "../assets/base_step_2.png";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useEffect, useState } from "react";
 import SuccessBridgeModal from "./SuccessBridge/SuccessBridgeModal";
@@ -26,12 +23,6 @@ interface BootstrapDialogTitleProps {
   children: React.ReactNode;
   onClose?: () => void;
 }
-
-// const Inter_font = Inter({
-//   variable: "--font-Inter-sans",
-//   subsets: ["latin"],
-//   weight: "400",
-// });
 
 function BootstrapDialogTitle(props: BootstrapDialogTitleProps) {
   const { children, onClose, ...other } = props;

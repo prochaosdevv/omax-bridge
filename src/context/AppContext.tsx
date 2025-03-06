@@ -4,12 +4,14 @@ const io = require('socket.io-client');
 
 interface AppContextProps {
     withdrawStatus: number;
-    withdrawTx: string;
+    depositTx: string;
+    setWithdrawStatus: any;
 }
 
 const initialState = {
     withdrawStatus: 0,
-    withdrawTx: '',
+    depositTx: '',
+    setWithdrawStatus: () => { }
 }
 export const AppContext = createContext<AppContextProps>(initialState);
 
@@ -21,8 +23,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     children,
 }) => {
     const [withdrawStatus, setWithdrawStatus] = useState(0);
-    const [withdrawTx, setWithdrawTx] = useState('');
-    // const [messagge, setMessage] = useState('');
+    const [depositTx, setDepositTx] = useState('');
 
     useEffect(() => {
         const backend_socket_url = process.env.NEXT_PUBLIC_SOCKET_URL as string;
@@ -38,7 +39,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
         socket.on('update', (data: any) => {
             console.log('Received from server:', data);
             setWithdrawStatus(data.status);
-            setWithdrawTx(data.routeInfo.withdrawTransaction[0]);
+            setDepositTx(data.routeInfo.depositTransaction);
         });
 
         // Cleanup function to close the WebSocket connection
@@ -51,7 +52,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     }, []);
 
     return (
-        <AppContext.Provider value={{ withdrawStatus, withdrawTx }}>
+        <AppContext.Provider value={{ withdrawStatus, depositTx, setWithdrawStatus }}>
             {children}
         </AppContext.Provider>
     );

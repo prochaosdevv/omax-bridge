@@ -43,7 +43,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     return <></>;
   }
 
-  const { withdrawStatus, withdrawTx } = useContext(AppContext);
+  const { withdrawStatus, depositTx } = useContext(AppContext);
 
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [text, setText] = useState(false)
@@ -51,6 +51,8 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
   const [check_1, setCheck_1] = useState(false)
   const [check_2, setCheck_2] = useState(false)
   const [check_3, setCheck_3] = useState(false)
+  const [depositTransaction, setDepositTransaction] = useState('');
+
   const handleStart = async () => {
     setText(true)
     setLoading(true);
@@ -76,43 +78,71 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
     const startBlock = await getBlock(config, {
       chainId: stepProps.from
     });
-    const gasPrice = await getGasPrice(config, {
-      chainId: stepProps.from,
-    })
-    const applyingGasPrice = Math.ceil(Number(gasPrice.toString()) * 1.5);
-    const approveTx = await writeContract(config, {
-      abi: erc20ABI,
-      address: formattedTokentAddress,
-      functionName: "approve",
-      args: [formattedBridgeAddress, amountWei],
-      gasPrice: BigInt(applyingGasPrice),
-      chainId: stepProps.from
-    });
 
-    const reciptApprove = await waitForTransactionReceipt(config, { hash: approveTx });
+    let tx;
+    if (stepProps.from == 1) {
+      const gasPrice = await getGasPrice(config, {
+        chainId: stepProps.from,
+      })
+      const applyingGasPrice = Math.ceil(Number(gasPrice.toString()) * 1.5);
+      const approveTx = await writeContract(config, {
+        abi: erc20ABI,
+        address: formattedTokentAddress,
+        functionName: "approve",
+        args: [formattedBridgeAddress, amountWei],
+        gasPrice: BigInt(applyingGasPrice),
+        chainId: stepProps.from
+      });
+      const reciptApprove = await waitForTransactionReceipt(config, { hash: approveTx });
+      const { request } = await simulateContract(config, {
+        abi: bridgeABI,
+        address: formattedBridgeAddress,
+        functionName: "depositToken",
+        args: [
+          formattedTokentAddress,
+          amountWei.toString(),
+          account.address,
+          stepProps.to.toString()
+        ],
+        gasPrice: BigInt(applyingGasPrice),
+        chainId: stepProps.from
+      });
+      tx = await writeContract(config, request);
+    }    
+    else {
+      const approveTx = await writeContract(config, {
+        abi: erc20ABI,
+        address: formattedTokentAddress,
+        functionName: "approve",
+        args: [formattedBridgeAddress, amountWei],
+        chainId: stepProps.from
+      });
+      const reciptApprove = await waitForTransactionReceipt(config, { hash: approveTx });
+      const { request } = await simulateContract(config, {
+        abi: bridgeABI,
+        address: formattedBridgeAddress,
+        functionName: "depositToken",
+        args: [
+          formattedTokentAddress,
+          amountWei.toString(),
+          account.address,
+          stepProps.to.toString()
+        ],
+        chainId: stepProps.from
+      });
+      tx = await writeContract(config, request);
+    }    
 
-    const { request } = await simulateContract(config, {
-      abi: bridgeABI,
-      address: formattedBridgeAddress,
-      functionName: "depositToken",
-      args: [
-        formattedTokentAddress,
-        amountWei.toString(),
-        account.address,
-        stepProps.to.toString()
-      ],
-      gasPrice: BigInt(applyingGasPrice),
-      chainId: stepProps.from
-    });
-    const tx = await writeContract(config, request);
     const recipt = await waitForTransactionReceipt(config, { hash: tx });
     const endBlock = await getBlock(config, {
       blockNumber: recipt.logs[0].blockNumber,
       chainId: stepProps.from
     });
-    setLoading(false)
+    setLoading(false);
+    setDepositTransaction(tx);
+    
     const delay = endBlock.timestamp - startBlock.timestamp;
-    await bridging(account.address || "0x",
+    bridging(account.address || "0x",
       stepProps.amount.toString(),
       formattedTokentAddress,
       tx,
@@ -125,9 +155,9 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
   };
 
   useEffect(() => {
-    if (withdrawStatus == 1)
+    if (withdrawStatus == 1 && depositTransaction == depositTx)
       setCheck_2(true);
-    else if (withdrawStatus == 2)
+    else if (withdrawStatus == 2 && depositTransaction == depositTx)
       setCheck_3(true)
   }, [withdrawStatus]);
 
@@ -245,6 +275,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
                 sx={{
                   width: "20px !important",
                   height: "20px !important",
+                  marginRight: "5px",
                   color: "var(--foreground)",
                 }}
               />
@@ -285,6 +316,14 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               {t("Wait")} {stepProps.estimatedTime}
             </Typography>
             {check_2 && <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />}
+            {!loading && check_1 && !check_2 && <CircularProgress
+                sx={{
+                  width: "20px !important",
+                  height: "20px !important",
+                  marginRight: "5px",
+                  color: "var(--foreground)",
+                }}
+              />}
           </Box>
           <Box
             className="box flex"
@@ -308,6 +347,14 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               {t("Get")} {stepProps.amount} {stepProps.symbol} on {networkItems.find((item) => item.chainId == stepProps.to)?.label}
             </Typography>
             {check_3 && <CheckBoxIcon sx={{ fontSize: "1.8rem" }} />}
+            {!loading && check_1 && check_2 && !check_3 && <CircularProgress
+                sx={{
+                  width: "20px !important",
+                  height: "20px !important",
+                  marginRight: "5px",
+                  color: "var(--foreground)",
+                }}
+              />}
           </Box>
         </Box>
       </TabPanel>
