@@ -63,6 +63,7 @@ const Bridge = () => {
 
   const handleFromChange = (event: SelectChangeEvent<string>) => {
     setSelectedFrom(event.target.value);
+    switchChain({ chainId: Number(event.target.value) });
     if (selectedTo == sourceChain && event.target.value == sourceChain)
       setSelectedTo(targetChain);
     else if (sourceChain != event.target.value)

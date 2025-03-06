@@ -149,7 +149,6 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, onOpen }) =>
                 href={"/"}
               // className={pathname == "/" ? "active" : "initial"}
               >
-
                 {<span>Home</span>}
               </Box>
 
