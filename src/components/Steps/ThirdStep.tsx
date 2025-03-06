@@ -376,8 +376,8 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               <Typography
                 component={"img"}
                 src={networkItems.find((item) => item.chainId == stepProps.from)?.icon}
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 sx={{ width: "18px", height: "18px" }}
               />{" "}
               {t("From")} {networkItems.find((item) => item.chainId == stepProps.from)?.label}
@@ -398,8 +398,8 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
               <Typography
                 component={"img"}
                 src={networkItems.find((item) => item.chainId == stepProps.to)?.icon}
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 sx={{ width: "18px", height: "18px", borderRadius: "5px" }}
               />{" "}
               {t(" To")} {networkItems.find((item) => item.chainId == stepProps.to)?.label}
@@ -417,7 +417,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={add_from.src} /> {t("From")} {t("Address")}
+              <Typography component={"img"} sx={{ width: "24px" }} src={add_from.src} /> {t("From")} {t("Address")}
             </Typography>
             <a href={networkItems.find((item) => item.chainId === stepProps.from)?.scanUrl + "/address/" + account.address} target="_blank" >
               <Typography className="text_">{truncateAddress(account.address)}</Typography>
@@ -425,7 +425,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
           </Box>
           <Box className="flex" mb={"1rem"}>
             <Typography className="text_">
-              <Typography component={"img"} src={add_to.src} /> {t("To")} {t("Address")}
+              <Typography component={"img"} sx={{ width: "24px" }} src={add_to.src} /> {t("To")} {t("Address")}
             </Typography>
             <a href={networkItems.find((item) => item.chainId === stepProps.to)?.scanUrl + "/address/" + account.address} target="_blank" >
               <Typography className="text_">{truncateAddress(account.address)}</Typography>
@@ -433,7 +433,7 @@ const ThirdStep = (stepProps: BridgeStepProps) => {
           </Box>
           <Box className="flex">
             <Typography className="text_">
-              <Typography component={"img"} src={watch.src} /> {t("Transfer Time")}
+              <Typography component={"img"} sx={{ width: "24px" }} src={watch.src} /> {t("Transfer Time")}
             </Typography>
             <Typography className="text_">~{stepProps.estimatedTime}</Typography>
           </Box>
