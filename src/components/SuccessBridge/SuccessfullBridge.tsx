@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import usdc from "../../assets/usdc.png";
+import usdt from "../../assets/usdt.svg";
 import watch from "../../assets/watch.svg";
 import fuel from "../../assets/fuel.svg";
 import via from "../../assets/via.svg";
@@ -56,7 +57,7 @@ const SuccessfullBridge = (stepProps: BridgeStepProps) => {
     >
       <Typography
         component={"img"}
-        src={usdc.src}
+        src={stepProps.symbol == "USDT" ? usdt.src : usdc.src}
         sx={{ width: "67px", height: "67px" }}
       />
       <Typography
